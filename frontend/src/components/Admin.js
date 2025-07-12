@@ -27,7 +27,7 @@ const Admin = () => {
   const fetchBuses = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/admin/buses');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/buses`);
       setBuses(response.data);
     } catch (error) {
       console.error('Error fetching buses:', error);
@@ -82,10 +82,10 @@ const Admin = () => {
     setLoading(true);
     try {
       if (editingBus) {
-        await axios.put(`/api/admin/buses/${editingBus._id}`, formData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/buses`, formData);
         setMessage('Bus updated successfully');
       } else {
-        await axios.post('/api/admin/buses', formData);
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/buses/${editingBus._id}`, formData);
         setMessage('Bus added successfully');
       }
       
@@ -118,7 +118,7 @@ const Admin = () => {
 
     setLoading(true);
     try {
-      await axios.delete(`/api/admin/buses/${busId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/buses/${busId}`);
       setMessage('Bus deleted successfully');
       fetchBuses();
     } catch (error) {
