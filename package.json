@@ -1,0 +1,40 @@
+{
+  "name": "perdoor-bus-timing",
+  "version": "1.0.0",
+  "description": "Full-stack MERN bus timing website for Perdoor village",
+  "main": "setup.js",
+  "scripts": {
+    "setup": "node setup.js",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm start",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/perdoor-bus-timing.git"
+  },
+  "keywords": [
+    "bus",
+    "timing",
+    "perdoor",
+    "mern",
+    "react",
+    "nodejs",
+    "mongodb",
+    "express"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "mongoose": "^7.5.0"
+  }
+}
