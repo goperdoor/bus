@@ -1,0 +1,22 @@
+{
+  "name": "perdoor-bus-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React frontend for Perdoor Bus Timing website",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:5000",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "bootstrap": "^5.3.2",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1"
+  }
+}
