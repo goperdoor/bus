@@ -3,47 +3,50 @@ require('dotenv').config(); // Load environment variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const moment = require('moment-timezone'); // Use timezone-aware moment
+const moment = require('moment-timezone');
 const Bus = require('./models/Bus');
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// ✅ Setup CORS to allow only your Vercel frontend
+const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3000']; // Add more origins if needed
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'), false);
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
-// MongoDB connection
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 })
-.then(() => console.log('✅ Connected to MongoDB'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Helper function to check if bus is available today
+// Helper: Check if bus runs today
 const isBusAvailableToday = (availability) => {
   const today = moment().tz('Asia/Kolkata').day();
-  if (availability === 'daily') return true;
-  if (availability === 'weekdays' && today >= 1 && today <= 5) return true;
-  return false;
+  return availability === 'daily' || (availability === 'weekdays' && today >= 1 && today <= 5);
 };
 
-// Helper function to get upcoming buses
+// Helper: Process upcoming buses
 const getUpcomingBuses = (buses) => {
   const now = moment().tz('Asia/Kolkata');
-  const currentTime = now.format('HH:mm');
-
   return buses
     .filter(bus => bus.active && isBusAvailableToday(bus.availability))
     .map(bus => {
       const leavingTime = moment.tz(bus.leavingTimeFromPerdoor, 'HH:mm', 'Asia/Kolkata');
-      const arrivalTime = moment.tz(bus.arrivalTimeToPerdoor, 'HH:mm', 'Asia/Kolkata');
-
       let nextDeparture = leavingTime.clone();
       if (nextDeparture.isBefore(now)) {
         nextDeparture.add(1, 'day');
       }
-
       return {
         ...bus.toObject(),
         nextDeparture: nextDeparture.format('HH:mm'),
@@ -69,10 +72,7 @@ app.get('/api/destinations', async (req, res) => {
 app.get('/api/buses/search', async (req, res) => {
   try {
     const { destination } = req.query;
-
-    if (!destination) {
-      return res.status(400).json({ error: 'Destination is required' });
-    }
+    if (!destination) return res.status(400).json({ error: 'Destination is required' });
 
     const buses = await Bus.find({
       destination: new RegExp(destination, 'i'),
@@ -92,7 +92,7 @@ app.get('/api/buses/search', async (req, res) => {
 
 // ================= ADMIN ROUTES =================
 
-// Get all buses (admin)
+// Get all buses
 app.get('/api/admin/buses', async (req, res) => {
   try {
     const buses = await Bus.find().sort({ createdAt: -1 });
@@ -102,7 +102,7 @@ app.get('/api/admin/buses', async (req, res) => {
   }
 });
 
-// Add new bus (admin)
+// Add new bus
 app.post('/api/admin/buses', async (req, res) => {
   try {
     const bus = new Bus(req.body);
@@ -117,7 +117,7 @@ app.post('/api/admin/buses', async (req, res) => {
   }
 });
 
-// Update bus (admin)
+// Update bus
 app.put('/api/admin/buses/:id', async (req, res) => {
   try {
     const updatedBus = await Bus.findByIdAndUpdate(
@@ -125,41 +125,29 @@ app.put('/api/admin/buses/:id', async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
-
-    if (!updatedBus) {
-      return res.status(404).json({ error: 'Bus not found' });
-    }
-
+    if (!updatedBus) return res.status(404).json({ error: 'Bus not found' });
     res.json(updatedBus);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-// Delete bus (admin)
+// Delete bus
 app.delete('/api/admin/buses/:id', async (req, res) => {
   try {
     const deletedBus = await Bus.findByIdAndDelete(req.params.id);
-
-    if (!deletedBus) {
-      return res.status(404).json({ error: 'Bus not found' });
-    }
-
+    if (!deletedBus) return res.status(404).json({ error: 'Bus not found' });
     res.json({ message: 'Bus deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Get bus by ID (admin)
+// Get bus by ID
 app.get('/api/admin/buses/:id', async (req, res) => {
   try {
     const bus = await Bus.findById(req.params.id);
-
-    if (!bus) {
-      return res.status(404).json({ error: 'Bus not found' });
-    }
-
+    if (!bus) return res.status(404).json({ error: 'Bus not found' });
     res.json(bus);
   } catch (error) {
     res.status(500).json({ error: error.message });
