@@ -54,6 +54,23 @@ body {
   gap: 20px;
 }
 
+.input-group select {
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  transition: border-color 0.3s;
+}
+
+.input-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+
+
+
 .input-group {
   display: flex;
   flex-direction: column;

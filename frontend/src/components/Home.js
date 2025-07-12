@@ -55,37 +55,36 @@ const Home = () => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
     if (remainingMinutes === 0) return `${hours} hour${hours > 1 ? 's' : ''}`;
-    return `${hours}h ${remainingMinutes}m`;
+    return `${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ`;
   };
 
   return (
     <div className="home-container">
       <div className="header">
-        <h1>🚌 Perdoor Bus Timing</h1>
-        <p>Find your bus timings easily</p>
+        <h1>🚌 ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
+        <p>ನಿಮ್ಮ ಬಸ್ ಸಮಯವನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
       </div>
 
       <div className="search-section">
         <form onSubmit={handleSearch} className="search-form">
           <div className="input-group">
-            <label htmlFor="destination">Enter Destination:</label>
-            <input
-              type="text"
+            <label htmlFor="destination">ಎಲ್ಲಿಗೆ ಹೋಗಬೇಕು?</label>
+            <select
               id="destination"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              placeholder="e.g., Kochi, Thrissur, Palakkad..."
-              list="destinations"
               required
-            />
-            <datalist id="destinations">
+            >
+              <option value="" disabled> ಆಯ್ಕೆಮಾಡಿ</option>
               {destinations.map((dest, index) => (
-                <option key={index} value={dest} />
+                <option key={index} value={dest}>
+                  {dest}
+                </option>
               ))}
-            </datalist>
+            </select>
           </div>
           <button type="submit" className="search-btn" disabled={loading}>
-            {loading ? 'Searching...' : 'Search Buses'}
+            {loading ? 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...' : 'ಬಸ್ ಹುಡುಕಿ'}
           </button>
         </form>
       </div>
@@ -93,7 +92,7 @@ const Home = () => {
       {searched && (
         <div className="results-section">
           <div className="results-header">
-            <h2>Results for "{destination}"</h2>
+            <h2> "{destination}" ಫಲಿತಾಂಶಗಳು</h2>
           </div>
 
           {message && buses.length === 0 && (
@@ -110,30 +109,31 @@ const Home = () => {
                     <div className="bus-name">{bus.busName}</div>
                     <div className="bus-number">{bus.busNumber}</div>
                   </div>
-                  
+
                   <div className="bus-details">
                     <div className="detail-item">
-                      <div className="detail-label">Arrival to Perdoor</div>
+                      <div className="detail-label">ಪೆರ್ಡೂರಿಗೆ ಆಗಮಿಸುವ ಸಮಯ</div>
                       <div className="detail-value">{formatTime(bus.arrivalTimeToPerdoor)}</div>
                     </div>
                     <div className="detail-item">
-                      <div className="detail-label">Departure from Perdoor</div>
+                      <div className="detail-label">ಪೆರ್ಡೂರಿನಿಂದ ಹೊರಡುವ ಸಮಯ</div>
                       <div className="detail-value">{formatTime(bus.leavingTimeFromPerdoor)}</div>
                     </div>
                   </div>
 
                   <div className="next-departure">
                     <div className="next-departure-time">
-                      Next Departure: {formatTime(bus.nextDeparture)}
-                    </div>
-                    <div className="minutes-left">
-                      {getMinutesText(bus.minutesUntilDeparture)}
+
+                      <div className="minutes-left">
+                        {getMinutesText(bus.minutesUntilDeparture)} ನಂತರ ಪೆರ್ಡೂರಿನಿಂದ ಹೊರಡುತ್ತದೆ
+
+                      </div>
                     </div>
                   </div>
 
                   <div className="availability-badge-container">
                     <span className={`availability-badge availability-${bus.availability}`}>
-                      {bus.availability === 'daily' ? 'Daily Service' : 'Weekdays Only'}
+                      {bus.availability === 'daily' ? 'ಪ್ರತಿದಿನ' : 'ಕೆವಲ ವಾರದ ದಿನಗಳಲ್ಲಿ'}
                     </span>
                   </div>
                 </div>
