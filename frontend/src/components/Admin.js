@@ -43,8 +43,7 @@ const Admin = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    
-    // Clear error when user starts typing
+
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -55,40 +54,41 @@ const Admin = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.busName.trim()) newErrors.busName = 'Bus name is required';
     if (!formData.busNumber.trim()) newErrors.busNumber = 'Bus number is required';
     if (!formData.destination.trim()) newErrors.destination = 'Destination is required';
     if (!formData.arrivalTimeToPerdoor) newErrors.arrivalTimeToPerdoor = 'Arrival time is required';
     if (!formData.leavingTimeFromPerdoor) newErrors.leavingTimeFromPerdoor = 'Leaving time is required';
-    
-    // Validate time format
+
     if (formData.arrivalTimeToPerdoor && !moment(formData.arrivalTimeToPerdoor, 'HH:mm', true).isValid()) {
       newErrors.arrivalTimeToPerdoor = 'Invalid time format';
     }
     if (formData.leavingTimeFromPerdoor && !moment(formData.leavingTimeFromPerdoor, 'HH:mm', true).isValid()) {
       newErrors.leavingTimeFromPerdoor = 'Invalid time format';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setLoading(true);
     try {
       if (editingBus) {
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/buses`, formData);
+        // Update bus
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/buses/${editingBus._id}`, formData);
         setMessage('Bus updated successfully');
       } else {
-        await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/buses/${editingBus._id}`, formData);
+        // Add new bus
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/buses`, formData);
         setMessage('Bus added successfully');
       }
-      
+
       fetchBuses();
       handleCloseModal();
     } catch (error) {
@@ -171,16 +171,12 @@ const Admin = () => {
       </div>
 
       <div className="admin-actions">
-        <button onClick={handleAddNew} className="btn btn-primary">
-          Add New Bus
-        </button>
-        <Link to="/" className="btn btn-secondary">
-          Back to Home
-        </Link>
+        <button onClick={handleAddNew} className="btn btn-primary">Add New Bus</button>
+        <Link to="/" className="btn btn-secondary">Back to Home</Link>
       </div>
 
       {message && (
-        <div className="alert" style={{ 
+        <div className="alert" style={{
           background: message.includes('Error') ? '#f8d7da' : '#d4edda',
           color: message.includes('Error') ? '#721c24' : '#155724',
           padding: '10px',
@@ -238,18 +234,8 @@ const Admin = () => {
                     </td>
                     <td>
                       <div className="action-buttons">
-                        <button
-                          onClick={() => handleEdit(bus)}
-                          className="btn btn-sm btn-primary"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(bus._id)}
-                          className="btn btn-sm btn-danger"
-                        >
-                          Delete
-                        </button>
+                        <button onClick={() => handleEdit(bus)} className="btn btn-sm btn-primary">Edit</button>
+                        <button onClick={() => handleDelete(bus._id)} className="btn btn-sm btn-danger">Delete</button>
                       </div>
                     </td>
                   </tr>
@@ -264,56 +250,25 @@ const Admin = () => {
         <div className="modal">
           <div className="modal-content">
             <div className="modal-header">
-              <h2 className="modal-title">
-                {editingBus ? 'Edit Bus' : 'Add New Bus'}
-              </h2>
-              <button onClick={handleCloseModal} className="close-btn">
-                ×
-              </button>
+              <h2>{editingBus ? 'Edit Bus' : 'Add New Bus'}</h2>
+              <button onClick={handleCloseModal} className="close-btn">×</button>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="busName">Bus Name *</label>
-                <input
-                  type="text"
-                  id="busName"
-                  name="busName"
-                  value={formData.busName}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Kerala RTC, Private Bus"
-                  required
-                />
-                {errors.busName && <div className="error-message">{errors.busName}</div>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="busNumber">Bus Number *</label>
-                <input
-                  type="text"
-                  id="busNumber"
-                  name="busNumber"
-                  value={formData.busNumber}
-                  onChange={handleInputChange}
-                  placeholder="e.g., KL-07-1234"
-                  required
-                />
-                {errors.busNumber && <div className="error-message">{errors.busNumber}</div>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="destination">Destination *</label>
-                <input
-                  type="text"
-                  id="destination"
-                  name="destination"
-                  value={formData.destination}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Kochi, Thrissur, Palakkad"
-                  required
-                />
-                {errors.destination && <div className="error-message">{errors.destination}</div>}
-              </div>
+              {['busName', 'busNumber', 'destination'].map((field) => (
+                <div className="form-group" key={field}>
+                  <label htmlFor={field}>{field.replace(/([A-Z])/g, ' $1')} *</label>
+                  <input
+                    type="text"
+                    id={field}
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  {errors[field] && <div className="error-message">{errors[field]}</div>}
+                </div>
+              ))}
 
               <div className="form-group">
                 <label htmlFor="arrivalTimeToPerdoor">Arrival Time to Perdoor *</label>
@@ -362,18 +317,15 @@ const Admin = () => {
                     name="active"
                     checked={formData.active}
                     onChange={handleInputChange}
-                    style={{ marginRight: '8px' }}
                   />
                   Active
                 </label>
               </div>
 
               <div className="form-actions">
-                <button type="button" onClick={handleCloseModal} className="btn btn-secondary">
-                  Cancel
-                </button>
+                <button type="button" onClick={handleCloseModal} className="btn btn-secondary">Cancel</button>
                 <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Saving...' : (editingBus ? 'Update Bus' : 'Add Bus')}
+                  {loading ? 'Saving...' : editingBus ? 'Update Bus' : 'Add Bus'}
                 </button>
               </div>
             </form>
