@@ -17,7 +17,7 @@ const Home = () => {
 
   const fetchDestinations = async () => {
     try {
-      const response = await axios.get('/api/destinations');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/destinations`);
       setDestinations(response.data);
     } catch (error) {
       console.error('Error fetching destinations:', error);
@@ -33,7 +33,7 @@ const Home = () => {
     setMessage('');
 
     try {
-      const response = await axios.get(`/api/buses/search?destination=${destination}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/buses/search?destination=${destination}`);
       setBuses(response.data.buses || []);
       setMessage(response.data.message || '');
     } catch (error) {
