@@ -1,698 +1,648 @@
-import React, { useState } from 'react';
-import { Calendar, MapPin, Crown, Star, Clock, Users, Camera } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 
-const PerdoorTempleHistory = () => {
-  const [activeSection, setActiveSection] = useState('overview');
-
-  const timelineEvents = [
+const TempleHistoryPage = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const carouselImages = [
     {
-      year: '12th Century',
-      title: 'Foundation Era',
-      description: 'The temple was established during the reign of the Hoysala dynasty, marking the beginning of its spiritual journey.'
+      url: "https://images.unsplash.com/photo-1582632503489-208e296d3ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "ಪೆರ್ಡೂರು ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭ ಸ್ವಾಮಿ ದೇವಾಲಯ - Main temple structure"
     },
     {
-      year: '15th Century',
-      title: 'Architectural Expansion',
-      description: 'Major renovations and expansions were undertaken, adding intricate carvings and sculptures.'
+      url: "https://images.unsplash.com/photo-1605036047789-9b7b1f9c8b1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Traditional temple entrance with devotees offering prayers"
     },
     {
-      year: '18th Century',
-      title: 'Cultural Renaissance',
-      description: 'The temple became a center for cultural activities and religious festivals.'
+      url: "https://images.unsplash.com/photo-1597149258161-8e6c5f4e6c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Intricate stone carvings depicting Lord Ananthapadmanabha"
     },
     {
-      year: '20th Century',
-      title: 'Modern Restoration',
-      description: 'Comprehensive restoration efforts preserved the ancient glory for future generations.'
+      url: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Rathotsava celebrations during Kumbha Masa"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Pushkarani (temple pond) and surrounding peaceful gardens"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Temple bells and traditional elements during evening prayers"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1580490069045-f4e2d66e1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Devotees performing Banana Seva (ಸಾವಿರದೊಂದು ಸೇವೆ)"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      caption: "Teertha Mantapa with Ganapati pillar"
     }
   ];
 
-  const features = [
-    {
-      icon: <Crown style={{ width: '24px', height: '24px' }} />,
-      title: 'Royal Heritage',
-      description: 'Built under royal patronage with exquisite craftsmanship'
-    },
-    {
-      icon: <Star style={{ width: '24px', height: '24px' }} />,
-      title: 'Sacred Traditions',
-      description: 'Centuries-old rituals and festivals celebrated annually'
-    },
-    {
-      icon: <Users style={{ width: '24px', height: '24px' }} />,
-      title: 'Community Hub',
-      description: 'Center of spiritual and cultural activities for devotees'
-    },
-    {
-      icon: <Camera style={{ width: '24px', height: '24px' }} />,
-      title: 'Architectural Marvel',
-      description: 'Stunning stone carvings and traditional temple architecture'
-    }
-  ];
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000);
+    
+    return () => clearInterval(timer);
+  }, []);
 
-  const festivals = [
-    {
-      title: 'Maha Shivaratri',
-      period: 'February/March',
-      description: 'The grand festival celebrating Lord Shiva with night-long prayers and special abhishekams.',
-      gradient: 'linear-gradient(135deg, #3B82F6, #8B5CF6)'
-    },
-    {
-      title: 'Navaratri',
-      period: 'September/October',
-      description: 'Nine nights of divine celebration with classical dance performances and devotional music.',
-      gradient: 'linear-gradient(135deg, #EC4899, #DC2626)'
-    },
-    {
-      title: 'Kartik Purnima',
-      period: 'November',
-      description: 'Festival of lights celebrating the full moon with special pujas and community feasts.',
-      gradient: 'linear-gradient(135deg, #EAB308, #EA580C)'
-    }
-  ];
-
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #FFF7ED, #FFFBEB, #FEF2F2)'
-    },
-    hero: {
-      position: 'relative',
-      background: 'linear-gradient(135deg, #EA580C, #DC2626, #EC4899)',
-      color: 'white',
-      overflow: 'hidden'
-    },
-    heroOverlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.3)'
-    },
-    heroContent: {
-      position: 'relative',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '80px 24px',
-      textAlign: 'center'
-    },
-    heroTitle: {
-      fontSize: '4rem',
-      fontWeight: 'bold',
-      marginBottom: '24px',
-      background: 'linear-gradient(135deg, #FEF3C7, #FED7AA)',
-      WebkitBackgroundClip: 'text',
-      backgroundClip: 'text',
-      WebkitTextFillColor: 'transparent'
-    },
-    heroSubtitle: {
-      fontSize: '1.5rem',
-      marginBottom: '32px',
-      color: '#FED7AA'
-    },
-    heroMeta: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '16px',
-      fontSize: '1.125rem',
-      flexWrap: 'wrap'
-    },
-    heroMetaItem: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px'
-    },
-    heroBottom: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      height: '80px',
-      background: 'linear-gradient(to top, #FFF7ED, transparent)'
-    },
-    navigation: {
-      position: 'sticky',
-      top: 0,
-      backgroundColor: 'white',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      zIndex: 10,
-      borderBottom: '4px solid #FED7AA'
-    },
-    navContainer: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '0 24px'
-    },
-    navList: {
-      display: 'flex',
-      gap: '32px',
-      overflowX: 'auto'
-    },
-    navButton: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      padding: '16px 24px',
-      borderBottom: '2px solid transparent',
-      fontWeight: '500',
-      transition: 'all 0.3s ease',
-      cursor: 'pointer',
-      border: 'none',
-      backgroundColor: 'transparent',
-      whiteSpace: 'nowrap'
-    },
-    navButtonActive: {
-      borderBottomColor: '#EA580C',
-      color: '#EA580C',
-      backgroundColor: '#FFF7ED'
-    },
-    navButtonInactive: {
-      color: '#6B7280'
-    },
-    main: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '64px 24px'
-    },
-    sectionTitle: {
-      fontSize: '2.5rem',
-      fontWeight: 'bold',
-      color: '#1F2937',
-      marginBottom: '24px',
-      textAlign: 'center'
-    },
-    sectionSubtitle: {
-      fontSize: '1.25rem',
-      color: '#6B7280',
-      lineHeight: '1.75',
-      maxWidth: '800px',
-      margin: '0 auto',
-      textAlign: 'center'
-    },
-    featuresGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '32px',
-      marginTop: '64px'
-    },
-    featureCard: {
-      backgroundColor: 'white',
-      borderRadius: '16px',
-      padding: '32px',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #FED7AA',
-      transition: 'all 0.3s ease',
-      cursor: 'pointer'
-    },
-    featureIcon: {
-      color: '#EA580C',
-      marginBottom: '16px',
-      transition: 'transform 0.3s ease'
-    },
-    featureTitle: {
-      fontSize: '1.25rem',
-      fontWeight: 'bold',
-      color: '#1F2937',
-      marginBottom: '12px'
-    },
-    featureDescription: {
-      color: '#6B7280',
-      lineHeight: '1.5'
-    },
-    highlightBox: {
-      background: 'linear-gradient(135deg, #FED7AA, #FEF3C7)',
-      borderRadius: '24px',
-      padding: '48px',
-      textAlign: 'center',
-      marginTop: '64px'
-    },
-    highlightTitle: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-      color: '#1F2937',
-      marginBottom: '24px'
-    },
-    highlightText: {
-      fontSize: '1.125rem',
-      color: '#374151',
-      lineHeight: '1.75',
-      maxWidth: '800px',
-      margin: '0 auto'
-    },
-    timeline: {
-      position: 'relative',
-      marginTop: '64px'
-    },
-    timelineLine: {
-      position: 'absolute',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '4px',
-      height: '100%',
-      background: 'linear-gradient(to bottom, #FB923C, #EF4444)'
-    },
-    timelineEvent: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '48px'
-    },
-    timelineEventReverse: {
-      flexDirection: 'row-reverse'
-    },
-    timelineContent: {
-      width: '50%',
-      padding: '0 48px'
-    },
-    timelineCard: {
-      backgroundColor: 'white',
-      borderRadius: '16px',
-      padding: '32px',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #FED7AA',
-      transition: 'all 0.3s ease'
-    },
-    timelineYear: {
-      color: '#EA580C',
-      fontWeight: 'bold',
-      fontSize: '1.125rem',
-      marginBottom: '8px'
-    },
-    timelineTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: '#1F2937',
-      marginBottom: '16px'
-    },
-    timelineDescription: {
-      color: '#6B7280',
-      lineHeight: '1.75'
-    },
-    timelineDot: {
-      position: 'relative'
-    },
-    timelineDotCircle: {
-      width: '24px',
-      height: '24px',
-      backgroundColor: '#EA580C',
-      borderRadius: '50%',
-      border: '4px solid white',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-    },
-    timelineSpacer: {
-      width: '50%'
-    },
-    archGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-      gap: '48px',
-      marginTop: '64px'
-    },
-    archColumn: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '32px'
-    },
-    archCard: {
-      backgroundColor: 'white',
-      borderRadius: '16px',
-      padding: '32px',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #FED7AA'
-    },
-    archCardTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: '#1F2937',
-      marginBottom: '16px'
-    },
-    archCardText: {
-      color: '#6B7280',
-      lineHeight: '1.75'
-    },
-    festivalsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-      gap: '32px',
-      marginTop: '64px'
-    },
-    festivalCard: {
-      backgroundColor: 'white',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-      border: '1px solid #FED7AA',
-      transition: 'all 0.3s ease'
-    },
-    festivalHeader: {
-      height: '128px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    festivalTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: 'white',
-      textAlign: 'center'
-    },
-    festivalContent: {
-      padding: '24px'
-    },
-    festivalPeriod: {
-      color: '#EA580C',
-      fontWeight: '600',
-      marginBottom: '8px'
-    },
-    festivalDescription: {
-      color: '#6B7280',
-      lineHeight: '1.75'
-    },
-    footer: {
-      background: 'linear-gradient(135deg, #1F2937, #111827)',
-      color: 'white',
-      padding: '48px 0',
-      textAlign: 'center'
-    },
-    footerContainer: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '0 24px'
-    },
-    footerTitle: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      marginBottom: '16px'
-    },
-    footerSubtitle: {
-      color: '#D1D5DB',
-      marginBottom: '24px'
-    },
-    footerMeta: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '32px',
-      fontSize: '0.875rem',
-      flexWrap: 'wrap'
-    },
-    footerMetaItem: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px'
-    }
+  const nextImage = () => {
+    setCurrentImageIndex(currentImageIndex === carouselImages.length - 1 ? 0 : currentImageIndex + 1);
   };
 
-  // Add hover effects
-  const handleFeatureHover = (e) => {
-    e.currentTarget.style.transform = 'translateY(-4px)';
-    e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
-    const icon = e.currentTarget.querySelector('.feature-icon');
-    if (icon) icon.style.transform = 'scale(1.1)';
+  const prevImage = () => {
+    setCurrentImageIndex(currentImageIndex === 0 ? carouselImages.length - 1 : currentImageIndex - 1);
   };
 
-  const handleFeatureLeave = (e) => {
-    e.currentTarget.style.transform = 'translateY(0)';
-    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
-    const icon = e.currentTarget.querySelector('.feature-icon');
-    if (icon) icon.style.transform = 'scale(1)';
+  const goToImage = (index) => {
+    setCurrentImageIndex(index);
   };
 
-  const handleNavHover = (e) => {
-    if (!e.currentTarget.classList.contains('active')) {
-      e.currentTarget.style.color = '#EA580C';
-      e.currentTarget.style.borderBottomColor = '#FED7AA';
-    }
+  const mainStyle = {
+    background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
+    minHeight: '100vh',
+    padding: '40px 20px',
+    fontFamily: 'Arial, sans-serif',
+    
   };
 
-  const handleNavLeave = (e) => {
-    if (!e.currentTarget.classList.contains('active')) {
-      e.currentTarget.style.color = '#6B7280';
-      e.currentTarget.style.borderBottomColor = 'transparent';
-    }
+  const containerStyle = {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: '20px',
+    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+    overflow: 'hidden',
+    marginTop:'70px',
+
+  };
+
+  const heroSectionStyle = {
+    position: 'relative',
+    height: '450px',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1582632503489-208e296d3ace?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  };
+
+  const overlayStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  };
+
+  const titleStyle = {
+    fontSize: '1.5em',
+    color: 'white',
+    textAlign: 'center',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+    fontWeight: 'bold',
+    margin: '0 0 10px 0'
+    
+  };
+
+  const subtitleStyle = {
+    fontSize: '1.5em',
+    color: 'white',
+    textAlign: 'center',
+    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.7)',
+    margin: 0
+  };
+
+  const contentStyle = {
+    padding: '50px'
+  };
+
+  const sectionStyle = {
+    marginBottom: '40px'
+  };
+
+  const sectionTitleStyle = {
+    fontSize: '2.2em',
+    color: '#333',
+    marginBottom: '20px',
+    borderBottom: '3px solid #ff6b6b',
+    paddingBottom: '10px',
+    fontWeight: 'bold'
+  };
+
+  const paragraphStyle = {
+    fontSize: '1.1em',
+    lineHeight: '1.8',
+    color: '#555',
+    marginBottom: '20px',
+    textAlign: 'justify',
+    fontWeight: 'bold',
+  };
+
+  const kannadaTextStyle = {
+    fontSize: '1.2em',
+    lineHeight: '1.9',
+    color: '#444',
+    marginBottom: '20px',
+    textAlign: 'justify',
+    fontWeight: '500',
+    fontWeight: 'bold',
+  };
+
+  const highlightBoxStyle = {
+    backgroundColor: '#fff3cd',
+    border: '1px solid #ffeaa7',
+    borderRadius: '10px',
+    padding: '20px',
+    margin: '20px 0',
+    fontSize: '1.1em',
+    fontStyle: 'italic',
+    color: '#856404'
+  };
+
+  const infoBoxStyle = {
+    backgroundColor: '#e8f5e8',
+    border: '1px solid #4caf50',
+    borderRadius: '10px',
+    padding: '20px',
+    margin: '20px 0',
+    fontSize: '1.1em',
+    color: '#2e7d32'
+  };
+
+  const carouselContainerStyle = {
+    position: 'relative',
+    maxWidth: '900px',
+    margin: '40px auto',
+    borderRadius: '20px',
+    overflow: 'hidden',
+    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)'
+  };
+
+  const carouselImageStyle = {
+    width: '100%',
+    height: '450px',
+    objectFit: 'cover',
+    display: 'block'
+  };
+
+  const carouselNavStyle = {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '50%',
+    width: '50px',
+    height: '50px',
+    fontSize: '18px',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2
+  };
+
+  const carouselNavHoverStyle = {
+    backgroundColor: 'rgba(255, 107, 107, 0.8)',
+    transform: 'translateY(-50%) scale(1.1)'
+  };
+
+  const carouselDotContainerStyle = {
+    position: 'absolute',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex',
+    gap: '10px',
+    zIndex: 2
+  };
+
+  const carouselDotStyle = {
+    width: '12px',
+    height: '12px',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    border: '2px solid white'
+  };
+
+  const carouselDotActiveStyle = {
+    backgroundColor: '#ff6b6b',
+    transform: 'scale(1.2)'
+  };
+
+  const carouselCaptionStyle = {
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    color: 'white',
+    padding: '15px 20px',
+    fontSize: '1.1em',
+    textAlign: 'center'
+  };
+
+  const timelineStyle = {
+    position: 'relative',
+    paddingLeft: '30px'
+  };
+
+  const timelineItemStyle = {
+    position: 'relative',
+    marginBottom: '30px',
+    paddingLeft: '30px'
+  };
+
+  const timelineDotStyle = {
+    position: 'absolute',
+    left: '-35px',
+    top: '5px',
+    width: '12px',
+    height: '12px',
+    backgroundColor: '#ff6b6b',
+    borderRadius: '50%',
+    border: '3px solid white',
+    boxShadow: '0 0 0 3px #ff6b6b'
+  };
+
+  const timelineLineStyle = {
+    position: 'absolute',
+    left: '-30px',
+    top: '20px',
+    width: '2px',
+    height: 'calc(100% - 20px)',
+    backgroundColor: '#ddd'
+  };
+
+  const timelineYearStyle = {
+    fontSize: '1.3em',
+    fontWeight: 'bold',
+    color: '#ff6b6b',
+    marginBottom: '8px'
+  };
+
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '20px',
+    margin: '30px 0'
+  };
+
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '20px',
+    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+    transition: 'transform 0.3s ease'
+  };
+
+  const iconStyle = {
+    fontSize: '2em',
+    color: '#ff6b6b',
+    marginBottom: '15px'
   };
 
   return (
-    <div style={styles.container}>
-      {/* Hero Section */}
-      <div style={styles.hero}>
-        <div style={styles.heroOverlay}></div>
-        <div style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>Perdoor Temple</h1>
-          <p style={styles.heroSubtitle}>A Sacred Journey Through Time and Devotion</p>
-          <div style={styles.heroMeta}>
-            <div style={styles.heroMetaItem}>
-              <MapPin style={{ width: '20px', height: '20px' }} />
-              <span>Karnataka, India</span>
-            </div>
-            <div style={styles.heroMetaItem}>
-              <Calendar style={{ width: '20px', height: '20px' }} />
-              <span>12th Century</span>
-            </div>
+    <div style={mainStyle}>
+      <div style={containerStyle}>
+        <div style={heroSectionStyle}>
+          <div style={overlayStyle}>
+            <h1 style={titleStyle}>🔱 ಪೆರ್ಡೂರು ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭ ಸ್ವಾಮಿ ದೇವಾಲಯ</h1>
+            <p style={subtitleStyle}>Perdoor Sri Ananthapadmanabha Swamy Temple</p>
           </div>
         </div>
-        <div style={styles.heroBottom}></div>
-      </div>
 
-      {/* Navigation */}
-      <div style={styles.navigation}>
-        <div style={styles.navContainer}>
-          <nav style={styles.navList}>
-            {[
-              { id: 'overview', label: 'Overview', icon: <Star style={{ width: '16px', height: '16px' }} /> },
-              { id: 'history', label: 'History', icon: <Clock style={{ width: '16px', height: '16px' }} /> },
-              { id: 'architecture', label: 'Architecture', icon: <Crown style={{ width: '16px', height: '16px' }} /> },
-              { id: 'festivals', label: 'Festivals', icon: <Users style={{ width: '16px', height: '16px' }} /> }
-            ].map(({ id, label, icon }) => (
-              <button
-                key={id}
-                onClick={() => setActiveSection(id)}
-                onMouseEnter={handleNavHover}
-                onMouseLeave={handleNavLeave}
-                className={activeSection === id ? 'active' : ''}
-                style={{
-                  ...styles.navButton,
-                  ...(activeSection === id ? styles.navButtonActive : styles.navButtonInactive)
-                }}
-              >
-                {icon}
-                {label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div style={styles.main}>
-        {/* Overview Section */}
-        {activeSection === 'overview' && (
-          <div>
-            <div style={{ marginBottom: '64px' }}>
-              <h2 style={styles.sectionTitle}>Temple Overview</h2>
-              <p style={styles.sectionSubtitle}>
-                Perdoor Temple stands as a magnificent testament to Karnataka's rich spiritual heritage, 
-                blending ancient architectural brilliance with profound religious significance. This sacred 
-                sanctuary has welcomed devotees for over eight centuries, serving as a beacon of faith and 
-                cultural preservation.
-              </p>
+        <div style={contentStyle}>
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🌿 ದೇವಾಲಯದ ಪರಿಚಯ - Temple Overview</h2>
+            <p style={kannadaTextStyle}>
+              ಪೆರ್ಡೂರು ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭ ಸ್ವಾಮಿ ದೇವಾಲಯವು ಕರ್ನಾಟಕದ ಉಡುಪಿ ಜಿಲ್ಲೆಯಲ್ಲಿ ನೆಲೆಸಿದ್ದು, ಉಡುಪಿಯಿಂದ 20 ಕಿಲೋಮೀಟರ್ ಮತ್ತು ಹೆಬ್ರಿಯಿಂದ 14 ಕಿಲೋಮೀಟರ್ ದೂರದಲ್ಲಿದೆ. ಈ ಪ್ರಾಚೀನ ದೇವಾಲಯವು 6-7ನೇ ಶತಮಾನದಲ್ಲಿ ನಿರ್ಮಿಸಲಾಗಿದ್ದು, ಸುಮಾರು 800 ವರ್ಷಗಳ ಇತಿಹಾಸವನ್ನು ಹೊಂದಿದೆ.
+            </p>
+            
+            <p style={paragraphStyle}>
+              The temple houses a magnificent 2-feet tall idol of Lord Ananthapadmanabha Swamy in standing posture, adorned with Shankha (conch), Chakra (discus), and Abhaya Hasta (blessing gesture). The deity is also known as Kadalipriya Anantha Padmanabha Swamy, reflecting the special connection with banana offerings.
+            </p>
+            
+            <div style={highlightBoxStyle}>
+              "ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭ ಸ್ವಾಮಿ ದೇವರ ವಿಗ್ರಹವು ಶಂಖ, ಚಕ್ರ ಮತ್ತು ಅಭಯ ಹಸ್ತವನ್ನು ಹೊಂದಿದ್ದು, ಅದ್ಭುತ ಶಿಲ್ಪಕಲೆಯಿಂದ ಕೂಡಿದೆ."
             </div>
+          </section>
 
-            <div style={styles.featuresGrid}>
-              {features.map((feature, index) => (
-                <div 
-                  key={index} 
-                  style={styles.featureCard}
-                  onMouseEnter={handleFeatureHover}
-                  onMouseLeave={handleFeatureLeave}
-                >
-                  <div className="feature-icon" style={styles.featureIcon}>
-                    {feature.icon}
-                  </div>
-                  <h3 style={styles.featureTitle}>{feature.title}</h3>
-                  <p style={styles.featureDescription}>{feature.description}</p>
-                </div>
-              ))}
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>📜 ಐತಿಹಾಸಿಕ ಹಿನ್ನೆಲೆ - Historical Background</h2>
+            <p style={kannadaTextStyle}>
+              ಸ್ಥಳ ಪುರಾಣದ ಪ್ರಕಾರ, ಈ ದೇವಾಲಯವನ್ನು ಕೋಟಿಕುಂಜದ ರಾಜ ಶಂಕರನ ಕಾಲದಲ್ಲಿ ಕೃಷ್ಣ ಶರ್ಮಾ ಎಂಬ ಬ್ರಾಹ್ಮಣನು ಸ್ಥಾಪಿಸಿದ್ದನು. ಶ್ರೀ ಕೃಷ್ಣ ಹೆಬ್ಬಾರ್ ಎಂಬವರು 1754 ರಿಂದ 1821 ರವರೆಗೆ ಈ ದೇವಾಲಯವನ್ನು ಪುನಃ ನಿರ್ಮಿಸಿದರು.
+            </p>
+            
+            <p style={paragraphStyle}>
+              The temple's significance grew when Raja Vijayappa Odeyar donated the entire Banampalli village as an Umbali (gift) for the temple's maintenance and upkeep. This royal patronage established the temple as a major pilgrimage center in the region.
+            </p>
+
+            <div style={infoBoxStyle}>
+              <strong>Ancient Inscriptions:</strong><br/>
+              • 1458 CE: Deity referred to as "Janardhana Deva" and later as "Ananta Deva"<br/>
+              • 1520 CE: Clearly mentions "Sri Ananthapadmanabha Swamy"
             </div>
+          </section>
 
-            <div style={styles.highlightBox}>
-              <h3 style={styles.highlightTitle}>Sacred Significance</h3>
-              <p style={styles.highlightText}>
-                The temple is dedicated to Lord Shiva and houses several ancient deities. It serves as a 
-                spiritual center where traditional rituals, classical music, and dance performances create 
-                an atmosphere of divine serenity. The temple's spiritual energy draws thousands of devotees 
-                seeking blessings and inner peace.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* History Section */}
-        {activeSection === 'history' && (
-          <div>
-            <div style={{ marginBottom: '64px' }}>
-              <h2 style={styles.sectionTitle}>Historical Timeline</h2>
-              <p style={styles.sectionSubtitle}>
-                Journey through the centuries of Perdoor Temple's remarkable history
-              </p>
-            </div>
-
-            <div style={styles.timeline}>
-              <div style={styles.timelineLine}></div>
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🎋 ಪೂಜಾ ಕ್ರಮ ಮತ್ತು ಸಂಪ್ರದಾಯಗಳು - Worship Rituals & Traditions</h2>
+            
+            <div style={gridStyle}>
+              <div style={cardStyle}>
+                <div style={iconStyle}>🙏</div>
+                <h3>ಸಾವಿರದೊಂದು ಸೇವೆ (Banana Seva)</h3>
+                <p style={kannadaTextStyle}>
+                  ಭಕ್ತರು ತಮ್ಮ ಇಚ್ಛೆಗಳು ಪೂರ್ಣಗೊಂಡ ಮೇಲೆ ದೇವರಿಗೆ 1001 ಬಾಳೆಹಣ್ಣುಗಳನ್ನು ಅರ್ಪಿಸುವ "ಸಾವಿರದೊಂದು ಸೇವೆ" ಅಥವಾ "ಹರಿಕೆ ಸೇವೆ" ಇತ್ತೀಚಿನ ವರ್ಷಗಳಲ್ಲಿ ಹೆಚ್ಚು ಪ್ರಸಿದ್ಧವಾಗಿದೆ.
+                </p>
+              </div>
               
-              {timelineEvents.map((event, index) => (
-                <div 
-                  key={index} 
-                  style={{
-                    ...styles.timelineEvent,
-                    ...(index % 2 === 1 ? styles.timelineEventReverse : {})
-                  }}
-                >
-                  <div style={styles.timelineContent}>
-                    <div style={styles.timelineCard}>
-                      <div style={styles.timelineYear}>{event.year}</div>
-                      <h3 style={styles.timelineTitle}>{event.title}</h3>
-                      <p style={styles.timelineDescription}>{event.description}</p>
-                    </div>
-                  </div>
-                  <div style={styles.timelineDot}>
-                    <div style={styles.timelineDotCircle}></div>
-                  </div>
-                  <div style={styles.timelineSpacer}></div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{
-              ...styles.highlightBox,
-              background: 'linear-gradient(135deg, #FECACA, #FED7AA)'
-            }}>
-              <h3 style={styles.highlightTitle}>Legacy of Faith</h3>
-              <p style={styles.highlightText}>
-                Throughout its existence, Perdoor Temple has weathered the storms of time while maintaining 
-                its spiritual essence. The temple has been a witness to the rise and fall of empires, yet 
-                its devotional atmosphere remains unchanged, continuing to inspire generations of worshippers.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Architecture Section */}
-        {activeSection === 'architecture' && (
-          <div>
-            <div style={{ marginBottom: '64px' }}>
-              <h2 style={styles.sectionTitle}>Architectural Marvel</h2>
-              <p style={styles.sectionSubtitle}>
-                Discover the intricate craftsmanship and divine artistry of Perdoor Temple
-              </p>
-            </div>
-
-            <div style={styles.archGrid}>
-              <div style={styles.archColumn}>
-                <div style={styles.archCard}>
-                  <h3 style={styles.archCardTitle}>Dravidian Style</h3>
-                  <p style={styles.archCardText}>
-                    The temple showcases classic Dravidian architecture with its towering gopurams, 
-                    intricate stone carvings, and perfectly proportioned sanctum sanctorum. Every 
-                    pillar tells a story through its detailed sculptures.
-                  </p>
-                </div>
-                <div style={styles.archCard}>
-                  <h3 style={styles.archCardTitle}>Sacred Geometry</h3>
-                  <p style={styles.archCardText}>
-                    The temple's layout follows ancient Vastu Shastra principles, creating a harmonious 
-                    balance between the physical and spiritual realms. The geometric precision reflects 
-                    the mathematical knowledge of ancient builders.
-                  </p>
-                </div>
+              <div style={cardStyle}>
+                <div style={iconStyle}>🕉️</div>
+                <h3>ಗಣಪತಿ ಪೂಜೆ</h3>
+                <p style={kannadaTextStyle}>
+                  ಪೂಜೆಗಳಿಗೆ ಮೊದಲು ತೀರ್ಥ ಮಂಟಪದ ಗಣಪತಿಗೆ ಪೂಜೆ ಸಲ್ಲಿಸುವುದು ಆಚರಣೆಯಾಗಿದೆ. ಸ್ತಂಭದ ಮೇಲಿರುವ ಗಣಪತಿ ಪ್ರಮುಖ ವೈಶಿಷ್ಟ್ಯವಾಗಿದೆ.
+                </p>
               </div>
-              <div style={styles.archColumn}>
-                <div style={styles.archCard}>
-                  <h3 style={styles.archCardTitle}>Stone Carvings</h3>
-                  <p style={styles.archCardText}>
-                    Master craftsmen have adorned the temple with exquisite stone carvings depicting 
-                    mythological stories, celestial beings, and floral motifs. Each carving represents 
-                    hours of meticulous work and artistic devotion.
-                  </p>
-                </div>
-                <div style={styles.archCard}>
-                  <h3 style={styles.archCardTitle}>Mandapa Halls</h3>
-                  <p style={styles.archCardText}>
-                    The temple features multiple mandapas (halls) with ornate pillars and ceiling 
-                    sculptures. These spaces serve as gathering areas for devotees and venues for 
-                    religious ceremonies and cultural performances.
-                  </p>
-                </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🥈</div>
+                <h3>ಬೆಳ್ಳಿ ಅಂಗಾಂಗ ಮಾದರಿಗಳು</h3>
+                <p style={kannadaTextStyle}>
+                  ಹಲವರು ಬೆಳ್ಳಿಯ ಅಂಗಾಂಗ ಮಾದರಿಗಳನ್ನು (ಕೈ, ಕಾಲು, ಕಣ್ಣು ಮುಂತಾದವು) ಅರ್ಪಿಸುವ ಮೂಲಕ ತಮ್ಮ ಇಚ್ಛೆ ಪೂರೈಕೆಗಾಗಿ ಕೃತಜ್ಞತೆ ಸಲ್ಲಿಸುತ್ತಾರೆ.
+                </p>
               </div>
             </div>
-          </div>
-        )}
+          </section>
 
-        {/* Festivals Section */}
-        {activeSection === 'festivals' && (
-          <div>
-            <div style={{ marginBottom: '64px' }}>
-              <h2 style={styles.sectionTitle}>Sacred Festivals</h2>
-              <p style={styles.sectionSubtitle}>
-                Experience the vibrant celebrations that bring the temple to life
-              </p>
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🖼️ ದೇವಾಲಯ ಚಿತ್ರಗಳು - Temple Image Gallery</h2>
+            <p style={paragraphStyle}>
+              Explore the divine beauty and architectural splendor of Perdoor Sri Ananthapadmanabha Temple through this collection of sacred images.
+            </p>
+            
+            <div style={carouselContainerStyle}>
+              <img 
+                src={carouselImages[currentImageIndex].url}
+                alt={carouselImages[currentImageIndex].caption}
+                style={carouselImageStyle}
+              />
+              
+              <button 
+                style={{...carouselNavStyle, left: '15px'}}
+                onMouseOver={(e) => Object.assign(e.target.style, carouselNavHoverStyle)}
+                onMouseOut={(e) => Object.assign(e.target.style, carouselNavStyle)}
+                onClick={prevImage}
+              >
+                ❮
+              </button>
+              
+              <button 
+                style={{...carouselNavStyle, right: '15px'}}
+                onMouseOver={(e) => Object.assign(e.target.style, carouselNavHoverStyle)}
+                onMouseOut={(e) => Object.assign(e.target.style, carouselNavStyle)}
+                onClick={nextImage}
+              >
+                ❯
+              </button>
+              
+              <div style={carouselDotContainerStyle}>
+                {carouselImages.map((_, index) => (
+                  <button
+                    key={index}
+                    style={{
+                      ...carouselDotStyle,
+                      ...(index === currentImageIndex ? carouselDotActiveStyle : {})
+                    }}
+                    onClick={() => goToImage(index)}
+                  />
+                ))}
+              </div>
+              
+              <div style={carouselCaptionStyle}>
+                {carouselImages[currentImageIndex].caption}
+              </div>
             </div>
+          </section>
 
-            <div style={styles.festivalsGrid}>
-              {festivals.map((festival, index) => (
-                <div key={index} style={styles.festivalCard}>
-                  <div style={{
-                    ...styles.festivalHeader,
-                    background: festival.gradient
-                  }}>
-                    <h3 style={styles.festivalTitle}>{festival.title}</h3>
-                  </div>
-                  <div style={styles.festivalContent}>
-                    <div style={styles.festivalPeriod}>{festival.period}</div>
-                    <p style={styles.festivalDescription}>{festival.description}</p>
-                  </div>
-                </div>
-              ))}
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🛕 ದೇವಾಲಯದ ವಿನ್ಯಾಸ ಮತ್ತು ವೈಶಿಷ್ಟ್ಯಗಳು - Temple Architecture & Features</h2>
+            
+            <div style={gridStyle}>
+              <div style={cardStyle}>
+                <div style={iconStyle}>🏛️</div>
+                <h3>ಮುಖ್ಯ ವಿಗ್ರಹ</h3>
+                <p style={kannadaTextStyle}>
+                  ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭಸ್ವಾಮಿ ದೇವರ 2 ಅಡಿ ಎತ್ತರದ ನಿಂತ ವಿಗ್ರಹವು ಶಂಖ, ಚಕ್ರ ಮತ್ತು ಅಭಯ ಹಸ್ತವನ್ನು ಹೊಂದಿದ್ದು, ಅದ್ಭುತ ಶಿಲ್ಪಕಲೆಯಿಂದ ಕೂಡಿದೆ.
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🏊</div>
+                <h3>ಪಾದಕೋಣೆ (Pushkarani)</h3>
+                <p style={kannadaTextStyle}>
+                  ದೇವಾಲಯಕ್ಕೆ ಲಗತ್ತಿಸಲಾದ ಪದ್ಮ ಸರೋವರ (ಪುಷ್ಕರಿಣಿ) ಸುತ್ತಲೂ ಮೆಟ್ಟಿಲುಗಳಿರುವ ಪವಿತ್ರ ಜಲಾಶಯವಾಗಿದೆ. ಇದನ್ನು ಮಾಧ್ವಾಚಾರ್ಯರು ತಮ್ಮ ತಾಯಿಗಾಗಿ ನಿರ್ಮಿಸಿದ್ದಾರೆ ಎಂದು ನಂಬಲಾಗಿದೆ.
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🕉️</div>
+                <h3>ಸಹದೇವತೆಗಳು</h3>
+                <p style={kannadaTextStyle}>
+                  ದೇವಾಲಯದ ಒಳಗೆ ರುದ್ರಲಿಂಗ, ರಥೋತ್ಸವ ಕಟ್ಟೆ, ಮತ್ತು ತೀರ್ಥ ಮಂದಿರದಲ್ಲಿರುವ ಸ್ತಂಭದ ಮೇಲಿರುವ ಗಣಪತಿ ಪ್ರಮುಖ ವೈಶಿಷ್ಟ್ಯಗಳಾಗಿವೆ.
+                </p>
+              </div>
             </div>
+          </section>
 
-            <div style={{
-              ...styles.highlightBox,
-              background: 'linear-gradient(135deg, #E9D5FF, #FBCFE8)'
-            }}>
-              <h3 style={styles.highlightTitle}>Cultural Heritage</h3>
-              <p style={styles.highlightText}>
-                The festivals at Perdoor Temple are not just religious observances but celebrations of 
-                cultural heritage. They bring together communities, preserve ancient traditions, and 
-                create lasting memories for devotees who travel from far and wide to participate in 
-                these sacred celebrations.
-              </p>
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🎊 ವಿಶೇಷ ಉತ್ಸವಗಳು - Special Festivals</h2>
+            
+            <div style={timelineStyle}>
+              <div style={timelineItemStyle}>
+                <div style={timelineDotStyle}></div>
+                <div style={timelineLineStyle}></div>
+                <div style={timelineYearStyle}>ರಥೋತ್ಸವ (Rathotsava)</div>
+                <p style={kannadaTextStyle}>
+                  ಕುಂಭ ಮಾಸದಲ್ಲಿ 5 ದಿನಗಳ ಕಾಲ ಉತ್ಸವ ನಡೆಯುತ್ತದೆ. ಭಕ್ತರು ದೇವಾಲಯದ ಸುತ್ತಲೂ ರಥವನ್ನು ಎಳೆಯುವ ಮೂಲಕ ಭಾಗವಹಿಸುತ್ತಾರೆ. ಈ ಸಮಯದಲ್ಲಿ "ಸಾವಿರಪ್ರಂಧ" ಎಂದೂ ಕರೆಯುವ ಬಾಳೆಹಣ್ಣು ಸೇವೆ ಇನ್ನೂ ವಿಶಿಷ್ಟವಾಗಿದೆ.
+                </p>
+              </div>
+              
+              <div style={timelineItemStyle}>
+                <div style={timelineDotStyle}></div>
+                <div style={timelineLineStyle}></div>
+                <div style={timelineYearStyle}>ಸಂಕ್ರಮಣ ಪೂಜೆ</div>
+                <p style={kannadaTextStyle}>
+                  ಸಿಂಹ ಮತ್ತು ಮೀನಾ ಸಂಕ್ರಮಣದ ಸಂದರ್ಭದಲ್ಲಿ ವಿಶೇಷ ಆರಾಧನೆ ಮತ್ತು ಪವಿತ್ರತೆಯೊಂದಿಗೆ ಆಚರಣೆ ನಡೆಯುತ್ತದೆ. ಭಕ್ತರು ದೂರದೂರದಿಂದ ಬಂದು ಈ ಪೂಜೆಯಲ್ಲಿ ಭಾಗವಹಿಸುತ್ತಾರೆ.
+                </p>
+              </div>
+              
+              <div style={timelineItemStyle}>
+                <div style={timelineDotStyle}></div>
+                <div style={timelineLineStyle}></div>
+                <div style={timelineYearStyle}>ಇತರ ಪ್ರಮುಖ ಉತ್ಸವಗಳು</div>
+                <p style={kannadaTextStyle}>
+                  ಮಾಸಿಕ ಏಕಾದಶಿ, ಅಮಾವಾಸ್ಯೆ, ಪೂರ್ಣಿಮೆ ಮತ್ತು ಸಂಕ್ರಮಣ ದಿನಗಳಲ್ಲಿ ವಿಶೇಷ ಪೂಜೆಗಳು ನಡೆಯುತ್ತವೆ. ಕೃಷ್ಣಾಷ್ಟಮಿ ಮತ್ತು ರಾಮನವಮಿಯಲ್ಲಿ ಭವ್ಯ ಆಚರಣೆಗಳು ನಡೆಯುತ್ತವೆ.
+                </p>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          </section>
 
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <div style={styles.footerContainer}>
-          <h3 style={styles.footerTitle}>Visit Perdoor Temple</h3>
-          <p style={styles.footerSubtitle}>
-            Experience the divine serenity and rich heritage of this sacred sanctuary
-          </p>
-          <div style={styles.footerMeta}>
-            <div style={styles.footerMetaItem}>
-              <Clock style={{ width: '16px', height: '16px' }} />
-              <span>Open Daily: 5:00 AM - 9:00 PM</span>
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🕒 ದೇವಾಲಯದ ಸಮಯಗಳು - Temple Timings</h2>
+            
+            <div style={infoBoxStyle}>
+              <strong>ದೈನಂದಿನ ಸಮಯಗಳು:</strong><br/>
+              • ಪ್ರಾತಃಕಾಲ: 6:00 AM - 12:30 PM<br/>
+              • ಸಾಯಂಕಾಲ: 4:00 PM - 8:30 PM<br/><br/>
+              <strong>ಪ್ರಮುಖ ಪೂಜೆಗಳು:</strong><br/>
+              • ಪ್ರಾತಃ ಪೂಜೆ: 7:00 AM<br/>
+              • ಮಧ್ಯಾಹ್ನದ ಪೂಜೆ: 12:30 PM<br/>
+              • ಸಂಜೆ ಪೂಜೆ: 7:30 PM
             </div>
-            <div style={styles.footerMetaItem}>
-              <MapPin style={{ width: '16px', height: '16px' }} />
-              <span>Karnataka, India</span>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🧭 ದೇವಾಲಯಕ್ಕೆ ಹೇಗೆ ತಲುಪುವುದು - How to Reach</h2>
+            
+            <div style={gridStyle}>
+              <div style={cardStyle}>
+                <div style={iconStyle}>🚌</div>
+                <h3>ಬಸ್ ಸೇವೆ</h3>
+                <p style={kannadaTextStyle}>
+                  ಉಡುಪಿ (20 ಕಿಮೀ) ಮತ್ತು ಮಂಗಳೂರು (60 ಕಿಮೀ) ಇಂದ ನಿಯಮಿತ ಬಸ್ ಸೇವೆ ಲಭ್ಯವಿದೆ. ಹೆಬ್ರಿಯಿಂದ 14 ಕಿಮೀ ದೂರದಲ್ಲಿದೆ.
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🚂</div>
+                <h3>ರೈಲು ಸೇವೆ</h3>
+                <p style={kannadaTextStyle}>
+                  ಹತ್ತಿರದ ನಿಲ್ದಾಣ ಉಡುಪಿ (20 ಕಿಮೀ). ಮಂಗಳೂರು ಸೆಂಟ್ರಲ್ (60 ಕಿಮೀ) ಮತ್ತು ಮಂಗಳೂರು ಜಂಕ್ಷನ್ (65 ಕಿಮೀ) ಇಂದ ಟ್ಯಾಕ್ಸಿ ಸೇವೆ ಲಭ್ಯ.
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>✈️</div>
+                <h3>ವಿಮಾನ ನಿಲ್ದಾಣ</h3>
+                <p style={kannadaTextStyle}>
+                  ಮಂಗಳೂರು ಅಂತರಾಷ್ಟ್ರೀಯ ವಿಮಾನ ನಿಲ್ದಾಣ (80 ಕಿಮೀ). ಬೆಂಗಳೂರು ಅಂತರಾಷ್ಟ್ರೀಯ ವಿಮಾನ ನಿಲ್ದಾಣ (400 ಕಿಮೀ).
+                </p>
+              </div>
             </div>
-          </div>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>📚 ಶಿಕ್ಷಣ ಮತ್ತು ಗ್ರಾಮೀಣ ಅಭಿವೃದ್ಧಿ - Education & Development</h2>
+            
+            <div style={highlightBoxStyle}>
+              <strong>ಪ್ರಮುಖ ಶಿಕ್ಷಣ ಸಂಸ್ಥೆಗಳು:</strong><br/>
+              • B.M ಪ್ರಾಥಮಿಕ ಶಾಲೆ (100+ ವರ್ಷಗಳ ಇತಿಹಾಸ)<br/>
+              • ಪೆರ್ಡೂರು ಹೈಸ್ಕೂಲ್<br/>
+              • ಇಂಡಸ್ಟ್ರಿಯಲ್ ಟ್ರೈನಿಂಗ್ ಇನ್ಸ್ಟಿಟ್ಯೂಟ್<br/>
+              • ಆದರ್ಶ ಪದವಿಪೂರ್ವ ಕಾಲೇಜು (2011-12 ರಲ್ಲಿ ಸ್ಥಾಪಿತ)
+            </div>
+            
+            <p style={paragraphStyle}>
+              ದೇವಾಲಯದ ಸುತ್ತಲಿನ ಕಾಡನ್ನು ಅಭಿವೃದ್ಧಿಪಡಿಸಿ ಈಗ ಸಂಪೂರ್ಣ ನಗರವನ್ನಾಗಿ ಪರಿವರ್ತಿಸಲಾಗಿದೆ. ಆಧುನಿಕ ಸೌಲಭ್ಯಗಳೊಂದಿಗೆ ಪ್ರಾಚೀನ ಸಂಸ್ಕೃತಿಯನ್ನು ಸಂರಕ್ಷಿಸುವ ಪ್ರಯತ್ನ ಮಾಡಲಾಗಿದೆ.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🍽️ ಸ್ಥಳೀಯ ಆಹಾರ ಮತ್ತು ವಸತಿ - Local Food & Accommodation</h2>
+            
+            <div style={gridStyle}>
+              <div style={cardStyle}>
+                <div style={iconStyle}>🍽️</div>
+                <h3>ಪ್ರಮುಖ ರೆಸ್ಟೋರೆಂಟ್‌ಗಳು</h3>
+                <p style={kannadaTextStyle}>
+                  • ಶ್ರೀ ಕೃಷ್ಣ ಭವನ್ (ಶುದ್ಧ ಶಾಕಾಹಾರಿ)<br/>
+                  • ಡಯಾನಾ ವುಡ್‌ಲ್ಯಾಂಡ್ಸ್<br/>
+                  • ಸ್ಥಳೀಯ ಉಡುಪಿ ಶೈಲಿಯ ಆಹಾರ
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🏨</div>
+                <h3>ವಸತಿ ಸೌಲಭ್ಯಗಳು</h3>
+                <p style={kannadaTextStyle}>
+                  ದೇವಾಲಯದ ಸುತ್ತಲೂ ಗೆಸ್ಟ್ ಹೌಸ್‌ಗಳು, ಧರ್ಮಶಾಲೆಗಳು ಮತ್ತು ಹೋಟೆಲ್‌ಗಳು ಲಭ್ಯವಿದೆ. ಮುಂಚಿತವಾಗಿ ಬುಕ್ಕಿಂಗ್ ಮಾಡಿಕೊಳ್ಳುವುದು ಉತ್ತಮ.
+                </p>
+              </div>
+              
+              <div style={cardStyle}>
+                <div style={iconStyle}>🛍️</div>
+                <h3>ಸ್ಥಳೀಯ ಉತ್ಪಾದನೆಗಳು</h3>
+                <p style={kannadaTextStyle}>
+                  ಪ್ರಸಾದಮ್, ಪೂಜಾ ಸಾಮಗ್ರಿಗಳು, ಸ್ಥಳೀಯ ಕರಕುಶಲ ವಸ್ತುಗಳು ಮತ್ತು ಧಾರ್ಮಿಕ ಪುಸ್ತಕಗಳು ಲಭ್ಯವಿದೆ.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🌐 ಸಂಪರ್ಕ ಮಾಹಿತಿ - Contact Information</h2>
+            
+            <div style={infoBoxStyle}>
+              <strong>ಮುಖ್ಯ ಮಾಹಿತಿ:</strong><br/>
+              • ವೆಬ್‌ಸೈಟ್: perdoorshriananthapadmanabhatemple.org<br/>
+              • ಸ್ಥಳ: ಪೆರ್ಡೂರು, ಉಡುಪಿ ಜಿಲ್ಲೆ, ಕರ್ನಾಟಕ<br/>
+              • ಪಿನ್ ಕೋಡ್: 576112<br/>
+              • ಹತ್ತಿರದ ಪೋಸ್ಟ್ ಆಫೀಸ್: ಪೆರ್ಡೂರು<br/>
+              • ಪೊಲೀಸ್ ಠಾಣೆ: ಹೆಬ್ರಿ<br/>
+              • ಆಸ್ಪತ್ರೆ: ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆ, ಹೆಬ್ರಿ
+            </div>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🔮 ಭಕ್ತರ ಅನುಭವಗಳು - Devotee Experiences</h2>
+            
+            <div style={highlightBoxStyle}>
+              <strong>ಪ್ರಮುಖ ಮಹತ್ವ:</strong><br/>
+              • ಕದಳಿಪ್ರಿಯ ಅನಂತ ಪದ್ಮನಾಭ ಸ್ವಾಮಿ - ಬಾಳೆಹಣ್ಣುಗಳಿಗೆ ವಿಶೇಷ ಪ್ರೀತಿ<br/>
+              • ಇಚ್ಛಾಪೂರ್ತಿ ದೇವರು - ಭಕ್ತರ ಮನಸ್ಕಾಮನೆಗಳನ್ನು ಈಡೇರಿಸುವ ಶಕ್ತಿ<br/>
+              • ಶಾಂತಿ ಮತ್ತು ಆಧ್ಯಾತ್ಮಿಕ ಅನುಭವ ಪ್ರದಾನ<br/>
+              • ಐತಿಹಾಸಿಕ ಮಹತ್ವ ಮತ್ತು ಪ್ರಾಚೀನತೆ
+            </div>
+            
+            <p style={paragraphStyle}>
+              ಶತಮಾನಗಳಿಂದ ಭಕ್ತರು ಈ ಪವಿತ್ರ ಕ್ಷೇತ್ರಕ್ಕೆ ಬಂದು ತಮ್ಮ ಮನಸ್ಕಾಮನೆಗಳನ್ನು ಈಡೇರಿಸಿಕೊಂಡಿದ್ದಾರೆ. ವಿಶೇಷವಾಗಿ ಬಾಳೆಹಣ್ಣು ಸೇವೆ, ಬೆಳ್ಳಿಯ ಅಂಗಾಂಗ ಮಾದರಿಗಳ ಅರ್ಪಣೆ ಮತ್ತು ರಥೋತ್ಸವದ ಸಂದರ್ಭದಲ್ಲಿ ಭಕ್ತರು ಅದ್ಭುತ ಅನುಭವಗಳನ್ನು ಹೊಂದಿದ್ದಾರೆ.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>🕊️ ಸಮಾಪನ - Conclusion</h2>
+            
+            <p style={kannadaTextStyle}>
+              ಪೆರ್ಡೂರು ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭ ಸ್ವಾಮಿ ದೇವಾಲಯವು ಕೇವಲ ಒಂದು ಪೂಜಾ ಸ್ಥಳವಲ್ಲ, ಇದು ವೈಷ್ಣವ-ಶೈವ ಸಂಸ್ಕೃತಿಯ ಸಂಯೋಜನೆಯುಳ್ಳ ಪವಿತ್ರ ಕ್ಷೇತ್ರವಾಗಿದೆ. ಶ್ರದ್ಧೆ, ಇತಿಹಾಸ, ಆಚರಣೆಗಳು ಮತ್ತು ಆಧ್ಯಾತ್ಮಿಕ ಅನುಭವಗಳಿಂದ ಕೂಡಿದ ಈ ದೇವಾಲಯವು ಭಕ್ತರ ಹೃದಯದಲ್ಲಿ ಅಮಿತ ಸ್ಥಾನವನ್ನು ಪಡೆದಿದೆ.
+            </p>
+            
+            <p style={paragraphStyle}>
+              Whether you come for the famous Banana Seva, to witness the grand Rathotsava celebrations, or simply to experience the divine peace of this ancient temple, Perdoor Sri Ananthapadmanabha Temple offers a unique spiritual journey that connects devotees to centuries of tradition and faith.
+            </p>
+            
+            <div style={highlightBoxStyle}>
+              <strong>🙏 ಓಂ ಶ್ರೀ ಅನಂತಪದ್ಮನಾಭಾಯ ನಮಃ 🙏</strong><br/>
+              <em>ಭಕ್ತರ ಮನಸ್ಕಾಮನೆಗಳನ್ನು ಈಡೇರಿಸುವ ಕೃಪಾಮಯ ದೇವರಿಗೆ ನಮಸ್ಕಾರ</em>
+            </div>
+          </section>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };
 
-export default PerdoorTempleHistory;
+export default TempleHistoryPage;
