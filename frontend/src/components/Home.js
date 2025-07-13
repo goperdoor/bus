@@ -60,7 +60,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="header">
+      <div className="header2">
         <h1>🚌 ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
         <p>ನಿಮ್ಮ ಬಸ್ ಸಮಯವನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
       </div>
