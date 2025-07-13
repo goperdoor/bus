@@ -2,12 +2,17 @@ import React from 'react';
 import { MapPin, Phone, Mail, Clock, Bus, Facebook, Twitter, Instagram } from 'lucide-react';
 
 const Footer = () => {
-  const footerStyle = {
-    backgroundColor: '#1a202c',
-    color: '#e2e8f0',
-    padding: '60px 20px 20px',
-    fontFamily: 'Arial, sans-serif'
-  };
+ const footerStyle = {
+  backgroundColor: '#1a202c',
+  color: '#e2e8f0',
+  padding: '60px 20px 20px',
+  borderTopLeftRadius: '27px',
+  borderTopRightRadius: '27px',
+  fontFamily: 'Arial, sans-serif',
+  paddingTop: '45px',
+   boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
+};
+
 
   const containerStyle = {
     maxWidth: '1200px',
@@ -30,7 +35,7 @@ const Footer = () => {
   const titleStyle = {
     fontSize: '20px',
     fontWeight: 'bold',
-    marginBottom: '10px',
+    marginBottom: '1px',
     color: '#60a5fa',
     display: 'flex',
     alignItems: 'center',
@@ -40,11 +45,14 @@ const Footer = () => {
   const linkStyle = {
     color: '#cbd5e0',
     textDecoration: 'none',
-    padding: '8px 0',
+    padding: '0px 0',
     transition: 'color 0.3s ease',
     display: 'flex',
+    flexDirection:'row',
     alignItems: 'center',
-    gap: '8px'
+    textAlign:'center',
+    gap: '21px',
+    paddingleft:'0px'
   };
 
   const socialStyle = {
@@ -71,7 +79,8 @@ const Footer = () => {
     paddingTop: '20px',
     textAlign: 'center',
     color: '#a0aec0',
-    fontSize: '14px'
+    fontSize: '14px',
+   
   };
 
   const brandStyle = {
@@ -110,7 +119,7 @@ const Footer = () => {
           <div style={sectionStyle}>
             <div style={brandStyle}>
               <Bus size={28} />
-              BusTime Pro
+              GoPerdoor
             </div>
             <p style={{ color: '#a0aec0', lineHeight: '1.6' }}>
               Your reliable companion for bus schedules and real-time updates. 
@@ -142,101 +151,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div style={sectionStyle}>
-            <h3 style={titleStyle}>
-              <Clock size={20} />
-              Quick Links
-            </h3>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Live Bus Tracking
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Route Search
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Schedule Updates
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Fare Information
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Mobile App
-            </a>
-          </div>
-
-          {/* Services */}
-          <div style={sectionStyle}>
-            <h3 style={titleStyle}>
-              <Bus size={20} />
-              Services
-            </h3>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              City Bus Routes
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Express Services
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Night Services
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Holiday Schedule
-            </a>
-            <a 
-              href="#" 
-              style={linkStyle}
-              onMouseEnter={handleLinkHover}
-              onMouseLeave={handleLinkLeave}
-            >
-              Route Planner
-            </a>
-          </div>
-
+          
           {/* Contact Info */}
           <div style={sectionStyle}>
             <h3 style={titleStyle}>
@@ -245,26 +160,20 @@ const Footer = () => {
             </h3>
             <div style={{ ...linkStyle, cursor: 'default' }}>
               <MapPin size={16} />
-              123 Transit Avenue, City Center
+              Perdoor Udupi, Karnataka
             </div>
-            <div style={{ ...linkStyle, cursor: 'default' }}>
-              <Phone size={16} />
-              +1 (555) 123-4567
-            </div>
+            
             <div style={{ ...linkStyle, cursor: 'default' }}>
               <Mail size={16} />
-              info@bustimepro.com
+              goperdoor576124@gmail.com
             </div>
-            <div style={{ ...linkStyle, cursor: 'default' }}>
-              <Clock size={16} />
-              24/7 Customer Support
-            </div>
+            
           </div>
         </div>
 
         {/* Bottom Section */}
         <div style={bottomStyle}>
-          <p>© 2024 BusTime Pro. All rights reserved. | Privacy Policy | Terms of Service | Accessibility</p>
+          <p>© 2024 GoPerdoor. All rights reserved. | Privacy Policy | Terms of Service | Accessibility</p>
         </div>
       </div>
     </footer>
