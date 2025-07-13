@@ -60,12 +60,12 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="header2">
-        <h1>🚌 ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
+      <div className="header2" id='header2'>
+        <h1> ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
         <p>ನಿಮ್ಮ ಬಸ್ ಸಮಯವನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
       </div>
 
-      <div className="search-section">
+      <div className="search-section" id='search-section'>
         <form onSubmit={handleSearch} className="search-form">
           <div className="input-group">
             <label htmlFor="destination">ಎಲ್ಲಿಗೆ ಹೋಗಬೇಕು?</label>
