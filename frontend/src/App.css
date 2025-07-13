@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%);
   min-height: 100vh;
   color: #333;
 }
@@ -17,35 +17,68 @@ body {
 
 /* Home Page Styles */
 .home-container {
+ 
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ background: linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%);
 }
 
 .header2 {
   text-align: center;
+  margin-top: 100px;
   margin-bottom: 30px;
   color: white;
 }
 
 .header2 h1 {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
+
 
 .header2 p {
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   font-size: 1.2rem;
   opacity: 0.9;
+  font-weight: 600;
 }
-
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .search-section {
   max-width: 600px;
   margin: 0 auto 30px;
   background: white;
-  padding: 30px;
+  padding: 50px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  
+
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 15px;
+    border: 1px solid rgba(147, 51, 234, 0.1);
+
+    transition: 0.3s;
+    animation: 0.5s ease 0s 1 normal forwards running fadeInUp;
 }
 
 .search-form {
@@ -55,17 +88,34 @@ body {
 }
 
 .input-group select {
+  width: 100%;
   padding: 15px;
+  padding-right: 40px; /* for arrow spacing */
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-size: 1.1rem;
-  transition: border-color 0.3s;
+  background-color: #f9fafb;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23667eea' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px 16px;
+  transition: all 0.3s ease;
+}
+
+.input-group select:hover {
+  border-color: #a3bffa;
+  cursor: pointer;
 }
 
 .input-group select:focus {
   outline: none;
   border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background-color: #f0f4ff;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
 }
 
 
@@ -78,7 +128,7 @@ body {
 }
 
 .input-group label {
-  font-weight: 600;
+  font-weight: bolder;
   color: #555;
   font-size: 1.1rem;
 }
@@ -87,6 +137,7 @@ body {
   padding: 15px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
+  font-weight: bolder;
   font-size: 1.1rem;
   transition: border-color 0.3s;
 }
@@ -127,11 +178,21 @@ body {
 .results-header {
   text-align: center;
   margin-bottom: 20px;
-  color: white;
+  margin-left: -10px;
+  margin-right: -10px;
+  padding: 10px;
+  background-color: white;
+  text-shadow: 2px 2px 9px rgba(0, 0, 0, 0.3);
 }
 
 .results-header h2 {
-  font-size: 2rem;
+  font-size: 1.7rem;
+ background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 10px;
 }
 
@@ -139,7 +200,7 @@ body {
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.3);
   padding: 20px;
   border-radius: 10px;
 }
@@ -149,8 +210,10 @@ body {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+ 
+  transition: 0.3s;
+    animation: 0.5s ease 0s 1 normal forwards running fadeInUp;
 }
 
 .bus-card:hover {
@@ -159,11 +222,13 @@ body {
 
 .bus-header {
   display: flex;
+  flex-direction: row;
   justify-content: between;
   align-items: center;
   margin-bottom: 15px;
   flex-wrap: wrap;
   gap: 10px;
+  
 }
 
 .bus-name {
@@ -198,6 +263,7 @@ body {
 .detail-label {
   font-size: 0.9rem;
   color: #666;
+  font-weight: 900;
   margin-bottom: 5px;
 }
 
@@ -225,6 +291,7 @@ body {
 .minutes-left {
   font-size: 1rem;
   opacity: 0.9;
+  font-weight: bold;
 }
 
 .availability-badge {
