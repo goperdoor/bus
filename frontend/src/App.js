@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
@@ -13,9 +14,28 @@ import WisdomWall from './Pages/WisdomWall';
 
 
 function App() {
+  const [isPWA, setIsPWA] = useState(false);
+   useEffect(() => {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                         window.navigator.standalone === true;
+    setIsPWA(isStandalone);
+  }, []);
+  const containerStyle = isPWA
+    ? {
+        maxWidth: '480px',
+        width: '100%',
+        margin: '0 auto',
+        height: '100vh',
+        overflowY: 'auto',
+        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+        backgroundColor: '#ffffff',
+        fontFamily: 'sans-serif'
+      }
+    : {};
+
   return (
     
-      <div className="App">
+      <div className="App" style={containerStyle}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
