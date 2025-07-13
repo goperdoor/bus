@@ -22,15 +22,18 @@ const BusTimingHeader = () => {
           background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
           color: white;
           padding: 1rem 2rem;
-         
+          width: 100%;
+         padding-top: 2px;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
           z-index: 1000;
-          position: relative;
+          position: fixed;
           border-radius: 0px 0px 27px 27px;
           
         }
 
         .header-content {
+        padding-top: 6px;
+        padding-bottom: 6px;
           display: flex;
           justify-content: space-between;
           align-items: center;
