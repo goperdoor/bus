@@ -1,0 +1,238 @@
+import React, { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
+const BusTimingHeader = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <div>
+      <style jsx>{`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        .header {
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          color: white;
+          padding: 1rem 2rem;
+         
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+          z-index: 1000;
+          position: relative;
+          border-radius: 0px 0px 27px 27px;
+          
+        }
+
+        .header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .logo {
+          font-size: 1.8rem;
+          font-weight: bold;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0rem;
+        }
+          .logo h4 {
+            margin: 0;
+            font-weight:bolder;
+      }
+        .logo p{
+        
+          font-size: 0.8rem;
+
+       }
+       
+
+        .hamburger {
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+          padding: 0.5rem;
+          transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+          transform: scale(1.1);
+        }
+
+        .bar {
+          width: 35px;
+          height: 5px;
+          background-color: white;
+          margin: 3px 0;
+          
+          transition: all 0.3s ease;
+          border-radius: 2px;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background: white;
+          min-width: 200px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          border-radius: 0 0 0 10px;
+          overflow: hidden;
+          transform: translateY(-10px);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .menu-item {
+          display: block;
+          padding: 1rem 1.5rem;
+          color: #333;
+          text-decoration: none;
+          border-bottom: 1px solid #f0f0f0;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .menu-item:last-child {
+          border-bottom: none;
+        }
+
+        .menu-item:hover {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          transform: translateX(5px);
+        }
+
+        .menu-item::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s;
+        }
+
+        .menu-item:hover::before {
+          left: 100%;
+        }
+
+        @media (max-width: 768px) {
+          .header {
+            padding: 1rem 1rem;
+          }
+          
+          .logo {
+            font-size: 1.4rem;
+          }
+          
+          .mobile-menu {
+            right: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            min-width: 200px;
+          }
+        }
+
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          z-index: 999;
+        }
+
+        .overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+      `}</style>
+
+      <header className="header">
+        <div className="header-content">
+          <div className="logo">
+            <h4>GoPerdoor</h4>
+            <p>ಇಲ್ಲಿದೆ ಬಸ್ ಟೈಮ್ !</p>
+          </div>
+          
+          <div 
+            className={`hamburger ${isMenuOpen ? 'active' : ''}`}
+            onClick={toggleMenu}
+          >
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </div>
+          
+          <nav className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
+  <Link to="/" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    🏠 Home
+  </Link>
+  <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    📅 perdoor history 
+  </Link>
+  <Link to="/PerdoorPage" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    🗺️ explore perdoor 
+  </Link>
+  <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    📍 Perdoor Bulletin
+  </Link>
+  <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    💰 Privacy Policy
+  </Link>
+  <Link to="/ContactUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    📞 Contact
+  </Link>
+</nav>
+
+        </div>
+      </header>
+
+      <div 
+        className={`overlay ${isMenuOpen ? 'active' : ''}`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+
+      {/* Demo content to show the header in action */}
+      
+    </div>
+  );
+};
+
+export default BusTimingHeader;
