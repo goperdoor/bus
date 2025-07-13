@@ -36,9 +36,45 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <div class="loading">
-        <p>Loading Perdoor Bus Timing...</p>
-      </div>
+     <div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100vh',
+  backgroundColor: '#f9f9ff'
+}}>
+  <div style={{
+    width: '60px',
+    height: '60px',
+    border: '6px solid rgba(200, 200, 255, 0.3)',
+    borderTop: '6px solid #6c63ff',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '20px'
+  }} className="spinner"></div>
+
+  <p style={{
+    fontSize: '1.3em',
+    fontWeight: 'bold',
+    background: 'linear-gradient(135deg, #485eff, #a955ff)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    textFillColor: 'transparent',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+  }}>
+    Loading Perdoor Bus Timing...
+  </p>
+
+  {/* Keyframe animation via a style tag */}
+  <style>{`
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  `}</style>
+</div>
+
     </div>
   </body>
 </html>
