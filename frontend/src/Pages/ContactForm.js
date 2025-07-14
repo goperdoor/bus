@@ -71,7 +71,7 @@ const ContactForm = () => {
     <div style={{
       background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
       minHeight: '100vh',
-      padding: '40px 20px'
+      padding: '10px 10px'
     }}>
       <style>
         {`
@@ -99,9 +99,7 @@ const ContactForm = () => {
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-        gap: '40px',
+       
         alignItems: 'start'
       }}>
         {/* Contact Information */}
@@ -111,7 +109,8 @@ const ContactForm = () => {
           padding: '40px',
           boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
           backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+           marginBottom: '20px'
         }}>
           <h2 style={{
             fontSize: '2.5rem',
