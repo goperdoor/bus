@@ -136,7 +136,7 @@ const ContactForm = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px',
+                padding: '11px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
@@ -146,14 +146,14 @@ const ContactForm = () => {
               </div>
               <div>
                 <h4 style={{ margin: '0 0 5px 0', color: '#1e293b', fontWeight: '600' }}>Email</h4>
-                <p style={{ margin: 0, color: '#64748b' }}>contact@yourcompany.com</p>
+                <p style={{ margin: 0, color: '#64748b' }}>goperdoor576124@gmail.com</p>
               </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px',
+                padding: '11px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
@@ -163,14 +163,14 @@ const ContactForm = () => {
               </div>
               <div>
                 <h4 style={{ margin: '0 0 5px 0', color: '#1e293b', fontWeight: '600' }}>Phone</h4>
-                <p style={{ margin: 0, color: '#64748b' }}>+1 (555) 123-4567</p>
+                <p style={{ margin: 0, color: '#64748b' }}></p>
               </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px',
+                padding: '11px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
@@ -180,14 +180,14 @@ const ContactForm = () => {
               </div>
               <div>
                 <h4 style={{ margin: '0 0 5px 0', color: '#1e293b', fontWeight: '600' }}>Address</h4>
-                <p style={{ margin: 0, color: '#64748b' }}>123 Business St, City, State 12345</p>
+                <p style={{ margin: 0, color: '#64748b' }}> Perdoor Udupi Karnataka - 576124</p>
               </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                padding: '12px',
+                padding: '11px',
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
