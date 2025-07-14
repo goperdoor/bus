@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Admin from './components/Admin';
 import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
 import './App.css';
-import ContactUs from './Pages/ContactUs'
+import ContactForm from './Pages/ContactForm'
 import PerdoorPage from './Pages/PerdoorPage'
 import PrivacyPolicy from './Pages/PrivacyPolicy'
 import Header from './components/BusTimingHeader';
@@ -41,7 +41,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
-          <Route path="/ContactUs" element={<ContactUs />} />
+          <Route path="/ContactForm" element={<ContactForm />} />
           <Route path="/PerdoorPage" element={<PerdoorPage />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/WisdomWall" element={<WisdomWall />} />
