@@ -103,7 +103,7 @@ const ContactForm = () => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
         gap: '40px',
         alignItems: 'start',
-        MarginTop: '100px',
+       marginTop: '100px', 
       }}>
         {/* Contact Information */}
         <div style={{
