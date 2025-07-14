@@ -219,7 +219,7 @@ const BusTimingHeader = () => {
   <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
     💰 Privacy Policy
   </Link>
-  <Link to="/ContactUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+  <Link to="/ContactForm" className="menu-item" onClick={() => setIsMenuOpen(false)}>
     📞 Contact
   </Link>
 </nav>
