@@ -9,7 +9,10 @@ const Bus = require('./models/Bus');
 const app = express();
 
 // ✅ Setup CORS to allow only your Vercel frontend
-const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3000']; // Add more origins if needed
+const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3000','https://www.goperdoor.tech',
+  'https://goperdoor.tech',
+  'http://www.goperdoor.tech',
+  'http://goperdoor.tech']; // Add more origins if needed
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
