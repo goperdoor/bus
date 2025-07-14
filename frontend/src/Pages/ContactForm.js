@@ -99,7 +99,7 @@ const ContactForm = () => {
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
-       
+       marginTop: '100px', 
         alignItems: 'start'
       }}>
         {/* Contact Information */}
