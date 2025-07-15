@@ -3,6 +3,18 @@ import { ChevronLeft, ChevronRight, MapPin, Clock, Star } from 'lucide-react';
 
 const PerdoorPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Carousel images for Perdoor
   const carouselImages = [
@@ -124,7 +136,7 @@ const PerdoorPage = () => {
       background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
       minHeight: '100vh'
     }}>
-      {/* CSS Animations */}
+      {/* CSS Animations and Media Queries */}
       <style>
         {`
           @keyframes fadeInUp {
@@ -145,18 +157,91 @@ const PerdoorPage = () => {
           a:hover {
             opacity: 0.8;
           }
+
+          /* Mobile Responsive Styles */
+          @media (max-width: 768px) {
+            .carousel-title {
+              font-size: 2rem !important;
+            }
+            
+            .carousel-subtitle {
+              font-size: 1rem !important;
+            }
+            
+            .section-title {
+              font-size: 2rem !important;
+            }
+            
+            .nav-button {
+              width: 40px !important;
+              height: 40px !important;
+            }
+            
+            .carousel-dot {
+              width: 10px !important;
+              height: 10px !important;
+            }
+            
+            .card-grid {
+              grid-template-columns: 1fr !important;
+              gap: 1rem !important;
+            }
+            
+            .card-image {
+              height: 200px !important;
+            }
+            
+            .card-padding {
+              padding: 1rem !important;
+            }
+            
+            .unique-card {
+              padding: 1.5rem !important;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .carousel-title {
+              font-size: 1.5rem !important;
+            }
+            
+            .carousel-subtitle {
+              font-size: 0.9rem !important;
+            }
+            
+            .section-title {
+              font-size: 1.8rem !important;
+            }
+            
+            .nav-button {
+              width: 35px !important;
+              height: 35px !important;
+            }
+            
+            .card-image {
+              height: 180px !important;
+            }
+            
+            .unique-card {
+              padding: 1rem !important;
+            }
+          }
         `}
       </style>
 
       {/* Carousel Section */}
-      <section id="carousel" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <section id="carousel" style={{ 
+        position: 'relative', 
+        height: isMobile ? '60vh' : '100vh', 
+        overflow: 'hidden' 
+      }}>
         <div style={{
           position: 'relative',
           width: '100%',
           height: '100%',
           display: 'flex',
           transition: 'transform 0.5s ease-in-out',
-          marginTop:'60px',
+          marginTop: isMobile ? '0' : '60px',
           transform: `translateX(-${currentSlide * 100}%)`
         }}>
           {carouselImages.map((img, index) => (
@@ -184,18 +269,19 @@ const PerdoorPage = () => {
                 zIndex: 1,
                 textAlign: 'center',
                 color: 'white',
-                padding: '2rem'
+                padding: isMobile ? '1rem' : '2rem',
+                maxWidth: '90%'
               }}>
-                <h2 style={{
-                  fontSize: '3rem',
+                <h2 className="carousel-title" style={{
+                  fontSize: isMobile ? '2rem' : '3rem',
                   margin: '0 0 1rem 0',
                   textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                   animation: 'fadeInUp 1s ease-out'
                 }}>
                   {img.title}
                 </h2>
-                <p style={{
-                  fontSize: '1.2rem',
+                <p className="carousel-subtitle" style={{
+                  fontSize: isMobile ? '1rem' : '1.2rem',
                   margin: 0,
                   textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
                   animation: 'fadeInUp 1s ease-out 0.3s both'
@@ -208,16 +294,16 @@ const PerdoorPage = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <button onClick={prevSlide} style={{
+        <button onClick={prevSlide} className="nav-button" style={{
           position: 'absolute',
-          left: '20px',
+          left: isMobile ? '10px' : '20px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'rgba(255, 255, 255, 0.2)',
           border: 'none',
           borderRadius: '50%',
-          width: '50px',
-          height: '50px',
+          width: isMobile ? '40px' : '50px',
+          height: isMobile ? '40px' : '50px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -225,19 +311,19 @@ const PerdoorPage = () => {
           color: 'white',
           transition: 'background 0.3s'
         }}>
-          <ChevronLeft size={24} />
+          <ChevronLeft size={isMobile ? 20 : 24} />
         </button>
 
-        <button onClick={nextSlide} style={{
+        <button onClick={nextSlide} className="nav-button" style={{
           position: 'absolute',
-          right: '20px',
+          right: isMobile ? '10px' : '20px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'rgba(255, 255, 255, 0.2)',
           border: 'none',
           borderRadius: '50%',
-          width: '50px',
-          height: '50px',
+          width: isMobile ? '40px' : '50px',
+          height: isMobile ? '40px' : '50px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -245,7 +331,7 @@ const PerdoorPage = () => {
           color: 'white',
           transition: 'background 0.3s'
         }}>
-          <ChevronRight size={24} />
+          <ChevronRight size={isMobile ? 20 : 24} />
         </button>
 
         {/* Dots Indicator */}
@@ -255,15 +341,16 @@ const PerdoorPage = () => {
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
-          gap: '10px'
+          gap: isMobile ? '8px' : '10px'
         }}>
           {carouselImages.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
+              className="carousel-dot"
               style={{
-                width: '12px',
-                height: '12px',
+                width: isMobile ? '10px' : '12px',
+                height: isMobile ? '10px' : '12px',
                 borderRadius: '50%',
                 border: 'none',
                 background: currentSlide === index ? 'white' : 'rgba(255, 255, 255, 0.5)',
@@ -276,12 +363,19 @@ const PerdoorPage = () => {
       </section>
 
       {/* Temples Section */}
-      <section id="temples" style={{ padding: '4rem 0', background: 'rgba(255, 255, 255, 0.3)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 style={{
+      <section id="temples" style={{ 
+        padding: isMobile ? '2rem 0' : '4rem 0', 
+        background: 'rgba(255, 255, 255, 0.3)' 
+      }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: isMobile ? '0 1rem' : '0 1rem' 
+        }}>
+          <h2 className="section-title" style={{
             textAlign: 'center',
-            fontSize: '2.5rem',
-            marginBottom: '3rem',
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            marginBottom: isMobile ? '2rem' : '3rem',
             color: '#6b46c1',
             position: 'relative'
           }}>
@@ -297,10 +391,10 @@ const PerdoorPage = () => {
               borderRadius: '2px'
             }} />
           </h2>
-          <div style={{
+          <div className="card-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: isMobile ? '1rem' : '2rem'
           }}>
             {temples.map((temple, index) => (
               <div key={index} style={{
@@ -312,15 +406,19 @@ const PerdoorPage = () => {
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 12px 35px rgba(107, 70, 193, 0.25)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 12px 35px rgba(107, 70, 193, 0.25)';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(107, 70, 193, 0.15)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(107, 70, 193, 0.15)';
+                }
               }}>
-                <div style={{
-                  height: '250px',
+                <div className="card-image" style={{
+                  height: isMobile ? '200px' : '250px',
                   backgroundImage: `url(${temple.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -341,10 +439,29 @@ const PerdoorPage = () => {
                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#333' }}>{temple.rating}</span>
                   </div>
                 </div>
-                <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#6b46c1' }}>{temple.name}</h3>
-                  <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>{temple.description}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#888', fontSize: '0.9rem' }}>
+                <div className="card-padding" style={{ padding: isMobile ? '1rem' : '1.5rem' }}>
+                  <h3 style={{ 
+                    margin: '0 0 0.5rem 0', 
+                    fontSize: isMobile ? '1.2rem' : '1.3rem', 
+                    color: '#6b46c1' 
+                  }}>
+                    {temple.name}
+                  </h3>
+                  <p style={{ 
+                    margin: '0 0 1rem 0', 
+                    color: '#666', 
+                    fontSize: isMobile ? '0.9rem' : '0.95rem' 
+                  }}>
+                    {temple.description}
+                  </p>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px', 
+                    color: '#888', 
+                    fontSize: isMobile ? '0.8rem' : '0.9rem',
+                    flexWrap: 'wrap'
+                  }}>
                     <Clock size={16} />
                     <span>{temple.timings}</span>
                   </div>
@@ -356,12 +473,19 @@ const PerdoorPage = () => {
       </section>
 
       {/* Tourist Places Section */}
-      <section id="tourist-places" style={{ padding: '4rem 0', background: 'rgba(255, 255, 255, 0.2)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 style={{
+      <section id="tourist-places" style={{ 
+        padding: isMobile ? '2rem 0' : '4rem 0', 
+        background: 'rgba(255, 255, 255, 0.2)' 
+      }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: isMobile ? '0 1rem' : '0 1rem' 
+        }}>
+          <h2 className="section-title" style={{
             textAlign: 'center',
-            fontSize: '2.5rem',
-            marginBottom: '3rem',
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            marginBottom: isMobile ? '2rem' : '3rem',
             color: '#0ea5e9',
             position: 'relative'
           }}>
@@ -377,10 +501,10 @@ const PerdoorPage = () => {
               borderRadius: '2px'
             }} />
           </h2>
-          <div style={{
+          <div className="card-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: isMobile ? '1rem' : '2rem'
           }}>
             {touristPlaces.map((place, index) => (
               <div key={index} style={{
@@ -392,13 +516,17 @@ const PerdoorPage = () => {
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.02)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }
               }}>
-                <div style={{
-                  height: '250px',
+                <div className="card-image" style={{
+                  height: isMobile ? '200px' : '250px',
                   backgroundImage: `url(${place.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
@@ -420,9 +548,21 @@ const PerdoorPage = () => {
                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Perdoor</span>
                   </div>
                 </div>
-                <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#0ea5e9' }}>{place.name}</h3>
-                  <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>{place.description}</p>
+                <div className="card-padding" style={{ padding: isMobile ? '1rem' : '1.5rem' }}>
+                  <h3 style={{ 
+                    margin: '0 0 0.5rem 0', 
+                    fontSize: isMobile ? '1.2rem' : '1.3rem', 
+                    color: '#0ea5e9' 
+                  }}>
+                    {place.name}
+                  </h3>
+                  <p style={{ 
+                    margin: '0 0 1rem 0', 
+                    color: '#666', 
+                    fontSize: isMobile ? '0.9rem' : '0.95rem' 
+                  }}>
+                    {place.description}
+                  </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                     {place.activities.map((activity, idx) => (
                       <span key={idx} style={{
@@ -430,7 +570,7 @@ const PerdoorPage = () => {
                         color: '#0ea5e9',
                         padding: '4px 12px',
                         borderRadius: '20px',
-                        fontSize: '0.8rem',
+                        fontSize: isMobile ? '0.75rem' : '0.8rem',
                         fontWeight: '500'
                       }}>
                         {activity}
@@ -445,12 +585,19 @@ const PerdoorPage = () => {
       </section>
 
       {/* Unique Things Section */}
-      <section id="unique-things" style={{ padding: '4rem 0', background: 'rgba(236, 72, 153, 0.1)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h2 style={{
+      <section id="unique-things" style={{ 
+        padding: isMobile ? '2rem 0' : '4rem 0', 
+        background: 'rgba(236, 72, 153, 0.1)' 
+      }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: isMobile ? '0 1rem' : '0 1rem' 
+        }}>
+          <h2 className="section-title" style={{
             textAlign: 'center',
-            fontSize: '2.5rem',
-            marginBottom: '3rem',
+            fontSize: isMobile ? '2rem' : '2.5rem',
+            marginBottom: isMobile ? '2rem' : '3rem',
             color: '#ec4899',
             position: 'relative'
           }}>
@@ -466,16 +613,16 @@ const PerdoorPage = () => {
               borderRadius: '2px'
             }} />
           </h2>
-          <div style={{
+          <div className="card-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem'
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: isMobile ? '1rem' : '2rem'
           }}>
             {uniqueThings.map((thing, index) => (
-              <div key={index} style={{
+              <div key={index} className="unique-card" style={{
                 background: 'rgba(255, 255, 255, 0.6)',
                 borderRadius: '15px',
-                padding: '2rem',
+                padding: isMobile ? '1.5rem' : '2rem',
                 textAlign: 'center',
                 transition: 'transform 0.3s ease, background 0.3s ease',
                 cursor: 'pointer',
@@ -483,16 +630,35 @@ const PerdoorPage = () => {
                 boxShadow: '0 8px 25px rgba(236, 72, 153, 0.15)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
+                if (!isMobile) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
+                }
               }}>
-                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{thing.icon}</div>
-                <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.3rem', color: '#ec4899' }}>{thing.title}</h3>
-                <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>
+                <div style={{ 
+                  fontSize: isMobile ? '2.5rem' : '3rem', 
+                  marginBottom: '1rem' 
+                }}>
+                  {thing.icon}
+                </div>
+                <h3 style={{ 
+                  margin: '0 0 1rem 0', 
+                  fontSize: isMobile ? '1.2rem' : '1.3rem', 
+                  color: '#ec4899' 
+                }}>
+                  {thing.title}
+                </h3>
+                <p style={{ 
+                  margin: '0 0 1rem 0', 
+                  color: '#666', 
+                  fontSize: isMobile ? '0.9rem' : '0.95rem' 
+                }}>
                   {thing.description}
                 </p>
                 <div style={{
@@ -501,7 +667,7 @@ const PerdoorPage = () => {
                   borderRadius: '20px',
                   padding: '8px 16px',
                   display: 'inline-block',
-                  fontSize: '0.85rem',
+                  fontSize: isMobile ? '0.8rem' : '0.85rem',
                   fontWeight: 'bold'
                 }}>
                   {thing.highlight}
