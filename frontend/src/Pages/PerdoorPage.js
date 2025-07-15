@@ -232,7 +232,7 @@ const PerdoorPage = () => {
       {/* Carousel Section */}
       <section id="carousel" style={{ 
         position: 'relative', 
-        height: isMobile ? '60vh' : '100vh', 
+        height: isMobile ? '95vh' : '100vh', 
         overflow: 'hidden' 
       }}>
         <div style={{
@@ -241,7 +241,7 @@ const PerdoorPage = () => {
           height: '100%',
           display: 'flex',
           transition: 'transform 0.5s ease-in-out',
-          marginTop: isMobile ? '0' : '60px',
+          marginTop: isMobile ? '66px' : '66px',
           transform: `translateX(-${currentSlide * 100}%)`
         }}>
           {carouselImages.map((img, index) => (
