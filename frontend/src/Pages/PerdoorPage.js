@@ -117,37 +117,46 @@ const PerdoorPage = () => {
   ];
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6', color: '#333' }}>
-      {/* Header */}
-      <header style={{
-        background: 'linear-gradient(135deg, #2c5530, #3d7c47)',
-        color: 'white',
-        padding: '1rem 0',
-        position: 'fixed',
-        top: 0,
-        width: '100%',
-        zIndex: 1000,
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h1 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 'bold' }}>Perdoor</h1>
-          <nav>
-            <a href="#carousel" style={{ color: 'white', textDecoration: 'none', margin: '0 1rem', transition: 'opacity 0.3s' }}>Home</a>
-            <a href="#temples" style={{ color: 'white', textDecoration: 'none', margin: '0 1rem', transition: 'opacity 0.3s' }}>Temples</a>
-            <a href="#tourist-places" style={{ color: 'white', textDecoration: 'none', margin: '0 1rem', transition: 'opacity 0.3s' }}>Tourist Places</a>
-            <a href="#unique-things" style={{ color: 'white', textDecoration: 'none', margin: '0 1rem', transition: 'opacity 0.3s' }}>Unique Things</a>
-          </nav>
-        </div>
-      </header>
+    <div style={{ 
+      fontFamily: 'Arial, sans-serif', 
+      lineHeight: '1.6', 
+      color: '#333',
+      background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
+      minHeight: '100vh'
+    }}>
+      {/* CSS Animations */}
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          html {
+            scroll-behavior: smooth;
+          }
+          
+          a:hover {
+            opacity: 0.8;
+          }
+        `}
+      </style>
 
       {/* Carousel Section */}
-      <section id="carousel" style={{ position: 'relative', height: '100vh', overflow: 'hidden', marginTop: '60px' }}>
+      <section id="carousel" style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
         <div style={{
           position: 'relative',
           width: '100%',
           height: '100%',
           display: 'flex',
           transition: 'transform 0.5s ease-in-out',
+          marginTop:'80px',
           transform: `translateX(-${currentSlide * 100}%)`
         }}>
           {carouselImages.map((img, index) => (
@@ -267,13 +276,13 @@ const PerdoorPage = () => {
       </section>
 
       {/* Temples Section */}
-      <section id="temples" style={{ padding: '4rem 0', background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)' }}>
+      <section id="temples" style={{ padding: '4rem 0', background: 'rgba(255, 255, 255, 0.3)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <h2 style={{
             textAlign: 'center',
             fontSize: '2.5rem',
             marginBottom: '3rem',
-            color: '#2c5530',
+            color: '#6b46c1',
             position: 'relative'
           }}>
             Sacred Temples
@@ -284,7 +293,7 @@ const PerdoorPage = () => {
               transform: 'translateX(-50%)',
               width: '80px',
               height: '4px',
-              background: '#3d7c47',
+              background: '#8b5cf6',
               borderRadius: '2px'
             }} />
           </h2>
@@ -295,20 +304,20 @@ const PerdoorPage = () => {
           }}>
             {temples.map((temple, index) => (
               <div key={index} style={{
-                background: 'white',
+                background: 'rgba(255, 255, 255, 0.8)',
                 borderRadius: '15px',
                 overflow: 'hidden',
-                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                boxShadow: '0 8px 25px rgba(107, 70, 193, 0.15)',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 12px 35px rgba(0,0,0,0.15)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(107, 70, 193, 0.25)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(107, 70, 193, 0.15)';
               }}>
                 <div style={{
                   height: '250px',
@@ -333,7 +342,7 @@ const PerdoorPage = () => {
                   </div>
                 </div>
                 <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#2c5530' }}>{temple.name}</h3>
+                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#6b46c1' }}>{temple.name}</h3>
                   <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>{temple.description}</p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#888', fontSize: '0.9rem' }}>
                     <Clock size={16} />
@@ -347,13 +356,13 @@ const PerdoorPage = () => {
       </section>
 
       {/* Tourist Places Section */}
-      <section id="tourist-places" style={{ padding: '4rem 0', background: 'white' }}>
+      <section id="tourist-places" style={{ padding: '4rem 0', background: 'rgba(255, 255, 255, 0.2)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <h2 style={{
             textAlign: 'center',
             fontSize: '2.5rem',
             marginBottom: '3rem',
-            color: '#2c5530',
+            color: '#0ea5e9',
             position: 'relative'
           }}>
             Tourist Places
@@ -364,7 +373,7 @@ const PerdoorPage = () => {
               transform: 'translateX(-50%)',
               width: '80px',
               height: '4px',
-              background: '#3d7c47',
+              background: '#38bdf8',
               borderRadius: '2px'
             }} />
           </h2>
@@ -375,10 +384,10 @@ const PerdoorPage = () => {
           }}>
             {touristPlaces.map((place, index) => (
               <div key={index} style={{
-                background: 'linear-gradient(135deg, #fff, #f8f9fa)',
+                background: 'rgba(255, 255, 255, 0.7)',
                 borderRadius: '15px',
                 overflow: 'hidden',
-                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                boxShadow: '0 8px 25px rgba(14, 165, 233, 0.15)',
                 transition: 'transform 0.3s ease',
                 cursor: 'pointer'
               }}
@@ -399,7 +408,7 @@ const PerdoorPage = () => {
                     position: 'absolute',
                     top: '10px',
                     left: '10px',
-                    background: 'rgba(44, 85, 48, 0.8)',
+                    background: 'rgba(14, 165, 233, 0.8)',
                     color: 'white',
                     borderRadius: '20px',
                     padding: '5px 15px',
@@ -412,13 +421,13 @@ const PerdoorPage = () => {
                   </div>
                 </div>
                 <div style={{ padding: '1.5rem' }}>
-                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#2c5530' }}>{place.name}</h3>
+                  <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.3rem', color: '#0ea5e9' }}>{place.name}</h3>
                   <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>{place.description}</p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                     {place.activities.map((activity, idx) => (
                       <span key={idx} style={{
-                        background: '#e8f5e8',
-                        color: '#2c5530',
+                        background: 'rgba(14, 165, 233, 0.1)',
+                        color: '#0ea5e9',
                         padding: '4px 12px',
                         borderRadius: '20px',
                         fontSize: '0.8rem',
@@ -436,13 +445,13 @@ const PerdoorPage = () => {
       </section>
 
       {/* Unique Things Section */}
-      <section id="unique-things" style={{ padding: '4rem 0', background: 'linear-gradient(135deg, #2c5530, #3d7c47)', color: 'white' }}>
+      <section id="unique-things" style={{ padding: '4rem 0', background: 'rgba(236, 72, 153, 0.1)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
           <h2 style={{
             textAlign: 'center',
             fontSize: '2.5rem',
             marginBottom: '3rem',
-            color: 'white',
+            color: '#ec4899',
             position: 'relative'
           }}>
             Unique Experiences
@@ -453,7 +462,7 @@ const PerdoorPage = () => {
               transform: 'translateX(-50%)',
               width: '80px',
               height: '4px',
-              background: 'rgba(255, 255, 255, 0.3)',
+              background: '#f472b6',
               borderRadius: '2px'
             }} />
           </h2>
@@ -464,29 +473,31 @@ const PerdoorPage = () => {
           }}>
             {uniqueThings.map((thing, index) => (
               <div key={index} style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: 'rgba(255, 255, 255, 0.6)',
                 borderRadius: '15px',
                 padding: '2rem',
                 textAlign: 'center',
                 transition: 'transform 0.3s ease, background 0.3s ease',
                 cursor: 'pointer',
-                backdropFilter: 'blur(10px)'
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 25px rgba(236, 72, 153, 0.15)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
               }}>
                 <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{thing.icon}</div>
-                <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.3rem', color: 'white' }}>{thing.title}</h3>
-                <p style={{ margin: '0 0 1rem 0', color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem' }}>
+                <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.3rem', color: '#ec4899' }}>{thing.title}</h3>
+                <p style={{ margin: '0 0 1rem 0', color: '#666', fontSize: '0.95rem' }}>
                   {thing.description}
                 </p>
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
+                  background: 'rgba(236, 72, 153, 0.1)',
+                  color: '#ec4899',
                   borderRadius: '20px',
                   padding: '8px 16px',
                   display: 'inline-block',
@@ -500,50 +511,6 @@ const PerdoorPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer style={{
-        background: '#1a1a1a',
-        color: 'white',
-        padding: '2rem 0',
-        textAlign: 'center'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.5rem' }}>Visit Perdoor</h3>
-          <p style={{ margin: '0 0 1rem 0', color: '#ccc' }}>
-            Experience the spiritual essence and natural beauty of Kerala
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-            <div style={{ color: '#ccc', fontSize: '0.9rem' }}>📍 Perdoor, Kerala, India</div>
-            <div style={{ color: '#ccc', fontSize: '0.9rem' }}>📞 +91 123 456 7890</div>
-            <div style={{ color: '#ccc', fontSize: '0.9rem' }}>✉️ info@perdoor.com</div>
-          </div>
-        </div>
-      </footer>
-
-      {/* CSS Animations */}
-      <style>
-        {`
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          
-          html {
-            scroll-behavior: smooth;
-          }
-          
-          a:hover {
-            opacity: 0.8;
-          }
-        `}
-      </style>
     </div>
   );
 };
