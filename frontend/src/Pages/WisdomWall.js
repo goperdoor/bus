@@ -129,7 +129,8 @@ const WisdomWall = () => {
   const mainContentStyle = {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '0 16px'
+    padding: '0 16px',
+    marginTop:'100px'
   };
 
   const headerStyle = {
