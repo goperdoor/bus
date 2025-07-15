@@ -139,10 +139,11 @@ const WisdomWall = () => {
   };
 
   const titleStyle = {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '8px'
+    fontSize: '2.3rem',
+    fontWeight: 'bolder',
+    color: '#6F5AFF',
+    marginBottom: '8px',
+    
   };
 
   const subtitleStyle = {
