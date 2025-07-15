@@ -156,7 +156,7 @@ const PerdoorPage = () => {
           height: '100%',
           display: 'flex',
           transition: 'transform 0.5s ease-in-out',
-          marginTop:'80px',
+          marginTop:'60px',
           transform: `translateX(-${currentSlide * 100}%)`
         }}>
           {carouselImages.map((img, index) => (
