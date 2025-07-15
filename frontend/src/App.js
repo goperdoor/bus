@@ -28,14 +28,16 @@ function App() {
         height: '100vh',
         overflowY: 'auto',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-        backgroundColor: '#ffffff',
+ 
         fontFamily: 'sans-serif'
       }
     : {};
 
   return (
     
-      <div className="App" style={containerStyle}>
+      <div className="App" style={containerStyle}  style={{
+    background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)'
+  }}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
