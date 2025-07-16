@@ -18,9 +18,7 @@ const ContactForm = () => {
       [e.target.name]: e.target.value
     });
   };
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scrolls to top when page loads or navigated to
-  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
