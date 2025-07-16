@@ -106,7 +106,7 @@ const ContactForm = () => {
         margin: '0 auto',
        marginTop: '100px', 
         alignItems: 'start'
-      }}>
+      }} id='scroll'>
         {/* Contact Information */}
         <div style={{
           background: 'rgba(255, 255, 255, 0.95)',
