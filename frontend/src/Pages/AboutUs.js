@@ -1,6 +1,7 @@
 import React from 'react';
 import { Code, Smartphone, Globe, Zap, Users, Award, ArrowRight, CheckCircle } from 'lucide-react';
 import './AboutUs.css';
+import { Link } from 'react-router-dom';
 
 export default function AboutUs() {
   const services = [
@@ -189,10 +190,12 @@ export default function AboutUs() {
             Let's discuss your project and create a website that perfectly represents 
             your brand and achieves your business goals.
           </p>
-          <button className="cta-button">
-            Get Started Today
-            <ArrowRight className="cta-button-icon" />
-          </button>
+          <Link to="/ContactForm">
+  <button className="cta-button">
+    Get Started Today
+    <ArrowRight className="cta-button-icon" />
+  </button>
+</Link>
         </div>
       </div>
     </div>
