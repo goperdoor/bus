@@ -190,7 +190,7 @@ export default function AboutUs() {
             Let's discuss your project and create a website that perfectly represents 
             your brand and achieves your business goals.
           </p>
-         <button className="cta-button" onClick={() => navigate('/contactus')}>
+         <button className="cta-button" onClick={() => navigate('/ContactForm')}>
       Get Started Today
       <ArrowRight className="cta-button-icon" />
     </button>
