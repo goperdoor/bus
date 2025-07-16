@@ -11,7 +11,7 @@ import PrivacyPolicy from './Pages/PrivacyPolicy'
 import Header from './components/BusTimingHeader';
 import Footer from './components/Footer';
 import WisdomWall from './Pages/WisdomWall';
-
+import AboutUs from './Pages/AboutUs';
 
 function App() {
   const [isPWA, setIsPWA] = useState(false);
@@ -47,6 +47,7 @@ function App() {
           <Route path="/PerdoorPage" element={<PerdoorPage />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/WisdomWall" element={<WisdomWall />} />
+  <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
         <Footer />
       </div>
