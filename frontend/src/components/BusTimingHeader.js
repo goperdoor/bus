@@ -210,6 +210,10 @@ const BusTimingHeader = () => {
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
     📅 About Us
   </Link>
+      </Link>
+  <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+    📞 Ricksha & tourist
+  </Link>
   <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
     📅 perdoor history 
   </Link>
