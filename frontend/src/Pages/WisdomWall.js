@@ -77,21 +77,24 @@ const WisdomWall = () => {
   ]);
 
   // Upload image to Cloudinary
-const uploadImageToCloudinary = async (imageFile) => {
+
+  const uploadImageToCloudinary = async (imageFile) => {
   const formData = new FormData();
   formData.append('file', imageFile);
-  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET); // required for unsigned uploads
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET); // ✅ this is required for unsigned uploads
 
   try {
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
       {
         method: 'POST',
-        body: formData
+        body: formData,
       }
     );
 
     if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Cloudinary error response:", errorData); // helpful log
       throw new Error('Failed to upload image to Cloudinary');
     }
 
@@ -101,10 +104,11 @@ const uploadImageToCloudinary = async (imageFile) => {
       public_id: data.public_id
     };
   } catch (error) {
-    console.error('Error uploading to Cloudinary:', error);
+    console.error("Error uploading to Cloudinary:", error);
     throw error;
   }
 };
+
 
 
   // Send email using EmailJS
