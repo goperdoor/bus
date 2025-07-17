@@ -60,7 +60,7 @@ const RickshawBusManagement = () => {
         <table style={{
           width: '100%',
           borderCollapse: 'collapse',
-          minWidth: '300px'
+          
         }}>
           <thead>
             <tr style={{ backgroundColor: bgColor }}>
