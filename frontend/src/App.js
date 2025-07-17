@@ -12,6 +12,7 @@ import Header from './components/BusTimingHeader';
 import Footer from './components/Footer';
 import WisdomWall from './Pages/WisdomWall';
 import AboutUs from './Pages/AboutUs';
+import RickshawBusManagement from './Pages/RickshawBusManagement'
 
 function App() {
   const [isPWA, setIsPWA] = useState(false);
@@ -47,7 +48,8 @@ function App() {
           <Route path="/PerdoorPage" element={<PerdoorPage />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/WisdomWall" element={<WisdomWall />} />
-  <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
         </Routes>
         <Footer />
       </div>
