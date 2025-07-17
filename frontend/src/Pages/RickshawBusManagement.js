@@ -121,7 +121,7 @@ const RickshawBusManagement = () => {
         margin: '0 auto'
       }}>
         {/* Rickshaw Tables */}
-        <div style={{ marginBottom: '3rem' }}>
+        <div style={{ marginBottom: '3rem' , marginTop: '100px'}}>
           <h1 style={{
             fontSize: '2rem',
             fontWeight: 'bold',
