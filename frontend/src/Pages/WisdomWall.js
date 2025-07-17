@@ -10,6 +10,16 @@ const WisdomWall = () => {
   });
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+
+  // EmailJS Configuration - Replace with your actual values
+  const EMAILJS_SERVICE_ID = 'your_service_id';
+  const EMAILJS_TEMPLATE_ID = 'your_template_id';
+  const EMAILJS_PUBLIC_KEY = 'your_public_key';
+
+  // Cloudinary Configuration - Replace with your actual values
+  const CLOUDINARY_CLOUD_NAME = 'your_cloud_name';
+  const CLOUDINARY_UPLOAD_PRESET = 'your_upload_preset';
 
   // Sample data - in real app, this would come from your backend
   const [posts] = useState([
@@ -66,9 +76,84 @@ const WisdomWall = () => {
     }
   ]);
 
+  // Upload image to Cloudinary
+  const uploadImageToCloudinary = async (imageFile) => {
+    const formData = new FormData();
+    formData.append('file', imageFile);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image to Cloudinary');
+      }
+
+      const data = await response.json();
+      return {
+        url: data.secure_url,
+        public_id: data.public_id
+      };
+    } catch (error) {
+      console.error('Error uploading to Cloudinary:', error);
+      throw error;
+    }
+  };
+
+  // Send email using EmailJS
+  const sendEmailNotification = async (templateParams) => {
+    try {
+      // Load EmailJS if not already loaded
+      if (!window.emailjs) {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+        script.onload = () => {
+          window.emailjs.init(EMAILJS_PUBLIC_KEY);
+        };
+        document.head.appendChild(script);
+        
+        // Wait for script to load
+        await new Promise((resolve) => {
+          script.onload = resolve;
+        });
+      }
+
+      const response = await window.emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      return response;
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw error;
+    }
+  };
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size should be less than 5MB');
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file');
+        return;
+      }
+
       setFormData({ ...formData, image: file });
       const reader = new FileReader();
       reader.onload = (e) => setImagePreview(e.target.result);
@@ -84,26 +169,53 @@ const WisdomWall = () => {
     
     setIsSubmitting(true);
 
-    // EmailJS configuration
-    const templateParams = {
-      from_name: formData.name,
-      message: formData.content,
-      to_email: 'admin@yoursite.com', // Replace with your admin email
-      // Note: Image handling with EmailJS requires additional setup
-    };
-
     try {
-      // Initialize EmailJS (you'll need to replace these with your actual IDs)
-      // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_USER_ID');
+      let imageInfo = null;
+
+      // Upload image to Cloudinary if provided
+      if (formData.image) {
+        try {
+          const uploadResult = await uploadImageToCloudinary(formData.image);
+          imageInfo = {
+            url: uploadResult.url,
+            public_id: uploadResult.public_id
+          };
+          setUploadedImageUrl(uploadResult.url);
+        } catch (error) {
+          alert('Failed to upload image. Please try again.');
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      // Prepare email template parameters
+      const templateParams = {
+        from_name: formData.name,
+        user_name: formData.name,
+        message: formData.content,
+        content: formData.content,
+        submission_date: new Date().toLocaleDateString(),
+        submission_time: new Date().toLocaleTimeString(),
+        has_image: imageInfo ? 'Yes' : 'No',
+        image_url: imageInfo ? imageInfo.url : 'No image uploaded',
+        image_name: imageInfo ? imageInfo.public_id : 'No image',
+        cloudinary_public_id: imageInfo ? imageInfo.public_id : 'N/A',
+        to_email: 'admin@yoursite.com' // Replace with your admin email
+      };
+
+      // Send email notification
+      await sendEmailNotification(templateParams);
       
-      // For demo purposes, we'll simulate the email sending
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      alert('Your submission has been sent successfully! The admin will review it shortly.');
       
-      alert('Your submission has been sent to admin for review!');
+      // Reset form
       setIsPopupOpen(false);
       setFormData({ name: '', content: '', image: null });
       setImagePreview(null);
+      setUploadedImageUrl(null);
+      
     } catch (error) {
+      console.error('Submission error:', error);
       alert('Error sending submission. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -421,6 +533,16 @@ const WisdomWall = () => {
     cursor: 'not-allowed'
   };
 
+  const configWarningStyle = {
+    backgroundColor: '#fef3c7',
+    border: '1px solid #fbbf24',
+    borderRadius: '6px',
+    padding: '12px',
+    marginBottom: '16px',
+    fontSize: '0.875rem',
+    color: '#92400e'
+  };
+
   // Media queries for mobile responsiveness
   const mobileStyles = `
     @media (max-width: 768px) {
@@ -443,6 +565,10 @@ const WisdomWall = () => {
   const [hoveredSubmitButton, setHoveredSubmitButton] = useState(false);
   const [hoveredUploadArea, setHoveredUploadArea] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
+
+  // Check if configuration is needed
+  const needsConfig = EMAILJS_SERVICE_ID === 'your_service_id' || 
+                     CLOUDINARY_CLOUD_NAME === 'your_cloud_name';
 
   return (
     <>
@@ -530,6 +656,12 @@ const WisdomWall = () => {
                 </div>
 
                 <div style={formStyle}>
+                  {needsConfig && (
+                    <div style={configWarningStyle}>
+                      ⚠️ Configuration needed: Please update EmailJS and Cloudinary settings in the code.
+                    </div>
+                  )}
+                  
                   <div style={formGroupStyle}>
                     <label style={labelStyle}>
                       Your Name
@@ -582,7 +714,7 @@ const WisdomWall = () => {
                         style={hoveredUploadArea ? {...uploadLabelStyle, ...uploadLabelHoverStyle} : uploadLabelStyle}
                       >
                         <Upload style={uploadIconStyle} />
-                        <span style={uploadTextStyle}>Click to upload image</span>
+                        <span style={uploadTextStyle}>Click to upload image (Max 5MB)</span>
                       </label>
                       {imagePreview && (
                         <img 
