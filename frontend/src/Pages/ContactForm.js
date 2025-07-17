@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'; 
 import { Send, Mail, User, MessageSquare, Phone, MapPin, Clock, CheckCircle, XCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
   useEffect(() => {
@@ -34,9 +35,9 @@ const ContactForm = () => {
       // Add this script to your HTML head: <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
       
       // Replace with your EmailJS credentials
-      const serviceId = 'YOUR_SERVICE_ID';
-      const templateId = 'YOUR_TEMPLATE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
+      const serviceId = 'service_87ck1xf';
+      const templateId = 'template_mqk2l8y';
+      const publicKey = '9WRF-7T0ePeDybk-U';
 
       const templateParams = {
         from_name: formData.name,
