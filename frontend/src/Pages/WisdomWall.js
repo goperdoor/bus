@@ -13,13 +13,13 @@ const WisdomWall = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
   // EmailJS Configuration - Replace with your actual values
-  const EMAILJS_SERVICE_ID = 'your_service_id';
-  const EMAILJS_TEMPLATE_ID = 'your_template_id';
-  const EMAILJS_PUBLIC_KEY = 'your_public_key';
+  const EMAILJS_SERVICE_ID = 'service_87ck1xf';
+  const EMAILJS_TEMPLATE_ID = 'template_kwuq4ws';
+  const EMAILJS_PUBLIC_KEY = '9WRF-7T0ePeDybk-U';
 
   // Cloudinary Configuration - Replace with your actual values
-  const CLOUDINARY_CLOUD_NAME = 'your_cloud_name';
-  const CLOUDINARY_UPLOAD_PRESET = 'your_upload_preset';
+  const CLOUDINARY_CLOUD_NAME = 'dm4u0c7ga';
+  const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
 
   // Sample data - in real app, this would come from your backend
   const [posts] = useState([
