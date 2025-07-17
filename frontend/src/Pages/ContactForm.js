@@ -8,6 +8,11 @@ const ContactForm = () => {
   useEffect(() => {
   window.scrollTo(0, 0);
 }, []);
+useEffect(() => {
+  window.scrollTo(0, 0);
+  emailjs.init('9WRF-7T0ePeDybk-U'); // <-- Initialize EmailJS here
+}, []);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,7 +42,7 @@ const ContactForm = () => {
       // Replace with your EmailJS credentials
       const serviceId = 'service_87ck1xf';
       const templateId = 'template_mqk2l8y';
-      const publicKey = '9WRF-7T0ePeDybk-U';
+ 
 
       const templateParams = {
         from_name: formData.name,
@@ -49,13 +54,7 @@ const ContactForm = () => {
       };
 
       // Use EmailJS from global window object when available
-      if (window.emailjs) {
-        await window.emailjs.send(serviceId, templateId, templateParams, publicKey);
-      } else {
-        // Fallback: simulate sending for demo purposes
-        console.log('EmailJS not loaded. Form data:', templateParams);
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      }
+await emailjs.send(serviceId, templateId, templateParams);
       
       setSubmitStatus('success');
       setFormData({
