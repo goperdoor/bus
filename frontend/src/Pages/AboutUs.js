@@ -2,8 +2,14 @@ import React from 'react';
 import { Code, Smartphone, Globe, Zap, Users, Award, ArrowRight, CheckCircle } from 'lucide-react';
 import './AboutUs.css';
 import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+
 
 export default function AboutUs() {
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
+
   const services = [
     {
       icon: <Globe className="service-icon" />,
