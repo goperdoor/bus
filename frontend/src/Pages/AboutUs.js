@@ -95,7 +95,7 @@ useEffect(() => {
                 <h2 className="card-title">Who We Are</h2>
               </div>
               <p className="card-text">
-                We are a dedicated team of web developers with a passion for creating 
+               We are Anvith Shetty and Rohan Shetty, a dedicated duo of web developers with a passion for creating 
                 exceptional digital experiences. Our expertise spans across modern web 
                 technologies, ensuring your website is not just beautiful, but also 
                 functional and future-proof.
