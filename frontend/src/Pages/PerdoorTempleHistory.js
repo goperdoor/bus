@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 const TempleHistoryPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   const carouselImages = [
     {
       url: "https://images.unsplash.com/photo-1582632503489-208e296d3ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
