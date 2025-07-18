@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, MapPin, Clock, Star } from 'lucide-react';
 
+
 const PerdoorPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   // Check if mobile device
   useEffect(() => {
     const checkMobile = () => {
