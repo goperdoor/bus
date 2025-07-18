@@ -1,7 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Shield, Lock, Gavel, Mail, Phone, Globe, AlertTriangle, Users, Eye, Cookie, UserCheck, MessageCircle, XCircle, Edit, Ban, Calendar, CheckCircle, ArrowRight, Info } from 'lucide-react';
 
 const LegalPage = () => {
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   const mainStyle = {
     background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
     minHeight: '100vh',
