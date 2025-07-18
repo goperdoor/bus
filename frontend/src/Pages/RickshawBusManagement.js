@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 const RickshawBusManagement = () => {
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   // Sample data for 3 different stands
   const [stand1Rickshaws] = useState([
     { id: 1, number: "RK001", driverName: "Rajesh Kumar", phone: "9876543210" },
