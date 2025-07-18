@@ -2,7 +2,7 @@ import React from 'react';
 import { Code, Smartphone, Globe, Zap, Users, Award, ArrowRight, CheckCircle } from 'lucide-react';
 import './AboutUs.css';
 import { Link } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 export default function AboutUs() {
