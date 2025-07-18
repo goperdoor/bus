@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 
 
 export default function AboutUs() {
-  useEffect(() => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+useEffect(() => {
+  window.scrollTo(0, 0);
 }, []);
 
   const services = [
