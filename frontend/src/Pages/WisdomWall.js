@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Send, X, Upload, Heart, Eye } from 'lucide-react';
+import { useEffect } from 'react';
 
 const WisdomWall = () => {
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
