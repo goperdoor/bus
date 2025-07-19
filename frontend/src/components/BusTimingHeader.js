@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { FiHome, FiMapPin, FiUsers, FiLock, FiPhone, FiInfo } from 'react-icons/fi';
+import { FaShuttleVan, FaLandmark } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const BusTimingHeader = () => {
@@ -205,29 +206,29 @@ const BusTimingHeader = () => {
           
           <nav className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
   <Link to="/" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    🏠 Home
+    <FiHome /> Home
   </Link>
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    📅 About Us
+    <FiInfo /> About Us
   </Link>
       
   <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
     📞 Ricksha & tourist
   </Link>
   <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    📅 perdoor history 
+   <FaLandmark /> perdoor history 
   </Link>
   <Link to="/PerdoorPage" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    🗺️ explore perdoor 
+   <FaShuttleVan /> explore perdoor 
   </Link>
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    📍 Perdoor Bulletin
+    <FiUsers /> Perdoor Bulletin
   </Link>
   <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    💰 Privacy Policy
+    <FiLock /> Privacy Policy
   </Link>
   <Link to="/ContactForm" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    📞 Contact
+    <FiPhone />  Contact
   </Link>
 </nav>
 
