@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { FiHome, FiMapPin, FiUsers, FiLock, FiPhone, FiInfo } from 'react-icons/fi';
-import { FaShuttleVan, FaLandmark } from 'react-icons/fa';
+import {
+  FaHome,
+  FaShuttleVan,
+  FaLandmark,
+  FaMapMarkedAlt,
+  FaUsers,
+  FaLock,
+  FaPhone,
+  FaInfoCircle
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const BusTimingHeader = () => {
@@ -206,29 +214,29 @@ const BusTimingHeader = () => {
           
           <nav className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
   <Link to="/" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FiHome /> Home
+   <FaHome /> Home
   </Link>
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FiInfo /> About Us
+     <FaInfoCircle /> About Us
   </Link>
       
   <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    📞 Ricksha & tourist
+    <FaShuttleVan /> Ricksha & tourist
   </Link>
   <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <FaLandmark /> perdoor history 
   </Link>
   <Link to="/PerdoorPage" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-   <FaShuttleVan /> explore perdoor 
+   <FaMapMarkedAlt /> explore perdoor 
   </Link>
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FiUsers /> Perdoor Bulletin
+    <FaUsers /> Perdoor Bulletin
   </Link>
   <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FiLock /> Privacy Policy
+    <FaLock /> Privacy Policy
   </Link>
   <Link to="/ContactForm" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FiPhone />  Contact
+    <FaPhone />  Contact
   </Link>
 </nav>
 
