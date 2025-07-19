@@ -127,7 +127,8 @@ const BusTimingHeader = () => {
         }
 
         .menu-item {
-          display: block;
+              display: flex;
+            gap: 0.5rem;
           padding: 1rem 1.5rem;
           color: #333;
           text-decoration: none;
