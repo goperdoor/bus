@@ -168,10 +168,11 @@ const Footer = () => {
               goperdoor576124@gmail.com
             </div>
 
-            <div style={{ ...linkStyle, cursor: 'default' }}>
-              <Code size={16} />
-            Developed by Anvith Shetty & Rohan Shetty
-            </div>
+           <div style={{ ...linkStyle, cursor: 'default', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+  <Code size={14} />
+  Developed by Anvith Shetty & Rohan Shetty
+</div>
+
             
           </div>
         </div>
