@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Bus, Facebook, Twitter, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Bus, Facebook, Twitter, Instagram , Code } from 'lucide-react';
 
 const Footer = () => {
  const footerStyle = {
@@ -166,6 +166,12 @@ const Footer = () => {
             <div style={{ ...linkStyle, cursor: 'default' }}>
               <Mail size={16} />
               goperdoor576124@gmail.com
+            </div>
+
+            <div style={{ ...linkStyle, cursor: 'default' }}>
+              <Code size={16} />
+             Developed by <a href="https://yourportfolio.com" className="underline">Anvith Shetty</a> & <a href="https://rohanportfolio.com" className="underline">Rohan Shetty</a>
+
             </div>
             
           </div>
