@@ -170,8 +170,7 @@ const Footer = () => {
 
             <div style={{ ...linkStyle, cursor: 'default' }}>
               <Code size={16} />
-            Developed by <strong className="mx-1 text-white">Anvith Shetty</strong> & <strong className="text-white">Rohan Shetty</strong>
-
+            Developed by Anvith Shetty & Rohan Shetty
             </div>
             
           </div>
