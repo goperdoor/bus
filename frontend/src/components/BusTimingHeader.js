@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import {
-  FaHome,
-  FaShuttleVan,
-  FaLandmark,
-  FaMapMarkedAlt,
-  FaUsers,
-  FaLock,
-  FaPhone,
-  FaInfoCircle
-} from 'react-icons/fa';
+  Home,
+  Landmark,
+  MapPinned,
+  Users,
+  Lock,
+  Phone,
+  Info,
+  BusFront,
+  Globe
+} from 'lucide-react';
+
 import { Link } from 'react-router-dom';
 
 const BusTimingHeader = () => {
@@ -214,29 +216,29 @@ const BusTimingHeader = () => {
           
           <nav className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
   <Link to="/" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-   <FaHome /> Home
+   <Home size={18} /> Home
   </Link>
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-     <FaInfoCircle /> About Us
+      <Info size={18} /> About Us
   </Link>
       
   <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FaShuttleVan /> Ricksha & tourist
+     <BusFront size={18} /> Ricksha & tourist
   </Link>
   <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-   <FaLandmark /> perdoor history 
+   <Landmark size={18} /> perdoor history 
   </Link>
   <Link to="/PerdoorPage" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-   <FaMapMarkedAlt /> explore perdoor 
+   <MapPinned size={18} /> explore perdoor 
   </Link>
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FaUsers /> Perdoor Bulletin
+   <Users size={18} /> Perdoor Bulletin
   </Link>
   <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FaLock /> Privacy Policy
+   <Lock size={18} /> Privacy Policy
   </Link>
   <Link to="/ContactForm" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-    <FaPhone />  Contact
+   <Phone size={18} />  Contact
   </Link>
 </nav>
 
