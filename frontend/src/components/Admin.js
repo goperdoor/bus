@@ -19,6 +19,10 @@ const Admin = () => {
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  
+  // Sorting states
+  const [sortField, setSortField] = useState('');
+  const [sortDirection, setSortDirection] = useState('asc'); // 'asc' or 'desc'
 
   useEffect(() => {
     fetchBuses();
@@ -35,6 +39,61 @@ const Admin = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Sorting function
+  const handleSort = (field) => {
+    const newDirection = sortField === field && sortDirection === 'asc' ? 'desc' : 'asc';
+    setSortField(field);
+    setSortDirection(newDirection);
+  };
+
+  // Get sorted buses
+  const getSortedBuses = () => {
+    if (!sortField) return buses;
+
+    return [...buses].sort((a, b) => {
+      let aValue, bValue;
+
+      switch (sortField) {
+        case 'busName':
+          aValue = a.busName.toLowerCase();
+          bValue = b.busName.toLowerCase();
+          break;
+        case 'destination':
+          aValue = a.destination.toLowerCase();
+          bValue = b.destination.toLowerCase();
+          break;
+        case 'arrivalTime':
+          aValue = moment(a.arrivalTimeToPerdoor, 'HH:mm');
+          bValue = moment(b.arrivalTimeToPerdoor, 'HH:mm');
+          break;
+        case 'departureTime':
+          aValue = moment(a.leavingTimeFromPerdoor, 'HH:mm');
+          bValue = moment(b.leavingTimeFromPerdoor, 'HH:mm');
+          break;
+        default:
+          return 0;
+      }
+
+      if (sortField === 'arrivalTime' || sortField === 'departureTime') {
+        // For time comparison
+        if (aValue.isBefore(bValue)) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue.isAfter(bValue)) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      } else {
+        // For string comparison
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      }
+    });
+  };
+
+  // Get sort arrow icon
+  const getSortIcon = (field) => {
+    if (sortField !== field) return '↕️';
+    return sortDirection === 'asc' ? '↑' : '↓';
   };
 
   const handleInputChange = (e) => {
@@ -163,6 +222,8 @@ const Admin = () => {
     return moment(time, 'HH:mm').format('h:mm A');
   };
 
+  const sortedBuses = getSortedBuses();
+
   return (
     <div className="admin-container">
       <div className="admin-header">
@@ -197,25 +258,49 @@ const Admin = () => {
           <table className="table">
             <thead>
               <tr>
-                <th>Bus Name</th>
+                <th 
+                  onClick={() => handleSort('busName')} 
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  title="Click to sort by Bus Name"
+                >
+                  Bus Name {getSortIcon('busName')}
+                </th>
                 <th>Bus Number</th>
-                <th>Destination</th>
-                <th>Arrival Time</th>
-                <th>Departure Time</th>
+                <th 
+                  onClick={() => handleSort('destination')} 
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  title="Click to sort by Destination"
+                >
+                  Destination {getSortIcon('destination')}
+                </th>
+                <th 
+                  onClick={() => handleSort('arrivalTime')} 
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  title="Click to sort by Arrival Time"
+                >
+                  Arrival Time {getSortIcon('arrivalTime')}
+                </th>
+                <th 
+                  onClick={() => handleSort('departureTime')} 
+                  style={{ cursor: 'pointer', userSelect: 'none' }}
+                  title="Click to sort by Departure Time"
+                >
+                  Departure Time {getSortIcon('departureTime')}
+                </th>
                 <th>Availability</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {buses.length === 0 ? (
+              {sortedBuses.length === 0 ? (
                 <tr>
                   <td colSpan="8" style={{ textAlign: 'center', padding: '40px' }}>
                     No buses found. Add some buses to get started.
                   </td>
                 </tr>
               ) : (
-                buses.map((bus) => (
+                sortedBuses.map((bus) => (
                   <tr key={bus._id}>
                     <td>{bus.busName}</td>
                     <td>{bus.busNumber}</td>
@@ -245,6 +330,31 @@ const Admin = () => {
           </table>
         )}
       </div>
+
+      {/* Sort info display */}
+      {sortField && (
+        <div style={{ 
+          marginTop: '10px', 
+          padding: '8px 12px', 
+          background: '#f8f9fa', 
+          border: '1px solid #dee2e6', 
+          borderRadius: '4px',
+          fontSize: '14px',
+          color: '#6c757d'
+        }}>
+          Sorted by: <strong>{sortField === 'busName' ? 'Bus Name' : 
+                              sortField === 'destination' ? 'Destination' : 
+                              sortField === 'arrivalTime' ? 'Arrival Time' : 
+                              'Departure Time'}</strong> 
+          ({sortDirection === 'asc' ? 'Ascending' : 'Descending'})
+          <button 
+            onClick={() => {setSortField(''); setSortDirection('asc');}} 
+            style={{ marginLeft: '10px', background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+          >
+            Clear Sort
+          </button>
+        </div>
+      )}
 
       {showModal && (
         <div className="modal">
