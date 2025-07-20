@@ -26,18 +26,18 @@ const RickshawBusManagement = () => {
       id: 1,
       name: "Himalayan Express",
       capacity: 45,
-      route: "Delhi - Manali - Shimla",
+      route: "",
       facilities: ["AC", "WiFi", "Reclining Seats", "Entertainment System"],
-      contactNumber: "9876543240",
+      contactNumber: "",
       fareRange: "₹1500 - ₹2500"
     },
     {
       id: 2,
       name: "Golden Triangle Tours",
       capacity: 35,
-      route: "Delhi - Agra - Jaipur",
+      route: "",
       facilities: ["AC", "GPS Tracking", "First Aid", "Comfortable Seating"],
-      contactNumber: "9876543241",
+      contactNumber: "",
       fareRange: "₹1200 - ₹2000"
     }
   ]);
