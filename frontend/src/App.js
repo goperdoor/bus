@@ -12,7 +12,8 @@ import Header from './components/BusTimingHeader';
 import Footer from './components/Footer';
 import WisdomWall from './Pages/WisdomWall';
 import AboutUs from './Pages/AboutUs';
-import RickshawBusManagement from './Pages/RickshawBusManagement'
+import RickshawBusManagement from './Pages/RickshawBusManagement';
+import ErrorPage from './Pages/ErrorPage';
 
 function App() {
   const [isPWA, setIsPWA] = useState(false);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/WisdomWall" element={<WisdomWall />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
+   <Route path="/ErrorPage" element={<ErrorPage />} />
         </Routes>
         <Footer />
       </div>
