@@ -143,9 +143,9 @@ const Home = () => {
         </div>
       )}
 
-      <Link to="/admin" className="admin-link">
-        Admin Panel
-      </Link>
+     {/* <Link to="/admin" className="admin-link">
+      Admin Panel
+</Link> */}
     </div>
   );
 };
