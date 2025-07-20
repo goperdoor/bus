@@ -25,6 +25,7 @@ export default function ErrorPage() {
         .error-container {
           text-align: center;
           max-width: 500px;
+          margin-top: 100px;
           width: 100%;
           background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(10px);
