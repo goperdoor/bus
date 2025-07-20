@@ -9,7 +9,7 @@ const RickshawBusManagement = () => {
   // Sample data for 3 different stands
   const [stand1Rickshaws] = useState([
     { id: 1, number: "UNKNOWN", driverName: "Rajesh Kumar", phone: "9876543210" },
-    { id: 2, number: "UNKNOWN", driverName: "ಅನಿಲ್ ಕುಮಾರ್", phone: "8747887655" }
+    
   ]);
 
   const [stand2Rickshaws] = useState([
@@ -18,7 +18,7 @@ const RickshawBusManagement = () => {
   ]);
 
   const [stand3Rickshaws] = useState([
-    { id: 1, number: "RK201", driverName: "Amit Patel", phone: "9876543230" },
+    { id: 1, number: "UNKNOWN", driverName: "ಅನಿಲ್ ಕುಮಾರ್", phone: "8747887655" },
     { id: 2, number: "RK202", driverName: "Rohit Gupta", phone: "9876543231" }
   ]);
 
