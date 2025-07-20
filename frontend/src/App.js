@@ -51,7 +51,7 @@ function App() {
           <Route path="/WisdomWall" element={<WisdomWall />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
-   <Route path="/ErrorPage" element={<ErrorPage />} />
+   <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
       </div>
