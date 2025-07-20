@@ -226,10 +226,10 @@ const BusTimingHeader = () => {
   <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
      <BusFront size={18} /> Ricksha & tourist
   </Link>
-  <Link to="/PerdoorTempleHistory" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+  <Link to="/PerdoorTempleHistorys" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Landmark size={18} /> perdoor history 
   </Link>
-  <Link to="/PerdoorPage" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+  <Link to="/PerdoorPages" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <MapPinned size={18} /> explore perdoor 
   </Link>
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
