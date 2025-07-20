@@ -20,13 +20,9 @@ const Admin = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   
-  // Sorting states
-  const [sortField, setSortField] = useState('');
-  const [sortDirection, setSortDirection] = useState('asc'); // 'asc' or 'desc'
-  
   // Search states
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchFilter, setSearchFilter] = useState('all'); // 'all', 'busName', 'destination'
+  const [searchFilter, setSearchFilter] = useState('all');
 
   useEffect(() => {
     fetchBuses();
@@ -45,16 +41,8 @@ const Admin = () => {
     }
   };
 
-  // Sorting function
-  const handleSort = (field) => {
-    const newDirection = sortField === field && sortDirection === 'asc' ? 'desc' : 'asc';
-    setSortField(field);
-    setSortDirection(newDirection);
-  };
-
-  // Get filtered and sorted buses
-  const getFilteredAndSortedBuses = () => {
-    // First filter based on search
+  // Get filtered buses
+  const getFilteredBuses = () => {
     let filteredBuses = buses;
     
     if (searchTerm.trim()) {
@@ -73,64 +61,17 @@ const Admin = () => {
       });
     }
 
-    // Then sort the filtered results
-    if (!sortField) return filteredBuses;
-
-    return [...filteredBuses].sort((a, b) => {
-      let aValue, bValue;
-
-      switch (sortField) {
-        case 'busName':
-          aValue = a.busName.toLowerCase();
-          bValue = b.busName.toLowerCase();
-          break;
-        case 'destination':
-          aValue = a.destination.toLowerCase();
-          bValue = b.destination.toLowerCase();
-          break;
-        case 'arrivalTime':
-          aValue = moment(a.arrivalTimeToPerdoor, 'HH:mm');
-          bValue = moment(b.arrivalTimeToPerdoor, 'HH:mm');
-          break;
-        case 'departureTime':
-          aValue = moment(a.leavingTimeFromPerdoor, 'HH:mm');
-          bValue = moment(b.leavingTimeFromPerdoor, 'HH:mm');
-          break;
-        default:
-          return 0;
-      }
-
-      if (sortField === 'arrivalTime' || sortField === 'departureTime') {
-        // For time comparison
-        if (aValue.isBefore(bValue)) return sortDirection === 'asc' ? -1 : 1;
-        if (aValue.isAfter(bValue)) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      } else {
-        // For string comparison
-        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
-        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      }
-    });
+    return filteredBuses;
   };
 
-  // Get sort arrow icon
-  const getSortIcon = (field) => {
-    if (sortField !== field) return '↕️';
-    return sortDirection === 'asc' ? '↑' : '↓';
-  };
-
-  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Handle search filter change
   const handleSearchFilterChange = (e) => {
     setSearchFilter(e.target.value);
   };
 
-  // Clear search
   const handleClearSearch = () => {
     setSearchTerm('');
     setSearchFilter('all');
@@ -179,11 +120,9 @@ const Admin = () => {
     setLoading(true);
     try {
       if (editingBus) {
-        // Update bus
         await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/buses/${editingBus._id}`, formData);
         setMessage('Bus updated successfully');
       } else {
-        // Add new bus
         await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/buses`, formData);
         setMessage('Bus added successfully');
       }
@@ -262,315 +201,874 @@ const Admin = () => {
     return moment(time, 'HH:mm').format('h:mm A');
   };
 
-  const sortedBuses = getFilteredAndSortedBuses();
+  const filteredBuses = getFilteredBuses();
 
   return (
-    <div className="admin-container">
-      <div className="admin-header">
-        <h1>Admin Panel</h1>
-        <p>Manage bus information</p>
-      </div>
-
-      <div className="admin-actions">
-        <button onClick={handleAddNew} className="btn btn-primary">Add New Bus</button>
-        <Link to="/" className="btn btn-secondary">Back to Home</Link>
-      </div>
-
-      {/* Search Section */}
-      <div className="search-section" style={{ 
-        display: 'flex', 
-        gap: '15px', 
-        alignItems: 'center', 
-        marginBottom: '20px',
-        padding: '15px',
-        background: '#f8f9fa',
-        borderRadius: '8px',
-        border: '1px solid #dee2e6'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1' }}>
-          <label htmlFor="searchTerm" style={{ fontWeight: 'bold', minWidth: 'fit-content' }}>Search:</label>
-          <input
-            type="text"
-            id="searchTerm"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Enter bus name or destination..."
-            style={{
-              flex: '1',
-              padding: '8px 12px',
-              border: '1px solid #ced4da',
-              borderRadius: '4px',
-              fontSize: '14px'
-            }}
-          />
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <label htmlFor="searchFilter" style={{ fontWeight: 'bold', minWidth: 'fit-content' }}>Filter by:</label>
-          <select
-            id="searchFilter"
-            value={searchFilter}
-            onChange={handleSearchFilterChange}
-            style={{
-              padding: '8px 12px',
-              border: '1px solid #ced4da',
-              borderRadius: '4px',
-              fontSize: '14px',
-              minWidth: '120px'
-            }}
-          >
-            <option value="all">All Fields</option>
-            <option value="busName">Bus Name</option>
-            <option value="destination">Destination</option>
-          </select>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#f8f9fa', 
+      padding: '10px',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Header */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginBottom: '30px',
+          padding: '20px',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        }}>
+          <h1 style={{ 
+            margin: '0 0 10px 0', 
+            color: '#2c3e50',
+            fontSize: 'clamp(24px, 5vw, 32px)'
+          }}>
+            🚌 Admin Panel
+          </h1>
+          <p style={{ 
+            margin: '0', 
+            color: '#6c757d',
+            fontSize: 'clamp(14px, 3vw, 16px)'
+          }}>
+            Manage bus information
+          </p>
         </div>
 
-        {(searchTerm || searchFilter !== 'all') && (
-          <button
-            onClick={handleClearSearch}
+        {/* Action Buttons */}
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap',
+          gap: '15px', 
+          justifyContent: 'center',
+          marginBottom: '25px' 
+        }}>
+          <button 
+            onClick={handleAddNew} 
             style={{
-              padding: '8px 16px',
-              background: '#dc3545',
+              padding: '12px 24px',
+              backgroundColor: '#28a745',
               color: 'white',
               border: 'none',
-              borderRadius: '4px',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '600',
               cursor: 'pointer',
-              fontSize: '14px',
-              minWidth: 'fit-content'
+              boxShadow: '0 2px 8px rgba(40,167,69,0.3)',
+              transition: 'all 0.2s',
+              minWidth: '140px'
             }}
+            onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+            onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
           >
-            Clear Search
+            ➕ Add New Bus
           </button>
-        )}
-      </div>
-
-      {message && (
-        <div className="alert" style={{
-          background: message.includes('Error') ? '#f8d7da' : '#d4edda',
-          color: message.includes('Error') ? '#721c24' : '#155724',
-          padding: '10px',
-          borderRadius: '5px',
-          marginBottom: '20px',
-          textAlign: 'center'
-        }}>
-          {message}
+          <Link 
+            to="/" 
+            style={{
+              padding: '12px 24px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '600',
+              boxShadow: '0 2px 8px rgba(108,117,125,0.3)',
+              transition: 'all 0.2s',
+              minWidth: '140px',
+              textAlign: 'center'
+            }}
+            onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+            onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
+          >
+            🏠 Back to Home
+          </Link>
         </div>
-      )}
 
-      <div className="bus-table">
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px' }}>
-            <p>Loading...</p>
-          </div>
-        ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th 
-                  onClick={() => handleSort('busName')} 
-                  style={{ cursor: 'pointer', userSelect: 'none' }}
-                  title="Click to sort by Bus Name"
-                >
-                  Bus Name {getSortIcon('busName')}
-                </th>
-                <th>Bus Number</th>
-                <th 
-                  onClick={() => handleSort('destination')} 
-                  style={{ cursor: 'pointer', userSelect: 'none' }}
-                  title="Click to sort by Destination"
-                >
-                  Destination {getSortIcon('destination')}
-                </th>
-                <th 
-                  onClick={() => handleSort('arrivalTime')} 
-                  style={{ cursor: 'pointer', userSelect: 'none' }}
-                  title="Click to sort by Arrival Time"
-                >
-                  Arrival Time {getSortIcon('arrivalTime')}
-                </th>
-                <th 
-                  onClick={() => handleSort('departureTime')} 
-                  style={{ cursor: 'pointer', userSelect: 'none' }}
-                  title="Click to sort by Departure Time"
-                >
-                  Departure Time {getSortIcon('departureTime')}
-                </th>
-                <th>Availability</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedBuses.length === 0 ? (
-                <tr>
-                  <td colSpan="8" style={{ textAlign: 'center', padding: '40px' }}>
-                    {searchTerm ? 
-                      `No buses found matching "${searchTerm}". Try adjusting your search terms.` : 
-                      'No buses found. Add some buses to get started.'
-                    }
-                  </td>
-                </tr>
-              ) : (
-                sortedBuses.map((bus) => (
-                  <tr key={bus._id}>
-                    <td>{bus.busName}</td>
-                    <td>{bus.busNumber}</td>
-                    <td>{bus.destination}</td>
-                    <td>{formatTime(bus.arrivalTimeToPerdoor)}</td>
-                    <td>{formatTime(bus.leavingTimeFromPerdoor)}</td>
-                    <td>
-                      <span className={`availability-badge availability-${bus.availability}`}>
-                        {bus.availability === 'daily' ? 'Daily' : 'Weekdays'}
-                      </span>
-                    </td>
-                    <td>
-                      <span className={bus.active ? 'status-active' : 'status-inactive'}>
-                        {bus.active ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="action-buttons">
-                        <button onClick={() => handleEdit(bus)} className="btn btn-sm btn-primary">Edit</button>
-                        <button onClick={() => handleDelete(bus._id)} className="btn btn-sm btn-danger">Delete</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* Search and Sort info display */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-        {/* Search Results Info */}
-        {searchTerm && (
+        {/* Search Section */}
+        <div style={{ 
+          backgroundColor: 'white',
+          padding: '20px',
+          borderRadius: '12px',
+          marginBottom: '25px',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        }}>
           <div style={{ 
-            padding: '8px 12px', 
-            background: '#e3f2fd', 
-            border: '1px solid #bbdefb', 
-            borderRadius: '4px',
-            fontSize: '14px',
-            color: '#1976d2'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '15px',
+            alignItems: 'end'
           }}>
-            Found <strong>{sortedBuses.length}</strong> bus{sortedBuses.length !== 1 ? 'es' : ''} 
-            {searchFilter !== 'all' && ` in ${searchFilter === 'busName' ? 'Bus Names' : 'Destinations'}`}
-            {searchTerm && ` matching "${searchTerm}"`}
-          </div>
-        )}
-
-        {/* Sort Info */}
-        {sortField && (
-          <div style={{ 
-            padding: '8px 12px', 
-            background: '#f8f9fa', 
-            border: '1px solid #dee2e6', 
-            borderRadius: '4px',
-            fontSize: '14px',
-            color: '#6c757d'
-          }}>
-            Sorted by: <strong>{sortField === 'busName' ? 'Bus Name' : 
-                                sortField === 'destination' ? 'Destination' : 
-                                sortField === 'arrivalTime' ? 'Arrival Time' : 
-                                'Departure Time'}</strong> 
-            ({sortDirection === 'asc' ? 'Ascending' : 'Descending'})
-            <button 
-              onClick={() => {setSortField(''); setSortDirection('asc');}} 
-              style={{ marginLeft: '10px', background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-            >
-              Clear Sort
-            </button>
-          </div>
-        )}
-      </div>
-
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>{editingBus ? 'Edit Bus' : 'Add New Bus'}</h2>
-              <button onClick={handleCloseModal} className="close-btn">×</button>
+            <div>
+              <label style={{ 
+                display: 'block',
+                fontWeight: '600',
+                marginBottom: '8px',
+                color: '#495057',
+                fontSize: '14px'
+              }}>
+                🔍 Search Buses
+              </label>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Enter bus name or destination..."
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  border: '2px solid #e9ecef',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  transition: 'border-color 0.2s',
+                  boxSizing: 'border-box'
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#007bff'}
+                onBlur={(e) => e.target.style.borderColor = '#e9ecef'}
+              />
+            </div>
+            
+            <div>
+              <label style={{ 
+                display: 'block',
+                fontWeight: '600',
+                marginBottom: '8px',
+                color: '#495057',
+                fontSize: '14px'
+              }}>
+                🎯 Filter by
+              </label>
+              <select
+                value={searchFilter}
+                onChange={handleSearchFilterChange}
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  border: '2px solid #e9ecef',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  backgroundColor: 'white',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <option value="all">All Fields</option>
+                <option value="busName">Bus Name</option>
+                <option value="destination">Destination</option>
+              </select>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              {['busName', 'busNumber', 'destination'].map((field) => (
-                <div className="form-group" key={field}>
-                  <label htmlFor={field}>{field.replace(/([A-Z])/g, ' $1')} *</label>
-                  <input
-                    type="text"
-                    id={field}
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {errors[field] && <div className="error-message">{errors[field]}</div>}
+            {(searchTerm || searchFilter !== 'all') && (
+              <button
+                onClick={handleClearSearch}
+                style={{
+                  padding: '12px 20px',
+                  backgroundColor: '#dc3545',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  alignSelf: 'end'
+                }}
+              >
+                🗑️ Clear
+              </button>
+            )}
+          </div>
+
+          {searchTerm && (
+            <div style={{ 
+              marginTop: '15px',
+              padding: '12px 16px',
+              backgroundColor: '#e3f2fd',
+              border: '1px solid #bbdefb',
+              borderRadius: '8px',
+              fontSize: '14px',
+              color: '#1976d2'
+            }}>
+              📊 Found <strong>{filteredBuses.length}</strong> bus{filteredBuses.length !== 1 ? 'es' : ''} 
+              {searchFilter !== 'all' && ` in ${searchFilter === 'busName' ? 'Bus Names' : 'Destinations'}`}
+              {searchTerm && ` matching "${searchTerm}"`}
+            </div>
+          )}
+        </div>
+
+        {/* Message Alert */}
+        {message && (
+          <div style={{
+            padding: '15px 20px',
+            backgroundColor: message.includes('Error') ? '#f8d7da' : '#d4edda',
+            color: message.includes('Error') ? '#721c24' : '#155724',
+            borderRadius: '8px',
+            marginBottom: '25px',
+            textAlign: 'center',
+            fontWeight: '500',
+            border: `1px solid ${message.includes('Error') ? '#f5c6cb' : '#c3e6cb'}`
+          }}>
+            {message.includes('Error') ? '⚠️' : '✅'} {message}
+          </div>
+        )}
+
+        {/* Bus Cards/Table */}
+        {loading ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '60px 20px',
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🔄</div>
+            <p style={{ fontSize: '18px', color: '#6c757d' }}>Loading buses...</p>
+          </div>
+        ) : filteredBuses.length === 0 ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '60px 20px',
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>
+              {searchTerm ? '🔍' : '🚌'}
+            </div>
+            <p style={{ fontSize: '18px', color: '#6c757d', margin: 0 }}>
+              {searchTerm ? 
+                `No buses found matching "${searchTerm}". Try adjusting your search terms.` : 
+                'No buses found. Add some buses to get started.'
+              }
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Desktop Table View */}
+            <div style={{ display: window.innerWidth > 768 ? 'block' : 'none' }}>
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead style={{ backgroundColor: '#f8f9fa' }}>
+                    <tr>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Bus Name</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Bus Number</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Destination</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Arrival</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Departure</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Schedule</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Status</th>
+                      <th style={{ padding: '16px', textAlign: 'left', fontWeight: '600', color: '#495057' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredBuses.map((bus, index) => (
+                      <tr key={bus._id} style={{ 
+                        borderBottom: '1px solid #e9ecef',
+                        backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa'
+                      }}>
+                        <td style={{ padding: '16px', fontWeight: '500' }}>{bus.busName}</td>
+                        <td style={{ padding: '16px', color: '#6c757d' }}>{bus.busNumber}</td>
+                        <td style={{ padding: '16px', color: '#6c757d' }}>{bus.destination}</td>
+                        <td style={{ padding: '16px', color: '#6c757d' }}>{formatTime(bus.arrivalTimeToPerdoor)}</td>
+                        <td style={{ padding: '16px', color: '#6c757d' }}>{formatTime(bus.leavingTimeFromPerdoor)}</td>
+                        <td style={{ padding: '16px' }}>
+                          <span style={{
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            backgroundColor: bus.availability === 'daily' ? '#e3f2fd' : '#fff3e0',
+                            color: bus.availability === 'daily' ? '#1976d2' : '#f57c00'
+                          }}>
+                            {bus.availability === 'daily' ? 'Daily' : 'Weekdays'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '16px' }}>
+                          <span style={{
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            backgroundColor: bus.active ? '#e8f5e8' : '#ffebee',
+                            color: bus.active ? '#2e7d32' : '#c62828'
+                          }}>
+                            {bus.active ? 'Active' : 'Inactive'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '16px' }}>
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <button 
+                              onClick={() => handleEdit(bus)} 
+                              style={{
+                                padding: '6px 12px',
+                                backgroundColor: '#007bff',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '6px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                fontWeight: '500'
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button 
+                              onClick={() => handleDelete(bus._id)} 
+                              style={{
+                                padding: '6px 12px',
+                                backgroundColor: '#dc3545',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '6px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                fontWeight: '500'
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Mobile Card View */}
+            <div style={{ 
+              display: window.innerWidth <= 768 ? 'grid' : 'none',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '20px'
+            }}>
+              {filteredBuses.map((bus) => (
+                <div key={bus._id} style={{
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                  border: '1px solid #e9ecef'
+                }}>
+                  <div style={{ marginBottom: '15px' }}>
+                    <h3 style={{ 
+                      margin: '0 0 5px 0', 
+                      color: '#2c3e50',
+                      fontSize: '18px',
+                      fontWeight: '600'
+                    }}>
+                      🚌 {bus.busName}
+                    </h3>
+                    <p style={{ 
+                      margin: '0', 
+                      color: '#6c757d',
+                      fontSize: '14px'
+                    }}>
+                      {bus.busNumber}
+                    </p>
+                  </div>
+
+                  <div style={{ marginBottom: '15px' }}>
+                    <div style={{ 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      marginBottom: '8px'
+                    }}>
+                      <span style={{ fontSize: '16px', marginRight: '8px' }}>📍</span>
+                      <span style={{ fontWeight: '500', color: '#495057' }}>
+                        {bus.destination}
+                      </span>
+                    </div>
+                    
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between',
+                      marginBottom: '8px'
+                    }}>
+                      <div>
+                        <span style={{ fontSize: '14px', color: '#6c757d' }}>Arrival:</span>
+                        <br />
+                        <span style={{ fontWeight: '500' }}>
+                          {formatTime(bus.arrivalTimeToPerdoor)}
+                        </span>
+                      </div>
+                      <div>
+                        <span style={{ fontSize: '14px', color: '#6c757d' }}>Departure:</span>
+                        <br />
+                        <span style={{ fontWeight: '500' }}>
+                          {formatTime(bus.leavingTimeFromPerdoor)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '15px'
+                  }}>
+                    <span style={{
+                      padding: '6px 12px',
+                      borderRadius: '20px',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      backgroundColor: bus.availability === 'daily' ? '#e3f2fd' : '#fff3e0',
+                      color: bus.availability === 'daily' ? '#1976d2' : '#f57c00'
+                    }}>
+                      {bus.availability === 'daily' ? 'Daily' : 'Weekdays'}
+                    </span>
+                    
+                    <span style={{
+                      padding: '6px 12px',
+                      borderRadius: '20px',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      backgroundColor: bus.active ? '#e8f5e8' : '#ffebee',
+                      color: bus.active ? '#2e7d32' : '#c62828'
+                    }}>
+                      {bus.active ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '10px',
+                    justifyContent: 'stretch'
+                  }}>
+                    <button 
+                      onClick={() => handleEdit(bus)} 
+                      style={{
+                        flex: 1,
+                        padding: '10px',
+                        backgroundColor: '#007bff',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      ✏️ Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDelete(bus._id)} 
+                      style={{
+                        flex: 1,
+                        padding: '10px',
+                        backgroundColor: '#dc3545',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      🗑️ Delete
+                    </button>
+                  </div>
                 </div>
               ))}
+            </div>
+          </>
+        )}
 
-              <div className="form-group">
-                <label htmlFor="arrivalTimeToPerdoor">Arrival Time to Perdoor *</label>
-                <input
-                  type="time"
-                  id="arrivalTimeToPerdoor"
-                  name="arrivalTimeToPerdoor"
-                  value={formData.arrivalTimeToPerdoor}
-                  onChange={handleInputChange}
-                  required
-                />
-                {errors.arrivalTimeToPerdoor && <div className="error-message">{errors.arrivalTimeToPerdoor}</div>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="leavingTimeFromPerdoor">Departure Time from Perdoor *</label>
-                <input
-                  type="time"
-                  id="leavingTimeFromPerdoor"
-                  name="leavingTimeFromPerdoor"
-                  value={formData.leavingTimeFromPerdoor}
-                  onChange={handleInputChange}
-                  required
-                />
-                {errors.leavingTimeFromPerdoor && <div className="error-message">{errors.leavingTimeFromPerdoor}</div>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="availability">Availability</label>
-                <select
-                  id="availability"
-                  name="availability"
-                  value={formData.availability}
-                  onChange={handleInputChange}
-                  required
+        {/* Modal */}
+        {showModal && (
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            zIndex: 1000
+          }}>
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              width: '100%',
+              maxWidth: '500px',
+              maxHeight: '90vh',
+              overflow: 'auto',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+            }}>
+              {/* Modal Header */}
+              <div style={{
+                padding: '20px 24px',
+                borderBottom: '1px solid #e9ecef',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: '#f8f9fa',
+                borderRadius: '12px 12px 0 0'
+              }}>
+                <h2 style={{ 
+                  margin: 0, 
+                  color: '#2c3e50',
+                  fontSize: '20px',
+                  fontWeight: '600'
+                }}>
+                  {editingBus ? '✏️ Edit Bus' : '➕ Add New Bus'}
+                </h2>
+                <button 
+                  onClick={handleCloseModal}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    color: '#6c757d',
+                    padding: '0',
+                    width: '30px',
+                    height: '30px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '50%'
+                  }}
+                  onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
+                  onMouseOut={(e) => e.target.style.backgroundColor = 'transparent'}
                 >
-                  <option value="daily">Daily</option>
-                  <option value="weekdays">Weekdays Only</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label>
-                  <input
-                    type="checkbox"
-                    name="active"
-                    checked={formData.active}
-                    onChange={handleInputChange}
-                  />
-                  Active
-                </label>
-              </div>
-
-              <div className="form-actions">
-                <button type="button" onClick={handleCloseModal} className="btn btn-secondary">Cancel</button>
-                <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Saving...' : editingBus ? 'Update Bus' : 'Add Bus'}
+                  ×
                 </button>
               </div>
-            </form>
+
+              {/* Modal Body */}
+              <form onSubmit={handleSubmit} style={{ padding: '24px' }}>
+                <div style={{ display: 'grid', gap: '20px' }}>
+                  {/* Bus Name */}
+                  <div>
+                    <label style={{
+                      display: 'block',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#495057',
+                      fontSize: '14px'
+                    }}>
+                      🚌 Bus Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="busName"
+                      value={formData.busName}
+                      onChange={handleInputChange}
+                      placeholder="Enter bus name"
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: errors.busName ? '2px solid #dc3545' : '2px solid #e9ecef',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        transition: 'border-color 0.2s',
+                        boxSizing: 'border-box'
+                      }}
+                      onFocus={(e) => !errors.busName && (e.target.style.borderColor = '#007bff')}
+                      onBlur={(e) => !errors.busName && (e.target.style.borderColor = '#e9ecef')}
+                    />
+                    {errors.busName && (
+                      <div style={{
+                        color: '#dc3545',
+                        fontSize: '12px',
+                        marginTop: '5px',
+                        fontWeight: '500'
+                      }}>
+                        ⚠️ {errors.busName}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Bus Number */}
+                  <div>
+                    <label style={{
+                      display: 'block',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#495057',
+                      fontSize: '14px'
+                    }}>
+                      🔢 Bus Number *
+                    </label>
+                    <input
+                      type="text"
+                      name="busNumber"
+                      value={formData.busNumber}
+                      onChange={handleInputChange}
+                      placeholder="Enter bus number"
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: errors.busNumber ? '2px solid #dc3545' : '2px solid #e9ecef',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        transition: 'border-color 0.2s',
+                        boxSizing: 'border-box'
+                      }}
+                      onFocus={(e) => !errors.busNumber && (e.target.style.borderColor = '#007bff')}
+                      onBlur={(e) => !errors.busNumber && (e.target.style.borderColor = '#e9ecef')}
+                    />
+                    {errors.busNumber && (
+                      <div style={{
+                        color: '#dc3545',
+                        fontSize: '12px',
+                        marginTop: '5px',
+                        fontWeight: '500'
+                      }}>
+                        ⚠️ {errors.busNumber}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Destination */}
+                  <div>
+                    <label style={{
+                      display: 'block',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#495057',
+                      fontSize: '14px'
+                    }}>
+                      📍 Destination *
+                    </label>
+                    <input
+                      type="text"
+                      name="destination"
+                      value={formData.destination}
+                      onChange={handleInputChange}
+                      placeholder="Enter destination"
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: errors.destination ? '2px solid #dc3545' : '2px solid #e9ecef',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        transition: 'border-color 0.2s',
+                        boxSizing: 'border-box'
+                      }}
+                      onFocus={(e) => !errors.destination && (e.target.style.borderColor = '#007bff')}
+                      onBlur={(e) => !errors.destination && (e.target.style.borderColor = '#e9ecef')}
+                    />
+                    {errors.destination && (
+                      <div style={{
+                        color: '#dc3545',
+                        fontSize: '12px',
+                        marginTop: '5px',
+                        fontWeight: '500'
+                      }}>
+                        ⚠️ {errors.destination}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Time Fields */}
+                  <div style={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: '1fr 1fr', 
+                    gap: '15px' 
+                  }}>
+                    {/* Arrival Time */}
+                    <div>
+                      <label style={{
+                        display: 'block',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        color: '#495057',
+                        fontSize: '14px'
+                      }}>
+                        ⏰ Arrival Time *
+                      </label>
+                      <input
+                        type="time"
+                        name="arrivalTimeToPerdoor"
+                        value={formData.arrivalTimeToPerdoor}
+                        onChange={handleInputChange}
+                        style={{
+                          width: '100%',
+                          padding: '12px 16px',
+                          border: errors.arrivalTimeToPerdoor ? '2px solid #dc3545' : '2px solid #e9ecef',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          transition: 'border-color 0.2s',
+                          boxSizing: 'border-box'
+                        }}
+                        onFocus={(e) => !errors.arrivalTimeToPerdoor && (e.target.style.borderColor = '#007bff')}
+                        onBlur={(e) => !errors.arrivalTimeToPerdoor && (e.target.style.borderColor = '#e9ecef')}
+                      />
+                      {errors.arrivalTimeToPerdoor && (
+                        <div style={{
+                          color: '#dc3545',
+                          fontSize: '12px',
+                          marginTop: '5px',
+                          fontWeight: '500'
+                        }}>
+                          ⚠️ {errors.arrivalTimeToPerdoor}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Departure Time */}
+                    <div>
+                      <label style={{
+                        display: 'block',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        color: '#495057',
+                        fontSize: '14px'
+                      }}>
+                        🚀 Departure Time *
+                      </label>
+                      <input
+                        type="time"
+                        name="leavingTimeFromPerdoor"
+                        value={formData.leavingTimeFromPerdoor}
+                        onChange={handleInputChange}
+                        style={{
+                          width: '100%',
+                          padding: '12px 16px',
+                          border: errors.leavingTimeFromPerdoor ? '2px solid #dc3545' : '2px solid #e9ecef',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          transition: 'border-color 0.2s',
+                          boxSizing: 'border-box'
+                        }}
+                        onFocus={(e) => !errors.leavingTimeFromPerdoor && (e.target.style.borderColor = '#007bff')}
+                        onBlur={(e) => !errors.leavingTimeFromPerdoor && (e.target.style.borderColor = '#e9ecef')}
+                      />
+                      {errors.leavingTimeFromPerdoor && (
+                        <div style={{
+                          color: '#dc3545',
+                          fontSize: '12px',
+                          marginTop: '5px',
+                          fontWeight: '500'
+                        }}>
+                          ⚠️ {errors.leavingTimeFromPerdoor}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Availability */}
+                  <div>
+                    <label style={{
+                      display: 'block',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#495057',
+                      fontSize: '14px'
+                    }}>
+                      📅 Availability
+                    </label>
+                    <select
+                      name="availability"
+                      value={formData.availability}
+                      onChange={handleInputChange}
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: '2px solid #e9ecef',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        backgroundColor: 'white',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      <option value="daily">Daily</option>
+                      <option value="weekdays">Weekdays Only</option>
+                    </select>
+                  </div>
+
+                  {/* Active Status */}
+                  <div>
+                    <label style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      cursor: 'pointer',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      color: '#495057'
+                    }}>
+                      <input
+                        type="checkbox"
+                        name="active"
+                        checked={formData.active}
+                        onChange={handleInputChange}
+                        style={{
+                          marginRight: '12px',
+                          width: '18px',
+                          height: '18px',
+                          cursor: 'pointer'
+                        }}
+                      />
+                      ✅ Active
+                    </label>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  gap: '12px',
+                  marginTop: '30px',
+                  paddingTop: '20px',
+                  borderTop: '1px solid #e9ecef'
+                }}>
+                  <button 
+                    type="button" 
+                    onClick={handleCloseModal}
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: '#6c757d',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#5a6268'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#6c757d'}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: loading ? '#6c757d' : '#28a745',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.2s',
+                      minWidth: '120px'
+                    }}
+                    onMouseOver={(e) => !loading && (e.target.style.backgroundColor = '#218838')}
+                    onMouseOut={(e) => !loading && (e.target.style.backgroundColor = '#28a745')}
+                  >
+                    {loading ? '⏳ Saving...' : editingBus ? '💾 Update Bus' : '➕ Add Bus'}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
