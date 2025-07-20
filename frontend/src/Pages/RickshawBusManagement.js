@@ -144,7 +144,7 @@ const RickshawBusManagement = () => {
           />
           
           <RickshawTable 
-            title="Stand 2 - Railway Station"
+            title="Stand 2 - ಮಲ್ಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ"
             rickshaws={stand2Rickshaws}
             bgColor="rgba(16, 185, 129, 0.1)"
           />
