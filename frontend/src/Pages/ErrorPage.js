@@ -236,7 +236,7 @@ export default function ErrorPage() {
         </div>
         
         <h1 className="error-number">404</h1>
-        <h2 className="error-title">Door Not Found</h2>
+        <h2 className="error-title">Page Not Found</h2>
         <p className="error-message">
           Oops! The page you're looking for seems to have wandered off. 
           Don't worry, we'll help you find the right door to your destination.
