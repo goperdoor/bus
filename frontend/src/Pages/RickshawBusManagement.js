@@ -13,13 +13,12 @@ const RickshawBusManagement = () => {
   ]);
 
   const [stand2Rickshaws] = useState([
-    { id: 1, number: "RK101", driverName: "Mohan Singh", phone: "9876543220" },
-    { id: 2, number: "RK102", driverName: "Vikram Yadav", phone: "9876543221" }
+   
   ]);
 
   const [stand3Rickshaws] = useState([
     { id: 1, number: "UNKNOWN", driverName: "ಅನಿಲ್ ಕುಮಾರ್", phone: "8747887655" },
-    { id: 2, number: "RK202", driverName: "Rohit Gupta", phone: "9876543231" }
+    
   ]);
 
   const [touristBuses] = useState([
@@ -139,7 +138,7 @@ const RickshawBusManagement = () => {
           </h1>
           
           <RickshawTable 
-            title="Stand 1 - Main Gate"
+            title="Stand 1 - ಕೆಳಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ"
             rickshaws={stand1Rickshaws}
             bgColor="rgba(59, 130, 246, 0.1)"
           />
@@ -151,7 +150,7 @@ const RickshawBusManagement = () => {
           />
           
           <RickshawTable 
-            title="Stand 3 - Bus Terminal"
+            title="Stand 3 - ದೇವಾಲಯದ ಬಳಿ"
             rickshaws={stand3Rickshaws}
             bgColor="rgba(245, 158, 11, 0.1)"
           />
