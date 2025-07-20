@@ -23,6 +23,10 @@ const Admin = () => {
   // Sorting states
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc'); // 'asc' or 'desc'
+  
+  // Search states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchFilter, setSearchFilter] = useState('all'); // 'all', 'busName', 'destination'
 
   useEffect(() => {
     fetchBuses();
@@ -48,11 +52,31 @@ const Admin = () => {
     setSortDirection(newDirection);
   };
 
-  // Get sorted buses
-  const getSortedBuses = () => {
-    if (!sortField) return buses;
+  // Get filtered and sorted buses
+  const getFilteredAndSortedBuses = () => {
+    // First filter based on search
+    let filteredBuses = buses;
+    
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase().trim();
+      filteredBuses = buses.filter(bus => {
+        switch (searchFilter) {
+          case 'busName':
+            return bus.busName.toLowerCase().includes(searchLower);
+          case 'destination':
+            return bus.destination.toLowerCase().includes(searchLower);
+          case 'all':
+          default:
+            return bus.busName.toLowerCase().includes(searchLower) || 
+                   bus.destination.toLowerCase().includes(searchLower);
+        }
+      });
+    }
 
-    return [...buses].sort((a, b) => {
+    // Then sort the filtered results
+    if (!sortField) return filteredBuses;
+
+    return [...filteredBuses].sort((a, b) => {
       let aValue, bValue;
 
       switch (sortField) {
@@ -94,6 +118,22 @@ const Admin = () => {
   const getSortIcon = (field) => {
     if (sortField !== field) return '↕️';
     return sortDirection === 'asc' ? '↑' : '↓';
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Handle search filter change
+  const handleSearchFilterChange = (e) => {
+    setSearchFilter(e.target.value);
+  };
+
+  // Clear search
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSearchFilter('all');
   };
 
   const handleInputChange = (e) => {
@@ -222,7 +262,7 @@ const Admin = () => {
     return moment(time, 'HH:mm').format('h:mm A');
   };
 
-  const sortedBuses = getSortedBuses();
+  const sortedBuses = getFilteredAndSortedBuses();
 
   return (
     <div className="admin-container">
@@ -234,6 +274,74 @@ const Admin = () => {
       <div className="admin-actions">
         <button onClick={handleAddNew} className="btn btn-primary">Add New Bus</button>
         <Link to="/" className="btn btn-secondary">Back to Home</Link>
+      </div>
+
+      {/* Search Section */}
+      <div className="search-section" style={{ 
+        display: 'flex', 
+        gap: '15px', 
+        alignItems: 'center', 
+        marginBottom: '20px',
+        padding: '15px',
+        background: '#f8f9fa',
+        borderRadius: '8px',
+        border: '1px solid #dee2e6'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1' }}>
+          <label htmlFor="searchTerm" style={{ fontWeight: 'bold', minWidth: 'fit-content' }}>Search:</label>
+          <input
+            type="text"
+            id="searchTerm"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Enter bus name or destination..."
+            style={{
+              flex: '1',
+              padding: '8px 12px',
+              border: '1px solid #ced4da',
+              borderRadius: '4px',
+              fontSize: '14px'
+            }}
+          />
+        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <label htmlFor="searchFilter" style={{ fontWeight: 'bold', minWidth: 'fit-content' }}>Filter by:</label>
+          <select
+            id="searchFilter"
+            value={searchFilter}
+            onChange={handleSearchFilterChange}
+            style={{
+              padding: '8px 12px',
+              border: '1px solid #ced4da',
+              borderRadius: '4px',
+              fontSize: '14px',
+              minWidth: '120px'
+            }}
+          >
+            <option value="all">All Fields</option>
+            <option value="busName">Bus Name</option>
+            <option value="destination">Destination</option>
+          </select>
+        </div>
+
+        {(searchTerm || searchFilter !== 'all') && (
+          <button
+            onClick={handleClearSearch}
+            style={{
+              padding: '8px 16px',
+              background: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              minWidth: 'fit-content'
+            }}
+          >
+            Clear Search
+          </button>
+        )}
       </div>
 
       {message && (
@@ -296,7 +404,10 @@ const Admin = () => {
               {sortedBuses.length === 0 ? (
                 <tr>
                   <td colSpan="8" style={{ textAlign: 'center', padding: '40px' }}>
-                    No buses found. Add some buses to get started.
+                    {searchTerm ? 
+                      `No buses found matching "${searchTerm}". Try adjusting your search terms.` : 
+                      'No buses found. Add some buses to get started.'
+                    }
                   </td>
                 </tr>
               ) : (
@@ -331,30 +442,48 @@ const Admin = () => {
         )}
       </div>
 
-      {/* Sort info display */}
-      {sortField && (
-        <div style={{ 
-          marginTop: '10px', 
-          padding: '8px 12px', 
-          background: '#f8f9fa', 
-          border: '1px solid #dee2e6', 
-          borderRadius: '4px',
-          fontSize: '14px',
-          color: '#6c757d'
-        }}>
-          Sorted by: <strong>{sortField === 'busName' ? 'Bus Name' : 
-                              sortField === 'destination' ? 'Destination' : 
-                              sortField === 'arrivalTime' ? 'Arrival Time' : 
-                              'Departure Time'}</strong> 
-          ({sortDirection === 'asc' ? 'Ascending' : 'Descending'})
-          <button 
-            onClick={() => {setSortField(''); setSortDirection('asc');}} 
-            style={{ marginLeft: '10px', background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
-          >
-            Clear Sort
-          </button>
-        </div>
-      )}
+      {/* Search and Sort info display */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+        {/* Search Results Info */}
+        {searchTerm && (
+          <div style={{ 
+            padding: '8px 12px', 
+            background: '#e3f2fd', 
+            border: '1px solid #bbdefb', 
+            borderRadius: '4px',
+            fontSize: '14px',
+            color: '#1976d2'
+          }}>
+            Found <strong>{sortedBuses.length}</strong> bus{sortedBuses.length !== 1 ? 'es' : ''} 
+            {searchFilter !== 'all' && ` in ${searchFilter === 'busName' ? 'Bus Names' : 'Destinations'}`}
+            {searchTerm && ` matching "${searchTerm}"`}
+          </div>
+        )}
+
+        {/* Sort Info */}
+        {sortField && (
+          <div style={{ 
+            padding: '8px 12px', 
+            background: '#f8f9fa', 
+            border: '1px solid #dee2e6', 
+            borderRadius: '4px',
+            fontSize: '14px',
+            color: '#6c757d'
+          }}>
+            Sorted by: <strong>{sortField === 'busName' ? 'Bus Name' : 
+                                sortField === 'destination' ? 'Destination' : 
+                                sortField === 'arrivalTime' ? 'Arrival Time' : 
+                                'Departure Time'}</strong> 
+            ({sortDirection === 'asc' ? 'Ascending' : 'Descending'})
+            <button 
+              onClick={() => {setSortField(''); setSortDirection('asc');}} 
+              style={{ marginLeft: '10px', background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              Clear Sort
+            </button>
+          </div>
+        )}
+      </div>
 
       {showModal && (
         <div className="modal">
