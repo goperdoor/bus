@@ -7,12 +7,14 @@ const Home = () => {
   const [destination, setDestination] = useState('');
   const [destinations, setDestinations] = useState([]);
   const [buses, setBuses] = useState([]);
+    const [allBuses, setAllBuses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchDestinations();
+     fetchAllBuses(); // Fetch all buses for tables
      window.scrollTo(0, 0);
   }, []);
 
@@ -60,6 +62,35 @@ const Home = () => {
     if (remainingMinutes === 0) return `${hours} hour${hours > 1 ? 's' : ''}`;
     return `${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ`;
   };
+  const getGroupedBuses = () => {
+    const grouped = {};
+    
+    allBuses.forEach(bus => {
+      if (!grouped[bus.destination]) {
+        grouped[bus.destination] = [];
+      }
+      
+      // Check if bus name already exists for this destination
+      const existingBus = grouped[bus.destination].find(b => b.busName === bus.busName);
+      if (!existingBus) {
+        grouped[bus.destination].push({
+          busName: bus.busName,
+          busNumber: bus.busNumber,
+          availability: bus.availability
+        });
+      }
+    });
+
+    // Sort buses within each destination by bus name
+    Object.keys(grouped).forEach(dest => {
+      grouped[dest].sort((a, b) => a.busName.localeCompare(b.busName));
+    });
+
+    return grouped;
+  };
+
+  const groupedBuses = getGroupedBuses();
+
 
   return (
     <div className="home-container">
