@@ -159,7 +159,7 @@ const styles = {
       fontWeight: '600',
       color: '#495057',
       borderBottom: '2px solid #dee2e6',
-      backgroundColor: '#f8f9fa',
+      backgroundImage: 'linear-gradient(135deg, #485eff 0%, #a955ff 100%)',
       '@media (min-width: 576px)': {
         padding: '15px 12px'
       }
