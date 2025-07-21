@@ -20,7 +20,7 @@ const Home = () => {
 
   const fetchDestinations = async () => {
     try {
-      const response = await axios.get(${process.env.REACT_APP_API_URL}/api/destinations);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/destinations`);
       setDestinations(response.data);
     } catch (error) {
       console.error('Error fetching destinations:', error);
@@ -36,7 +36,7 @@ const Home = () => {
     setMessage('');
 
     try {
-      const response = await axios.get(${process.env.REACT_APP_API_URL}/api/buses/search?destination=${destination});
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/buses/search?destination=${destination}`);
       setBuses(response.data.buses || []);
       setMessage(response.data.message || '');
     } catch (error) {
@@ -54,11 +54,11 @@ const Home = () => {
 
   const getMinutesText = (minutes) => {
     if (minutes < 0) return 'Tomorrow';
-    if (minutes < 60) return ${minutes} minutes;
+    if (minutes < 60) return `${minutes} minutes`;
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
-    if (remainingMinutes === 0) return ${hours} hour${hours > 1 ? 's' : ''};
-    return ${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ;
+    if (remainingMinutes === 0) return `${hours} hour${hours > 1 ? 's' : ''}`;
+    return `${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ`;
   };
 
   return (
@@ -135,7 +135,7 @@ const Home = () => {
                   </div>
 
                   <div className="availability-badge-container">
-                    <span className={availability-badge availability-${bus.availability}}>
+                    <span className={`availability-badge availability-${bus.availability}`}>
                       {bus.availability === 'daily' ? 'ಪ್ರತಿದಿನ' : 'ಕೆವಲ ವಾರದ ದಿನಗಳಲ್ಲಿ'}
                     </span>
                   </div>
