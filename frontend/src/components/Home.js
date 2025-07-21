@@ -28,6 +28,16 @@ const Home = () => {
       console.error('Error fetching destinations:', error);
     }
   };
+   const fetchAllBuses = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/buses`);
+      // Filter only active buses
+      const activeBuses = response.data.filter(bus => bus.active);
+      setAllBuses(activeBuses);
+    } catch (error) {
+      console.error('Error fetching all buses:', error);
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
