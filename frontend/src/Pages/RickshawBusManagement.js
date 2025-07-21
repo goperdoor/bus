@@ -155,8 +155,8 @@ const RickshawBusManagement = () => {
   }}
 >
   <h3 style={{ marginBottom: '1rem', fontSize: '16px', color: '#333' }}>
-    🚖 Are you a rickshaw driver, taxi owner, or tourist? <br />
-    Help us add new places by submitting this form.
+    🚖 Are you a rickshaw driver, taxi owner, or tourist ? <br />
+    Help us add new vehicle by submitting this form.
   </h3>
 
   <button
