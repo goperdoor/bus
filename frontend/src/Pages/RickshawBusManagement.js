@@ -142,9 +142,9 @@ const RickshawBusManagement = () => {
           }}>
             Rickshaw Management System
           </h1>
-                 <p style={{ marginTop: '0.5rem', fontSize: '14px', color: '#555' }}>
+                 <h3 style={{ marginTop: '0.5rem', fontSize: '14px', color: '#555' }}>
   Are you a rickshaw driver, taxi owner, or tourist? Help us add new places by submitting this form.
-</p>
+</h3>
 
       <button
   type="button"
@@ -160,7 +160,7 @@ const RickshawBusManagement = () => {
     cursor: 'pointer',
   }}
 >
-  📌 Submit Location (Rickshaw / Taxi / Tourist Info)
+  📌 Submit your vehicle (your Info)
 </button>
 
           
