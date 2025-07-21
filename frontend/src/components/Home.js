@@ -7,16 +7,16 @@ const Home = () => {
   const [destination, setDestination] = useState('');
   const [destinations, setDestinations] = useState([]);
   const [buses, setBuses] = useState([]);
+  const [allBuses, setAllBuses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchDestinations();
-     window.scrollTo(0, 0);
+    fetchAllBuses();
+    window.scrollTo(0, 0);
   }, []);
-
-
 
   const fetchDestinations = async () => {
     try {
@@ -24,6 +24,15 @@ const Home = () => {
       setDestinations(response.data);
     } catch (error) {
       console.error('Error fetching destinations:', error);
+    }
+  };
+
+  const fetchAllBuses = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/buses`);
+      setAllBuses(response.data || []);
+    } catch (error) {
+      console.error('Error fetching all buses:', error);
     }
   };
 
@@ -60,6 +69,35 @@ const Home = () => {
     if (remainingMinutes === 0) return `${hours} hour${hours > 1 ? 's' : ''}`;
     return `${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ`;
   };
+
+  // Group buses by destination and remove duplicates by bus name
+  const groupBusesByDestination = () => {
+    const grouped = {};
+    
+    allBuses.forEach(bus => {
+      // Assuming bus has destinations array or destination field
+      const busDestinations = bus.destinations || [bus.destination];
+      
+      busDestinations.forEach(dest => {
+        if (!grouped[dest]) {
+          grouped[dest] = [];
+        }
+        
+        // Check if bus name already exists for this destination
+        const existingBus = grouped[dest].find(existingBus => existingBus.busName === bus.busName);
+        if (!existingBus) {
+          grouped[dest].push({
+            busName: bus.busName,
+            busNumber: bus.busNumber
+          });
+        }
+      });
+    });
+    
+    return grouped;
+  };
+
+  const busGroups = groupBusesByDestination();
 
   return (
     <div className="home-container">
@@ -126,10 +164,8 @@ const Home = () => {
 
                   <div className="next-departure">
                     <div className="next-departure-time">
-
                       <div className="minutes-left">
                         {getMinutesText(bus.minutesUntilDeparture)} ನಂತರ ಪೆರ್ಡೂರಿನಿಂದ ಹೊರಡುತ್ತದೆ
-
                       </div>
                     </div>
                   </div>
@@ -146,9 +182,44 @@ const Home = () => {
         </div>
       )}
 
-     {/* <Link to="/admin" className="admin-link">
-      Admin Panel
-</Link> */}
+      {/* Destination Tables Section */}
+      <div className="destination-tables-section">
+        <h2>ಗಮ್ಯಸ್ಥಾನಗಳ ಪ್ರಕಾರ ಬಸ್‌ಗಳು</h2>
+        
+        {Object.keys(busGroups).length > 0 ? (
+          <div className="tables-container">
+            {Object.entries(busGroups).map(([destinationName, destinationBuses]) => (
+              <div key={destinationName} className="destination-table-wrapper">
+                <h3 className="destination-table-title">{destinationName}</h3>
+                <table className="destination-table">
+                  <thead>
+                    <tr>
+                      <th>ಬಸ್ ಸಂಖ್ಯೆ</th>
+                      <th>ಬಸ್ ಹೆಸರು</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {destinationBuses.map((bus, index) => (
+                      <tr key={`${destinationName}-${bus.busName}-${index}`}>
+                        <td>{bus.busNumber}</td>
+                        <td>{bus.busName}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-buses-message">
+            <p>ಬಸ್ ಮಾಹಿತಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...</p>
+          </div>
+        )}
+      </div>
+
+      {/* <Link to="/admin" className="admin-link">
+       Admin Panel
+      </Link> */}
     </div>
   );
 };
