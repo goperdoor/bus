@@ -168,7 +168,7 @@ await emailjs.send(serviceId, templateId, templateParams);
               </div>
               <div>
                 <h4 style={{ margin: '0 0 5px 0', color: '#1e293b', fontWeight: '600' }}>Phone</h4>
-                <p style={{ margin: 0, color: '#64748b' }}></p>
+                <p style={{ margin: 0, color: '#64748b' }}>+91 7019441876</p>
               </div>
             </div>
 
