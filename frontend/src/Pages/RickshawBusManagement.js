@@ -142,26 +142,46 @@ const RickshawBusManagement = () => {
           }}>
             Rickshaw Management System
           </h1>
-                 <h3 style={{ marginTop: '0.5rem', fontSize: '14px', color: '#555' }}>
-  Are you a rickshaw driver, taxi owner, or tourist? Help us add new places by submitting this form.
-</h3>
-
-      <button
-  type="button"
-  onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
+                 <div
   style={{
-    marginTop: '1rem',
-    padding: '10px 16px',
-    backgroundColor: '#28a745',
-    color: '#fff',
-    fontWeight: 'bold',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
+    margin: '2rem auto',
+    padding: '1.5rem',
+    maxWidth: '600px',
+    backgroundColor: '#f9f9f9',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+    border: '1px solid #ddd',
   }}
 >
-  📌 Submit your vehicle (your Info)
-</button>
+  <h3 style={{ marginBottom: '1rem', fontSize: '16px', color: '#333' }}>
+    🚖 Are you a rickshaw driver, taxi owner, or tourist? <br />
+    Help us add new places by submitting this form.
+  </h3>
+
+  <button
+    type="button"
+    onClick={() =>
+      window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')
+    }
+    style={{
+      padding: '12px 20px',
+      backgroundColor: '#28a745',
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: '14px',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+    }}
+    onMouseOver={(e) => (e.target.style.backgroundColor = '#218838')}
+    onMouseOut={(e) => (e.target.style.backgroundColor = '#28a745')}
+  >
+    📌 Submit your vehicle (your Info)
+  </button>
+</div>
+
 
           
           <RickshawTable 
