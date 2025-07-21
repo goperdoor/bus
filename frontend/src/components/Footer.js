@@ -144,6 +144,7 @@ const Footer = () => {
                 style={socialIconStyle}
                 onMouseEnter={handleSocialHover}
                 onMouseLeave={handleSocialLeave}
+                   onClick={() => window.open('https://www.instagram.com/goperdoor?igsh=NzdnNnVpbjJrN3Fh', '_blank')}
               >
                 <Instagram size={20} />
               </div>
