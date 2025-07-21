@@ -13,7 +13,10 @@ const Home = () => {
 
   useEffect(() => {
     fetchDestinations();
+     window.scrollTo(0, 0);
   }, []);
+
+
 
   const fetchDestinations = async () => {
     try {
