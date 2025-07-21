@@ -100,6 +100,62 @@ const Home = () => {
   };
 
   const groupedBuses = getGroupedBuses();
+const styles = {
+  destinationTablesSection: {
+    padding: '2rem 1rem',
+    backgroundColor: '#f0f2f5',
+  },
+  tablesHeader: {
+    textAlign: 'center',
+    marginBottom: '2rem',
+  },
+  destinationTables: {
+    display: 'grid',
+    gap: '2rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  },
+  destinationTableContainer: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    padding: '1rem',
+    overflowX: 'auto',
+  },
+  tableHeader: {
+    marginBottom: '1rem',
+  },
+  tableWrapper: {
+    overflowX: 'auto',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  th: {
+    padding: '8px 12px',
+    textAlign: 'left',
+    fontWeight: 'bold',
+    borderBottom: '1px solid #dee2e6',
+  },
+  thCenter: {
+    textAlign: 'center',
+  },
+  td: {
+    padding: '8px 12px',
+    borderBottom: '1px solid #dee2e6',
+    fontSize: '14px',
+  },
+  tdCenter: {
+    textAlign: 'center',
+  },
+  scheduleBadge: {
+    display: 'inline-block',
+    padding: '4px 8px',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    fontSize: '12px',
+  },
+};
 
 
   return (
