@@ -126,20 +126,15 @@ const Footer = () => {
               Never miss your bus again with our accurate timing information.
             </p>
             <div style={socialStyle}>
-              <div 
-                style={socialIconStyle}
-                onMouseEnter={handleSocialHover}
-                onMouseLeave={handleSocialLeave}
-              >
-                <Facebook size={20} />
-              </div>
-              <div 
-                style={socialIconStyle}
-                onMouseEnter={handleSocialHover}
-                onMouseLeave={handleSocialLeave}
-              >
-                <Twitter size={20} />
-              </div>
+             <div 
+  style={socialIconStyle}
+  onMouseEnter={handleSocialHover}
+  onMouseLeave={handleSocialLeave}
+  onClick={() => window.location.href = "mailto:goperdoor576124@gmail.com"}
+>
+  <Mail size={20} />
+</div>
+             
               <div 
                 style={socialIconStyle}
                 onMouseEnter={handleSocialHover}
