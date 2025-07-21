@@ -45,8 +45,8 @@ useEffect(() => {
   ];
 
   const stats = [
-    { number: "100+", label: "Projects Completed" },
-    { number: "50+", label: "Happy Clients" },
+    { number: "25+", label: "Projects Completed" },
+    { number: "10+", label: "Happy Clients" },
     { number: "24/7", label: "Support Available" },
     { number: "99%", label: "Client Satisfaction" }
   ];
