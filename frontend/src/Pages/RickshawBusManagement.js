@@ -44,6 +44,9 @@ const RickshawBusManagement = () => {
 
   const RickshawTable = ({ title, rickshaws, bgColor }) => (
     <div style={{ marginBottom: '2rem' }}>
+
+
+  
       <h2 style={{
         fontSize: '1.5rem',
         fontWeight: 'bold',
@@ -54,27 +57,7 @@ const RickshawBusManagement = () => {
       }}>
         {title}
       </h2>
-        <p style={{ marginTop: '0.5rem', fontSize: '14px', color: '#555' }}>
-  Are you a rickshaw driver, taxi owner, or tourist? Help us add new places by submitting this form.
-</p>
-
-      <button
-  type="button"
-  onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
-  style={{
-    marginTop: '1rem',
-    padding: '10px 16px',
-    backgroundColor: '#28a745',
-    color: '#fff',
-    fontWeight: 'bold',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-  }}
->
-  📌 Submit Location (Rickshaw / Taxi / Tourist Info)
-</button>
-
+     
 
         
       <div style={{
@@ -159,6 +142,27 @@ const RickshawBusManagement = () => {
           }}>
             Rickshaw Management System
           </h1>
+                 <p style={{ marginTop: '0.5rem', fontSize: '14px', color: '#555' }}>
+  Are you a rickshaw driver, taxi owner, or tourist? Help us add new places by submitting this form.
+</p>
+
+      <button
+  type="button"
+  onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
+  style={{
+    marginTop: '1rem',
+    padding: '10px 16px',
+    backgroundColor: '#28a745',
+    color: '#fff',
+    fontWeight: 'bold',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }}
+>
+  📌 Submit Location (Rickshaw / Taxi / Tourist Info)
+</button>
+
           
           <RickshawTable 
             title="Stand 1 - ಕೆಳಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ"
