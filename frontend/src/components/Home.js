@@ -134,7 +134,7 @@ const styles = {
       border: '1px solid #e9ecef'
     },
     tableHeader: {
-      backgroundColor: '#007bff',
+      backgroundImage: 'linear-gradient(135deg, #485eff 0%, #a955ff 100%)',
       color: 'white',
       padding: '15px',
       textAlign: 'center',
@@ -159,7 +159,7 @@ const styles = {
       fontWeight: '600',
       color: '#495057',
       borderBottom: '2px solid #dee2e6',
-      backgroundImage: 'linear-gradient(135deg, #485eff 0%, #a955ff 100%)',
+       backgroundColor: '#f8f9fa',
       '@media (min-width: 576px)': {
         padding: '15px 12px'
       }
