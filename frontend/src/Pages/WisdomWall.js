@@ -27,59 +27,91 @@ const WisdomWall = () => {
   const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
 
   // Sample data - in real app, this would come from your backend
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      name: "Sarah M.",
-      type: "art",
-      content: "Beautiful sunset painting",
-      image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-      likes: 24,
-      views: 89
-    },
-    {
-      id: 2,
-      name: "Alex R.",
-      type: "quote",
-      content: "The best time to plant a tree was 20 years ago. The second best time is now.",
-      likes: 18,
-      views: 67
-    },
-    {
-      id: 3,
-      name: "Maya K.",
-      type: "drawing",
-      content: "Pencil sketch of a flower",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
-      likes: 31,
-      views: 104
-    },
-    {
-      id: 4,
-      name: "John D.",
-      type: "song",
-      content: "🎵 Original melody about hope and dreams. 'When the morning light breaks through the clouds, I remember all the dreams I've found...'",
-      likes: 15,
-      views: 43
-    },
-    {
-      id: 5,
-      name: "Priya S.",
-      type: "art",
-      content: "Watercolor landscape",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
-      likes: 22,
-      views: 78
-    },
-    {
-      id: 6,
-      name: "David L.",
-      type: "quote",
-      content: "Creativity is intelligence having fun. - Albert Einstein",
-      likes: 28,
-      views: 92
-    }
-  ]);
+   {
+    id: 13,
+    name: "Nitin Salian",
+    type: "sports",
+    content: "🏏 Perdoor Premier League 2025 – Team Namma Tigers took the win in a thrilling final!",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&h=300&fit=crop",
+    likes: 58,
+    views: 190
+  },
+  {
+    id: 14,
+    name: "Sandhya Poojary",
+    type: "quote",
+    content: "ಒಳ್ಳೆಯ ದಿನಗಳು ಹತ್ತಿರದಲ್ಲಿವೆ. ಸ್ವಲ್ಪ ಧೈರ್ಯವಿಟ್ಟು ಮುಂದುವರಿಯಿರಿ.",
+    likes: 42,
+    views: 123
+  },
+  {
+    id: 15,
+    name: "Rajeev Nayak",
+    type: "motivational",
+    content: "Don’t wait for inspiration. Be the reason someone believes in change. 💫",
+    likes: 39,
+    views: 110
+  },
+  {
+    id: 16,
+    name: "Prajwal Hegde",
+    type: "sports",
+    content: "🏐 Evening volleyball matches near Perdoor High School bring together all age groups. Pure joy!",
+    image: "https://images.unsplash.com/photo-1600093463592-44b0e8b682d4?w=400&h=300&fit=crop",
+    likes: 33,
+    views: 102
+  },
+  {
+    id: 17,
+    name: "Aishwarya Shenoy",
+    type: "quote",
+    content: "ತುಂಬಾ ದೂರದ ಕನಸು ಕಾಣಿರಿ, ದಾರಿ ಸಿಗುತ್ತೆ.",
+    likes: 48,
+    views: 128
+  },
+  {
+    id: 18,
+    name: "Roshan Shetty",
+    type: "motivational",
+    content: "Success isn’t a one-day event. It’s the small steps, taken daily, in silence.",
+    likes: 51,
+    views: 150
+  },
+  {
+    id: 19,
+    name: "Bhavya D'Souza",
+    type: "quote",
+    content: "Nenepuga onji gadyānta, gathaka onji parisar – Perdoor gattava ulladu. 🙏 (Memories are poems, Perdoor is heritage.)",
+    likes: 36,
+    views: 97
+  },
+  {
+    id: 20,
+    name: "Sharan Poojary",
+    type: "sports",
+    content: "🥇 Winners of the rural-level kabaddi tournament held near Perdoor Bus Stand. Great crowd energy!",
+    image: "https://images.unsplash.com/photo-1597751102935-73b0b546da1f?w=400&h=300&fit=crop",
+    likes: 62,
+    views: 204
+  },
+    
+  {
+    id: 21,
+    name: "Chaitra Udupa",
+    type: "quote",
+    content: "ಜೀವನದಲ್ಲಿ ಯಶಸ್ಸು ಬೇಕಾದರೆ ಮೊದಲಿಗೆ ನಂಬಿಕೆ ಬೇಕು.",
+    likes: 41,
+    views: 120
+  },
+  {
+    id: 22,
+    name: "Anvith Shetty",
+    type: "motivational",
+    content: "🌱 From the roots of small towns grow the tallest dreams. Proud to be from Perdoor!",
+    likes: 59,
+    views: 201
+  }
+
 
   // Track which posts user has liked (in a real app, this would be stored in backend/localStorage)
   const [likedPosts, setLikedPosts] = useState(new Set());
