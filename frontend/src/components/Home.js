@@ -7,14 +7,14 @@ const Home = () => {
   const [destination, setDestination] = useState('');
   const [destinations, setDestinations] = useState([]);
   const [buses, setBuses] = useState([]);
-  const [allBuses, setAllBuses] = useState([]);
+  const [allBuses, setAllBuses] = useState([]); // For destination tables
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchDestinations();
-    fetchAllBuses();
+    fetchAllBuses(); // Fetch all buses for tables
     window.scrollTo(0, 0);
   }, []);
 
@@ -29,8 +29,10 @@ const Home = () => {
 
   const fetchAllBuses = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/buses`);
-      setAllBuses(response.data || []);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/buses`);
+      // Filter only active buses
+      const activeBuses = response.data.filter(bus => bus.active);
+      setAllBuses(activeBuses);
     } catch (error) {
       console.error('Error fetching all buses:', error);
     }
@@ -70,39 +72,42 @@ const Home = () => {
     return `${hours}ಗಂಟೆ ${remainingMinutes}ನಿಮಿಷ`;
   };
 
-  // Group buses by destination and remove duplicates by bus name
-  const groupBusesByDestination = () => {
+  // Group buses by destination and remove duplicates
+  const getGroupedBuses = () => {
     const grouped = {};
     
     allBuses.forEach(bus => {
-      // Assuming bus has destinations array or destination field
-      const busDestinations = bus.destinations || [bus.destination];
+      if (!grouped[bus.destination]) {
+        grouped[bus.destination] = [];
+      }
       
-      busDestinations.forEach(dest => {
-        if (!grouped[dest]) {
-          grouped[dest] = [];
-        }
-        
-        // Check if bus name already exists for this destination
-        const existingBus = grouped[dest].find(existingBus => existingBus.busName === bus.busName);
-        if (!existingBus) {
-          grouped[dest].push({
-            busName: bus.busName,
-            busNumber: bus.busNumber
-          });
-        }
-      });
+      // Check if bus name already exists for this destination
+      const existingBus = grouped[bus.destination].find(b => b.busName === bus.busName);
+      if (!existingBus) {
+        grouped[bus.destination].push({
+          busName: bus.busName,
+          busNumber: bus.busNumber,
+          arrivalTime: bus.arrivalTimeToPerdoor,
+          departureTime: bus.leavingTimeFromPerdoor,
+          availability: bus.availability
+        });
+      }
     });
-    
+
+    // Sort buses within each destination by bus name
+    Object.keys(grouped).forEach(dest => {
+      grouped[dest].sort((a, b) => a.busName.localeCompare(b.busName));
+    });
+
     return grouped;
   };
 
-  const busGroups = groupBusesByDestination();
+  const groupedBuses = getGroupedBuses();
 
   return (
     <div className="home-container">
       <div className="header2" id='header2'>
-        <h1> ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
+        <h1>ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
         <p>ನಿಮ್ಮ ಬಸ್ ಸಮಯವನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
       </div>
 
@@ -116,7 +121,7 @@ const Home = () => {
               onChange={(e) => setDestination(e.target.value)}
               required
             >
-              <option value="" disabled> ಆಯ್ಕೆಮಾಡಿ</option>
+              <option value="" disabled>ಆಯ್ಕೆಮಾಡಿ</option>
               {destinations.map((dest, index) => (
                 <option key={index} value={dest}>
                   {dest}
@@ -133,7 +138,7 @@ const Home = () => {
       {searched && (
         <div className="results-section">
           <div className="results-header">
-            <h2> "{destination}" ಫಲಿತಾಂಶಗಳು</h2>
+            <h2>"{destination}" ಫಲಿತಾಂಶಗಳು</h2>
           </div>
 
           {message && buses.length === 0 && (
@@ -182,43 +187,200 @@ const Home = () => {
         </div>
       )}
 
-      {/* Destination Tables Section */}
-      <div className="destination-tables-section">
-        <h2>ಗಮ್ಯಸ್ಥಾನಗಳ ಪ್ರಕಾರ ಬಸ್‌ಗಳು</h2>
-        
-        {Object.keys(busGroups).length > 0 ? (
-          <div className="tables-container">
-            {Object.entries(busGroups).map(([destinationName, destinationBuses]) => (
-              <div key={destinationName} className="destination-table-wrapper">
-                <h3 className="destination-table-title">{destinationName}</h3>
-                <table className="destination-table">
-                  <thead>
-                    <tr>
-                      <th>ಬಸ್ ಸಂಖ್ಯೆ</th>
-                      <th>ಬಸ್ ಹೆಸರು</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {destinationBuses.map((bus, index) => (
-                      <tr key={`${destinationName}-${bus.busName}-${index}`}>
-                        <td>{bus.busNumber}</td>
-                        <td>{bus.busName}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ))}
+      {/* Bus Tables by Destination */}
+      <div className="destination-tables-section" style={{ marginTop: '40px', padding: '20px 0' }}>
+        <div className="tables-header" style={{ 
+          textAlign: 'center', 
+          marginBottom: '30px',
+          borderBottom: '2px solid #ddd',
+          paddingBottom: '20px'
+        }}>
+          <h2 style={{ 
+            color: '#2c3e50', 
+            fontSize: '28px', 
+            fontWeight: 'bold',
+            marginBottom: '10px'
+          }}>
+            ಎಲ್ಲಾ ಗಮ್ಯಸ್ಥಾನಗಳಿಗೆ ಬಸ್ ವಿವರಗಳು
+          </h2>
+          <p style={{ color: '#6c757d', fontSize: '16px' }}>
+            All Bus Details by Destinations
+          </p>
+        </div>
+
+        {Object.keys(groupedBuses).length === 0 ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '12px',
+            margin: '20px'
+          }}>
+            <p style={{ fontSize: '18px', color: '#6c757d' }}>
+              ಯಾವುದೇ ಬಸ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ | No bus information available
+            </p>
           </div>
         ) : (
-          <div className="no-buses-message">
-            <p>ಬಸ್ ಮಾಹಿತಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...</p>
+          <div className="destination-tables" style={{ 
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+            gap: '30px',
+            padding: '0 20px'
+          }}>
+            {Object.entries(groupedBuses).map(([dest, busList]) => (
+              <div key={dest} className="destination-table-container" style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                overflow: 'hidden',
+                border: '1px solid #e9ecef'
+              }}>
+                {/* Table Header */}
+                <div style={{
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  padding: '20px',
+                  textAlign: 'center'
+                }}>
+                  <h3 style={{ 
+                    margin: '0',
+                    fontSize: '20px',
+                    fontWeight: 'bold'
+                  }}>
+                    🚌 {dest}
+                  </h3>
+                  <p style={{ 
+                    margin: '5px 0 0 0',
+                    fontSize: '14px',
+                    opacity: '0.9'
+                  }}>
+                    {busList.length} buses available
+                  </p>
+                </div>
+
+                {/* Table */}
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ 
+                    width: '100%', 
+                    borderCollapse: 'collapse',
+                    fontSize: '14px'
+                  }}>
+                    <thead>
+                      <tr style={{ backgroundColor: '#f8f9fa' }}>
+                        <th style={{ 
+                          padding: '15px 12px',
+                          textAlign: 'left',
+                          fontWeight: '600',
+                          color: '#495057',
+                          borderBottom: '2px solid #dee2e6'
+                        }}>
+                          Bus Name
+                        </th>
+                        <th style={{ 
+                          padding: '15px 12px',
+                          textAlign: 'left',
+                          fontWeight: '600',
+                          color: '#495057',
+                          borderBottom: '2px solid #dee2e6'
+                        }}>
+                          Bus Number
+                        </th>
+                        <th style={{ 
+                          padding: '15px 12px',
+                          textAlign: 'center',
+                          fontWeight: '600',
+                          color: '#495057',
+                          borderBottom: '2px solid #dee2e6'
+                        }}>
+                          Arrival
+                        </th>
+                        <th style={{ 
+                          padding: '15px 12px',
+                          textAlign: 'center',
+                          fontWeight: '600',
+                          color: '#495057',
+                          borderBottom: '2px solid #dee2e6'
+                        }}>
+                          Departure
+                        </th>
+                        <th style={{ 
+                          padding: '15px 12px',
+                          textAlign: 'center',
+                          fontWeight: '600',
+                          color: '#495057',
+                          borderBottom: '2px solid #dee2e6'
+                        }}>
+                          Schedule
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {busList.map((bus, index) => (
+                        <tr key={`${bus.busName}-${bus.busNumber}`} style={{
+                          backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa',
+                          transition: 'background-color 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.closest('tr').style.backgroundColor = '#e3f2fd'}
+                        onMouseLeave={(e) => e.target.closest('tr').style.backgroundColor = index % 2 === 0 ? '#ffffff' : '#f8f9fa'}
+                        >
+                          <td style={{ 
+                            padding: '15px 12px',
+                            fontWeight: '500',
+                            color: '#2c3e50'
+                          }}>
+                            {bus.busName}
+                          </td>
+                          <td style={{ 
+                            padding: '15px 12px',
+                            color: '#6c757d',
+                            fontWeight: '500'
+                          }}>
+                            {bus.busNumber}
+                          </td>
+                          <td style={{ 
+                            padding: '15px 12px',
+                            textAlign: 'center',
+                            color: '#28a745',
+                            fontWeight: '600'
+                          }}>
+                            {formatTime(bus.arrivalTime)}
+                          </td>
+                          <td style={{ 
+                            padding: '15px 12px',
+                            textAlign: 'center',
+                            color: '#dc3545',
+                            fontWeight: '600'
+                          }}>
+                            {formatTime(bus.departureTime)}
+                          </td>
+                          <td style={{ 
+                            padding: '15px 12px',
+                            textAlign: 'center'
+                          }}>
+                            <span style={{
+                              padding: '6px 12px',
+                              borderRadius: '20px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                              backgroundColor: bus.availability === 'daily' ? '#e3f2fd' : '#fff3e0',
+                              color: bus.availability === 'daily' ? '#1976d2' : '#f57c00'
+                            }}>
+                              {bus.availability === 'daily' ? 'Daily' : 'Weekdays'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
 
       {/* <Link to="/admin" className="admin-link">
-       Admin Panel
+        Admin Panel
       </Link> */}
     </div>
   );
