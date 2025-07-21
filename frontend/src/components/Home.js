@@ -145,7 +145,132 @@ const Home = () => {
           )}
         </div>
       )}
+<div style={styles.destinationTablesSection} className="destination-tables-section">
+        <div style={styles.tablesHeader} className="tables-header">
+          <h2 style={{ 
+            color: '#2c3e50', 
+            fontSize: 'clamp(22px, 5vw, 28px)', 
+            fontWeight: 'bold',
+            marginBottom: '10px',
+            margin: '0 0 10px 0'
+          }}>
+            ಎಲ್ಲಾ ಗಮ್ಯಸ್ಥಾನಗಳಿಗೆ ಬಸ್ ವಿವರಗಳು
+          </h2>
+          <p style={{ 
+            color: '#6c757d', 
+            fontSize: 'clamp(14px, 3vw, 16px)',
+            margin: '0'
+          }}>
+            All Bus Details by Destinations
+          </p>
+        </div>
 
+        {Object.keys(groupedBuses).length === 0 ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px 20px',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '12px',
+            margin: '0 auto',
+            maxWidth: '500px'
+          }}>
+            <p style={{ 
+              fontSize: 'clamp(16px, 4vw, 18px)', 
+              color: '#6c757d',
+              margin: '0'
+            }}>
+              ಯಾವುದೇ ಬಸ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ | No bus information available
+            </p>
+          </div>
+        ) : (
+          <div style={styles.destinationTables} className="destination-tables">
+            {Object.entries(groupedBuses).map(([dest, busList]) => (
+              <div key={dest} style={styles.destinationTableContainer}>
+                {/* Table Header */}
+                <div style={styles.tableHeader}>
+                  <h3 style={{ 
+                    margin: '0',
+                    fontSize: 'clamp(16px, 4vw, 20px)',
+                    fontWeight: 'bold'
+                  }}>
+                    🚌 {dest}
+                  </h3>
+                  <p style={{ 
+                    margin: '5px 0 0 0',
+                    fontSize: 'clamp(12px, 3vw, 14px)',
+                    opacity: '0.9'
+                  }}>
+                    {busList.length} buses available
+                  </p>
+                </div>
+
+                {/* Table */}
+                <div style={styles.tableWrapper}>
+                  <table style={styles.table}>
+                    <thead>
+                      <tr style={{ backgroundColor: '#f8f9fa' }}>
+                        <th style={{
+                          ...styles.th,
+                          minWidth: '120px'
+                        }}>
+                          Bus Name
+                        </th>
+                        <th style={{
+                          ...styles.th,
+                          minWidth: '100px'
+                        }}>
+                          Bus Number
+                        </th>
+                        <th style={{
+                          ...styles.th,
+                          ...styles.thCenter,
+                          minWidth: '80px'
+                        }}>
+                          Schedule
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {busList.map((bus, index) => (
+                        <tr key={`${bus.busName}-${bus.busNumber}`} style={{
+                          backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa'
+                        }}>
+                          <td style={{ 
+                            ...styles.td,
+                            fontWeight: '500',
+                            color: '#2c3e50'
+                          }}>
+                            {bus.busName}
+                          </td>
+                          <td style={{ 
+                            ...styles.td,
+                            color: '#6c757d',
+                            fontWeight: '500'
+                          }}>
+                            {bus.busNumber}
+                          </td>
+                          <td style={{ 
+                            ...styles.td,
+                            ...styles.tdCenter
+                          }}>
+                            <span style={{
+                              ...styles.scheduleBadge,
+                              backgroundColor: bus.availability === 'daily' ? '#e3f2fd' : '#fff3e0',
+                              color: bus.availability === 'daily' ? '#1976d2' : '#f57c00'
+                            }}>
+                              {bus.availability === 'daily' ? 'Daily' : 'Weekdays'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
      {/* <Link to="/admin" className="admin-link">
       Admin Panel
 </Link> */}
