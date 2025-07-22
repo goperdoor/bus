@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ExternalLink, Search, Brain, GraduationCap, PenTool, BookOpen, Palette, Video, Code, Mic, BarChart, FileText, Plus, Minus } from 'lucide-react';
 
 const AILearningHub = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,7 +14,6 @@ const AILearningHub = () => {
   const aiTools = {
     general: {
       title: "🧠 AI Tools for Everyone (General Use)",
-      icon: <Brain className="w-5 h-5" />,
       tools: [
         { name: "ChatGPT", purpose: "Ask anything, writing, coding, explaining", link: "https://chat.openai.com" },
         { name: "Google Gemini", purpose: "Google's AI assistant (chat, help, research)", link: "https://gemini.google.com" },
@@ -29,7 +27,6 @@ const AILearningHub = () => {
     },
     students: {
       title: "🧑‍🎓 AI Tools for Students",
-      icon: <GraduationCap className="w-5 h-5" />,
       tools: [
         { name: "Quillbot", purpose: "Paraphrasing and grammar checking", link: "https://quillbot.com" },
         { name: "Grammarly", purpose: "Writing improvement and grammar check", link: "https://www.grammarly.com" },
@@ -44,7 +41,6 @@ const AILearningHub = () => {
     },
     writing: {
       title: "✍️ Content Writing & Blog Tools",
-      icon: <PenTool className="w-5 h-5" />,
       tools: [
         { name: "Writesonic", purpose: "Blog, ad copy, product descriptions", link: "https://writesonic.com" },
         { name: "Copy.ai", purpose: "Content generation for business & school", link: "https://copy.ai" },
@@ -57,9 +53,8 @@ const AILearningHub = () => {
     },
     learning: {
       title: "📚 Learning & Tutoring AI Tools",
-      icon: <BookOpen className="w-5 h-5" />,
       tools: [
-        { name: "Socratic by Google", purpose: "Solve questions using camera & explanations", link: "Play Store/App Store" },
+        { name: "Socratic by Google", purpose: "Solve questions using camera & explanations", link: "https://socratic.org" },
         { name: "Photomath", purpose: "Solves math problems with step-by-step help", link: "https://photomath.com" },
         { name: "Tutor AI", purpose: "Learn any topic instantly", link: "https://tutorai.me" },
         { name: "StudyFetch", purpose: "AI study guide creator", link: "https://studyfetch.com" },
@@ -70,7 +65,6 @@ const AILearningHub = () => {
     },
     design: {
       title: "🎨 AI Design & Image Tools",
-      icon: <Palette className="w-5 h-5" />,
       tools: [
         { name: "Canva AI", purpose: "Auto-design, presentations", link: "https://www.canva.com" },
         { name: "Remove.bg", purpose: "Remove image backgrounds", link: "https://www.remove.bg" },
@@ -86,7 +80,6 @@ const AILearningHub = () => {
     },
     video: {
       title: "🎞️ AI Video Tools",
-      icon: <Video className="w-5 h-5" />,
       tools: [
         { name: "Pictory", purpose: "Turn text into short videos", link: "https://pictory.ai" },
         { name: "Lumen5", purpose: "Video creation from blogs or text", link: "https://lumen5.com" },
@@ -100,7 +93,6 @@ const AILearningHub = () => {
     },
     coding: {
       title: "👩‍💻 Coding & Development Tools",
-      icon: <Code className="w-5 h-5" />,
       tools: [
         { name: "GitHub Copilot", purpose: "AI code suggestion in IDEs", link: "https://github.com/features/copilot" },
         { name: "Codeium", purpose: "Free AI coding assistant", link: "https://codeium.com" },
@@ -114,7 +106,6 @@ const AILearningHub = () => {
     },
     voice: {
       title: "🎤 Voice, Speech & Translation Tools",
-      icon: <Mic className="w-5 h-5" />,
       tools: [
         { name: "Whisper by OpenAI", purpose: "Speech-to-text model (API, local)", link: "https://openai.com/research/whisper" },
         { name: "Voicemod AI", purpose: "Voice changer and effects", link: "https://www.voicemod.net" },
@@ -128,7 +119,6 @@ const AILearningHub = () => {
     },
     productivity: {
       title: "📊 Productivity Tools",
-      icon: <BarChart className="w-5 h-5" />,
       tools: [
         { name: "Notion AI", purpose: "Notes, project management, task planner", link: "https://notion.so" },
         { name: "Taskade AI", purpose: "Brainstorming + task lists", link: "https://www.taskade.com" },
@@ -141,7 +131,6 @@ const AILearningHub = () => {
     },
     documents: {
       title: "📑 AI PDF & Document Tools",
-      icon: <FileText className="w-5 h-5" />,
       tools: [
         { name: "ChatPDF", purpose: "Ask questions from any PDF", link: "https://www.chatpdf.com" },
         { name: "Humata.ai", purpose: "Upload PDF and chat with it", link: "https://www.humata.ai" },
@@ -171,34 +160,104 @@ const AILearningHub = () => {
     const displayTools = isExpanded ? tools : tools.slice(0, 3);
 
     return (
-      <div className="overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+      <div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+          }}>
             <thead>
-              <tr className="bg-white/50 backdrop-blur-sm">
-                <th className="border border-purple-200 px-3 py-2 text-left text-sm font-semibold text-gray-700">Tool Name</th>
-                <th className="border border-purple-200 px-3 py-2 text-left text-sm font-semibold text-gray-700">Purpose</th>
-                <th className="border border-purple-200 px-3 py-2 text-center text-sm font-semibold text-gray-700 w-16">Link</th>
+              <tr style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)' }}>
+                <th style={{
+                  border: '1px solid rgba(147, 51, 234, 0.2)',
+                  padding: '12px 16px',
+                  textAlign: 'left',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#374151'
+                }}>Tool Name</th>
+                <th style={{
+                  border: '1px solid rgba(147, 51, 234, 0.2)',
+                  padding: '12px 16px',
+                  textAlign: 'left',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#374151'
+                }}>Purpose</th>
+                <th style={{
+                  border: '1px solid rgba(147, 51, 234, 0.2)',
+                  padding: '12px 16px',
+                  textAlign: 'center',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#374151',
+                  width: '80px'
+                }}>Link</th>
               </tr>
             </thead>
             <tbody>
               {displayTools.map((tool, index) => (
-                <tr key={index} className="hover:bg-white/30 transition-colors duration-200">
-                  <td className="border border-purple-200 px-3 py-3 text-sm font-medium text-gray-800">
+                <tr key={index} style={{
+                  borderBottom: index !== displayTools.length - 1 ? '1px solid rgba(147, 51, 234, 0.1)' : 'none'
+                }}>
+                  <td style={{
+                    border: '1px solid rgba(147, 51, 234, 0.2)',
+                    padding: '16px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#1f2937',
+                    minWidth: '140px'
+                  }}>
                     {tool.name}
                   </td>
-                  <td className="border border-purple-200 px-3 py-3 text-sm text-gray-600 leading-relaxed">
+                  <td style={{
+                    border: '1px solid rgba(147, 51, 234, 0.2)',
+                    padding: '16px',
+                    fontSize: '14px',
+                    color: '#4b5563',
+                    lineHeight: '1.5'
+                  }}>
                     {tool.purpose}
                   </td>
-                  <td className="border border-purple-200 px-3 py-3 text-center">
+                  <td style={{
+                    border: '1px solid rgba(147, 51, 234, 0.2)',
+                    padding: '16px',
+                    textAlign: 'center'
+                  }}>
                     <a
                       href={tool.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-200 transform hover:scale-110"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '36px',
+                        height: '36px',
+                        background: 'linear-gradient(45deg, #8b5cf6, #ec4899)',
+                        color: 'white',
+                        borderRadius: '50%',
+                        textDecoration: 'none',
+                        fontSize: '16px',
+                        transition: 'all 0.2s ease',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'scale(1.1)';
+                        e.target.style.background = 'linear-gradient(45deg, #7c3aed, #db2777)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'scale(1)';
+                        e.target.style.background = 'linear-gradient(45deg, #8b5cf6, #ec4899)';
+                      }}
                       title={`Visit ${tool.name}`}
                     >
-                      <ExternalLink size={14} />
+                      ↗
                     </a>
                   </td>
                 </tr>
@@ -208,22 +267,33 @@ const AILearningHub = () => {
         </div>
         
         {tools.length > 3 && (
-          <div className="mt-3 flex justify-center">
+          <div style={{ marginTop: '16px', textAlign: 'center' }}>
             <button
               onClick={() => toggleCategory(categoryId)}
-              className="flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full text-sm font-medium text-purple-700 hover:bg-white/80 transition-all duration-200 border border-purple-200"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '25px',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#7c3aed',
+                border: '1px solid rgba(147, 51, 234, 0.3)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                e.target.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                e.target.style.transform = 'translateY(0)';
+              }}
             >
-              {isExpanded ? (
-                <>
-                  <Minus size={16} />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <Plus size={16} />
-                  Show {tools.length - 3} More
-                </>
-              )}
+              {isExpanded ? '− Show Less' : `+ Show ${tools.length - 3} More`}
             </button>
           </div>
         )}
@@ -232,43 +302,107 @@ const AILearningHub = () => {
   };
 
   return (
-    <div style={{ background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)' }} className="min-h-screen py-6 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div style={{ 
+      background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
+      minHeight: '100vh',
+      padding: '24px 16px'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <h1 style={{
+            fontSize: window.innerWidth <= 768 ? '28px' : '36px',
+            fontWeight: 'bold',
+            color: '#1f2937',
+            marginBottom: '16px',
+            lineHeight: '1.2'
+          }}>
             🤖 AI Learning Hub
           </h1>
-          <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto leading-relaxed">
+          <p style={{
+            fontSize: '18px',
+            color: '#4b5563',
+            marginBottom: '32px',
+            maxWidth: '600px',
+            margin: '0 auto 32px',
+            lineHeight: '1.6'
+          }}>
             Discover the most powerful AI tools for learning, productivity, content creation, and more. 
             Your complete guide to AI-powered success.
           </p>
           
           {/* Search Bar */}
-          <div className="relative max-w-md mx-auto mb-6">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
-            </div>
+          <div style={{ position: 'relative', maxWidth: '400px', margin: '0 auto 32px' }}>
             <input
               type="text"
               placeholder="Search AI tools..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-3 border border-purple-200 rounded-xl leading-5 bg-white/70 backdrop-blur-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+              style={{
+                width: '100%',
+                padding: '16px 20px 16px 50px',
+                border: '1px solid rgba(147, 51, 234, 0.3)',
+                borderRadius: '25px',
+                fontSize: '16px',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                outline: 'none',
+                transition: 'all 0.2s ease'
+              }}
+              onFocus={(e) => {
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                e.target.style.borderColor = 'rgba(147, 51, 234, 0.5)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(147, 51, 234, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                e.target.style.borderColor = 'rgba(147, 51, 234, 0.3)';
+                e.target.style.boxShadow = 'none';
+              }}
             />
+            <span style={{
+              position: 'absolute',
+              left: '18px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              fontSize: '18px',
+              color: '#9ca3af'
+            }}>🔍</span>
           </div>
         </div>
 
         {/* Categories */}
-        <div className="space-y-8">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           {Object.entries(filteredTools).map(([categoryId, category]) => (
-            <div key={categoryId} className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg border border-white/50">
-              <div className="flex items-center gap-3 mb-4">
-                {category.icon}
-                <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+            <div key={categoryId} style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.5)',
+              borderRadius: '20px',
+              padding: window.innerWidth <= 768 ? '20px' : '32px',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.3)'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px', 
+                marginBottom: '24px',
+                flexWrap: 'wrap'
+              }}>
+                <h2 style={{
+                  fontSize: window.innerWidth <= 768 ? '20px' : '24px',
+                  fontWeight: 'bold',
+                  color: '#1f2937',
+                  margin: '0'
+                }}>
                   {category.title}
                 </h2>
-                <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs font-medium">
+                <span style={{
+                  backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                  color: '#7c3aed',
+                  padding: '4px 12px',
+                  borderRadius: '15px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
                   {category.tools.length} tools
                 </span>
               </div>
@@ -280,23 +414,45 @@ const AILearningHub = () => {
 
         {/* No Results */}
         {Object.keys(filteredTools).length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">No tools found</h3>
-            <p className="text-gray-500">Try adjusting your search terms</p>
+          <div style={{ textAlign: 'center', padding: '48px 0' }}>
+            <div style={{ fontSize: '64px', marginBottom: '16px' }}>🔍</div>
+            <h3 style={{ fontSize: '20px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              No tools found
+            </h3>
+            <p style={{ color: '#6b7280' }}>Try adjusting your search terms</p>
           </div>
         )}
 
         {/* Bonus Section */}
-        <div className="mt-12 bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-2xl p-6 border border-purple-200">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        <div style={{
+          marginTop: '48px',
+          background: 'linear-gradient(45deg, rgba(147, 51, 234, 0.1), rgba(236, 72, 153, 0.1))',
+          borderRadius: '20px',
+          padding: '32px',
+          border: '1px solid rgba(147, 51, 234, 0.2)'
+        }}>
+          <h3 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            color: '#1f2937',
+            marginBottom: '16px',
+            textAlign: 'center'
+          }}>
             🛠️ BONUS: AI Tool Aggregators
           </h3>
-          <p className="text-gray-600 mb-6 text-center">
+          <p style={{
+            color: '#4b5563',
+            marginBottom: '24px',
+            textAlign: 'center'
+          }}>
             Discover even more AI tools with these comprehensive directories
           </p>
           
-          <div className="grid md:grid-cols-3 gap-4">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(3, 1fr)',
+            gap: '16px'
+          }}>
             {[
               { name: "Futurepedia", desc: "1000+ categorized AI tools", link: "https://www.futurepedia.io" },
               { name: "There's An AI For That", desc: "Search AI tools by use case", link: "https://www.theresanaiforthat.com" },
@@ -307,14 +463,41 @@ const AILearningHub = () => {
                 href={tool.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-white/60 backdrop-blur-sm rounded-xl p-4 hover:bg-white/80 transition-all duration-200 border border-purple-200 group"
+                style={{
+                  display: 'block',
+                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  border: '1px solid rgba(147, 51, 234, 0.2)'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
               >
-                <h4 className="font-semibold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
+                <h4 style={{
+                  fontWeight: '600',
+                  color: '#1f2937',
+                  marginBottom: '8px',
+                  fontSize: '16px'
+                }}>
                   {tool.name}
                 </h4>
-                <p className="text-sm text-gray-600">{tool.desc}</p>
-                <div className="mt-3 flex justify-end">
-                  <ExternalLink size={16} className="text-purple-500 group-hover:text-purple-600" />
+                <p style={{
+                  fontSize: '14px',
+                  color: '#4b5563',
+                  margin: '0 0 12px 0'
+                }}>{tool.desc}</p>
+                <div style={{ textAlign: 'right' }}>
+                  <span style={{ color: '#8b5cf6', fontSize: '16px' }}>↗</span>
                 </div>
               </a>
             ))}
@@ -322,8 +505,8 @@ const AILearningHub = () => {
         </div>
 
         {/* Footer Note */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-gray-500">
+        <div style={{ marginTop: '32px', textAlign: 'center' }}>
+          <p style={{ fontSize: '14px', color: '#6b7280' }}>
             💡 Most tools offer free tiers or trials. Explore and find what works best for your needs!
           </p>
         </div>
