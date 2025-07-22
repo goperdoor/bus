@@ -63,7 +63,7 @@ const PerdoorPage = () => {
     {
       name: "Perdoor Sree Krishna Temple",
       description: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+      image: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest2.jpg",
       timings: "5:00 AM - 12:00 PM, 5:00 PM - 8:00 PM",
       rating: 4.8
     },
