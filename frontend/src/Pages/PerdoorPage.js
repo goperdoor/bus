@@ -22,22 +22,22 @@ const PerdoorPage = () => {
   // Carousel images for Perdoor
   const carouselImages = [
     {
-      src: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=1200&h=600&fit=crop",
+      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
       alt: "Perdoor Temple Complex",
       title: "Sacred Temples of Perdoor"
     },
     {
-      src: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=1200&h=600&fit=crop",
+      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
       alt: "Perdoor Landscape",
       title: "Natural Beauty of Perdoor"
     },
     {
-      src: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=1200&h=600&fit=crop",
+      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
       alt: "Traditional Architecture",
       title: "Heritage Architecture"
     },
     {
-      src: "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=1200&h=600&fit=crop",
+      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
       alt: "Cultural Festival",
       title: "Vibrant Cultural Heritage"
     }
@@ -62,7 +62,7 @@ const PerdoorPage = () => {
   const temples = [
     {
       name: "Perdoor Sree Krishna Temple",
-      description: "Ancient temple dedicated to Lord Krishna with beautiful murals and traditional architecture",
+      description: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
       timings: "5:00 AM - 12:00 PM, 5:00 PM - 8:00 PM",
       rating: 4.8
