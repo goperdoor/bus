@@ -1,5 +1,5 @@
 import React from 'react';
-
+import BackgroundVideo from '../Pages/BackgroundVideo';
 export default function ErrorPage() {
   const goBack = () => {
     window.history.back();
@@ -11,6 +11,7 @@ export default function ErrorPage() {
 
   return (
     <div className="error-page">
+    <BackgroundVideo />
       <style jsx>{`
         .error-page {
           min-height: 100vh;
