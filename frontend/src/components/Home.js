@@ -201,7 +201,7 @@ const styles = {
         fontSize: '12px',
         borderRadius: '20px'
       }
-    }
+    },
    mainContainer: {
       background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
       minHeight: '100vh',
