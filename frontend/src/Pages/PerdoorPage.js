@@ -27,7 +27,7 @@ const PerdoorPage = () => {
       title: "Sacred Temples of Perdoor"
     },
     {
-      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
+      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest9.jpg",
       alt: "Perdoor Landscape",
       title: "Natural Beauty of Perdoor"
     },
