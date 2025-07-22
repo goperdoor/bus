@@ -203,7 +203,7 @@ const styles = {
       }
     },
    mainContainer: {
-      background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
+   
       minHeight: '100vh',
       padding: '20px 15px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -233,9 +233,9 @@ const styles = {
       backgroundColor: 'rgba(255, 255, 255, 0.95)',
       borderRadius: '24px',
       padding: '30px 25px',
-      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1)',
+     
       backdropFilter: 'blur(20px)',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
+    
       position: 'relative',
       zIndex: 2,
       transform: isLoaded ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
