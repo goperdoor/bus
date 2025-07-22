@@ -14,6 +14,7 @@ import WisdomWall from './Pages/WisdomWall';
 import AboutUs from './Pages/AboutUs';
 import RickshawBusManagement from './Pages/RickshawBusManagement';
 import ErrorPage from './Pages/ErrorPage';
+import AILearningHub from './Pages/AILearningHub';
 
 function App() {
   const [isPWA, setIsPWA] = useState(false);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/WisdomWall" element={<WisdomWall />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+  <Route path="/AILearningHub" element={<AILearningHub />} />
           <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
    <Route path="*" element={<ErrorPage />} />
         </Routes>
