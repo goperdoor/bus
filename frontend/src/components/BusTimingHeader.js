@@ -8,7 +8,8 @@ import {
   Phone,
   Info,
   BusFront,
-  Globe
+  Globe,
+  Brain
 } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
@@ -235,6 +236,10 @@ const BusTimingHeader = () => {
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Users size={18} /> Perdoor Bulletin
   </Link>
+   <Link to="/AILearningHub" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+  <Brain size={18} /> AI Learning Hub
+</Link>
+           
   <Link to="/PrivacyPolicy" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Lock size={18} /> Privacy Policy
   </Link>
