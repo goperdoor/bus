@@ -205,7 +205,7 @@ const styles = {
    mainContainer: {
    
       minHeight: '100vh',
-      padding: '20px 15px',
+      padding: '20px 0px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       lineHeight: '1.6',
       color: '#2c3e50',
