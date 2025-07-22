@@ -32,7 +32,7 @@ const PerdoorPage = () => {
       title: "Natural Beauty of Perdoor"
     },
     {
-      src: "https://www.perdoorshriananthapadmanabhatemple.org/assets/theme/images/festivals/fest7.jpg",
+      src: "/perdoordrone.mp4",
       alt: "Traditional Architecture",
       title: "Heritage Architecture"
     },
