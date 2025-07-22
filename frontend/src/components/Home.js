@@ -202,11 +202,7 @@ const styles = {
         borderRadius: '20px'
       }
     }
-};
-
-
- const styles = {
-    mainContainer: {
+   mainContainer: {
       background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
       minHeight: '100vh',
       padding: '20px 15px',
@@ -487,7 +483,10 @@ const styles = {
       borderRadius: '50%',
       animation: 'pulse 3s ease-in-out infinite'
     }
-  };
+};
+
+
+
 
   // Add CSS animations
   useEffect(() => {
