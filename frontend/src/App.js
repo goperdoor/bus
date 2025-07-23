@@ -38,21 +38,26 @@ function App() {
 
   return (
     
-      <div className="App" style={containerStyle}  style={{
+      <div className="App" style={{...containerStyle,
     background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)'
   }}>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
+  {/* <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
+    <Route path="/PerdoorPage" element={<PerdoorPage />} />
+      <Route path="/WisdomWall" element={<WisdomWall />} />
+       <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
+  */}
+         
           <Route path="/ContactForm" element={<ContactForm />} />
-          <Route path="/PerdoorPage" element={<PerdoorPage />} />
+        
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
-          <Route path="/WisdomWall" element={<WisdomWall />} />
+        
           <Route path="/AboutUs" element={<AboutUs />} />
   <Route path="/AILearningHub" element={<AILearningHub />} />
-          <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
+         
    <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
