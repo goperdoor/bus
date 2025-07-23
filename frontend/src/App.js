@@ -3,17 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
-import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
+  {/* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
+  import PerdoorPage from './Pages/PerdoorPage'
+  import WisdomWall from './Pages/WisdomWall';
+  import RickshawBusManagement from './Pages/RickshawBusManagement';
+import ErrorPage from './Pages/ErrorPage';
+  */}
+
 import './App.css';
-import ContactForm from './Pages/ContactForm'
-import PerdoorPage from './Pages/PerdoorPage'
-import PrivacyPolicy from './Pages/PrivacyPolicy'
+import ContactForm from './Pages/ContactForm';
+
+import PrivacyPolicy from './Pages/PrivacyPolicy';
 import Header from './components/BusTimingHeader';
 import Footer from './components/Footer';
-import WisdomWall from './Pages/WisdomWall';
+
 import AboutUs from './Pages/AboutUs';
-import RickshawBusManagement from './Pages/RickshawBusManagement';
-import ErrorPage from './Pages/ErrorPage';
+
 import AILearningHub from './Pages/AILearningHub';
 
 function App() {
@@ -49,6 +54,7 @@ function App() {
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
       <Route path="/WisdomWall" element={<WisdomWall />} />
        <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
+       <Route path="*" element={<ErrorPage />} />
   */}
          
           <Route path="/ContactForm" element={<ContactForm />} />
@@ -58,7 +64,7 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
   <Route path="/AILearningHub" element={<AILearningHub />} />
          
-   <Route path="*" element={<ErrorPage />} />
+   
         </Routes>
         <Footer />
       </div>
