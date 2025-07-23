@@ -263,7 +263,7 @@ GoPerdoor is an independent website created to help the residents of Perdoor acc
             </p>
             <p style={{...textStyle, fontSize: window.innerWidth <= 768 ? '16px' : '18px', fontWeight: 'bold'}}>
               <Mail style={{...iconStyle, color: '#3498db', marginRight: '8px',marginBottom:'-8px'}} />
-              Email:goperdoor576124@gmail.com
+              Email: <a href="mailto:goperdoor576124@gmail.com">goperdoor576124@gmail.com</a>
             </p>
             
             <p style={textStyle}>
