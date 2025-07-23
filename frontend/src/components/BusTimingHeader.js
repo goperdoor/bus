@@ -224,7 +224,7 @@ const BusTimingHeader = () => {
       <Info size={18} /> About Us
   </Link>
       
-  <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+ {/* <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
      <BusFront size={18} /> Ricksha & tourist
   </Link>
   <Link to="/PerdoorTempleHistorys" className="menu-item" onClick={() => setIsMenuOpen(false)}>
@@ -235,7 +235,7 @@ const BusTimingHeader = () => {
   </Link>
   <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Users size={18} /> Perdoor Bulletin
-  </Link>
+  </Link> */}
    <Link to="/AILearningHub" className="menu-item" onClick={() => setIsMenuOpen(false)}>
   <Brain size={18} /> AI Learning Hub
 </Link>
