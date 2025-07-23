@@ -134,7 +134,7 @@ await emailjs.send(serviceId, templateId, templateParams);
             lineHeight: '1.6',
             marginBottom: '30px'
           }}>
-            We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          At GoPerdoor, we’re committed to providing you with timely and accurate bus information. Your questions and feedback help us improve our services. Please fill out the form below, or use any of the contact details to reach us. We strive to respond to all inquiries within 24 hours during business days.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
