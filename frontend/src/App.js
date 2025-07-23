@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
-  {/* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
+  /* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
   import PerdoorPage from './Pages/PerdoorPage'
   import WisdomWall from './Pages/WisdomWall';
   import RickshawBusManagement from './Pages/RickshawBusManagement';
 import ErrorPage from './Pages/ErrorPage';
-  */}
+  */
 
 import './App.css';
 import ContactForm from './Pages/ContactForm';
