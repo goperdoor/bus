@@ -410,8 +410,9 @@ const AILearningHub = () => {
               
               <ToolTable tools={category.tools} categoryId={categoryId} />
             </div>
-<AdSenseAuto />
+
           ))}
+<AdSenseAuto />
         </div>
 
         {/* No Results */}
