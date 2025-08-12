@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import FluidCustomAd from '../ads/FluidCustomAd';
 
 const Home = () => {
   const [destination, setDestination] = useState('');
@@ -691,6 +692,7 @@ const styles = {
         </div>
       )}
 <div style={styles.destinationTablesSection} className="destination-tables-section">
+        <FluidCustomAd />
         <div style={styles.tablesHeader} className="tables-header">
           <h2 style={{ 
             color: '#2c3e50', 
@@ -973,3 +975,4 @@ const styles = {
 };
 
 export default Home;
+
