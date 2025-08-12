@@ -1,0 +1,349 @@
+.super-admin-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-card {
+  background: white;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-icon {
+  width: 48px;
+  height: 48px;
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+.auth-header h2 {
+  color: #333;
+  margin: 0;
+}
+
+.auth-form .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.password-input input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-button:hover {
+  background: #5a67d8;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.admin-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.tab-button.active {
+  background: white;
+  color: #667eea;
+  border-color: white;
+}
+
+.admin-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content-card {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.content-card h2 {
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.admin-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.admin-form .form-group {
+  margin-bottom: 20px;
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+.admin-form input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.admin-form input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #5a67d8;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message {
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.no-stores {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 40px;
+}
+
+.stores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.store-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: #f9f9f9;
+  transition: transform 0.2s;
+}
+
+.store-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.store-info h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.store-category {
+  color: #667eea;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+.store-location {
+  color: #666;
+  margin: 4px 0;
+}
+
+.store-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.store-status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.store-status.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.toggle-button {
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.toggle-button.activate {
+  background: #d4edda;
+  color: #155724;
+}
+
+.toggle-button.activate:hover {
+  background: #c3e6cb;
+}
+
+.toggle-button.deactivate {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.toggle-button.deactivate:hover {
+  background: #f5c6cb;
+}
+
+@media (max-width: 768px) {
+  .super-admin-page {
+    padding: 10px;
+  }
+  
+  .auth-card {
+    padding: 30px 20px;
+  }
+  
+  .admin-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tab-button {
+    width: 200px;
+    justify-content: center;
+  }
+  
+  .content-card {
+    padding: 20px;
+  }
+  
+  .stores-grid {
+    grid-template-columns: 1fr;
+  }
+}

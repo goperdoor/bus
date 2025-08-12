@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
+import SuperAdmin from './components/SuperAdmin';
   /* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
   import PerdoorPage from './Pages/PerdoorPage'
   import WisdomWall from './Pages/WisdomWall';
@@ -20,6 +21,12 @@ import Footer from './components/Footer';
 import AboutUs from './Pages/AboutUs';
 
 import AILearningHub from './Pages/AILearningHub';
+
+// Store Components
+import StoreHome from './store/pages/StoreHome';
+import ShopPage from './store/pages/ShopPage';
+import AdminLogin from './store/pages/AdminLogin';
+import AdminDashboard from './store/pages/AdminDashboard';
 
 function App() {
   const [isPWA, setIsPWA] = useState(false);
@@ -50,6 +57,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/super-admin" element={<SuperAdmin />} />
+          
+          {/* Store Routes */}
+          <Route path="/store" element={<StoreHome />} />
+          <Route path="/store/shop/:storeId" element={<ShopPage />} />
+          <Route path="/store/admin/login" element={<AdminLogin />} />
+          <Route path="/store/admin/dashboard" element={<AdminDashboard />} />
+          
   {/* <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
       <Route path="/WisdomWall" element={<WisdomWall />} />

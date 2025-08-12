@@ -9,7 +9,7 @@ const Bus = require('./models/Bus');
 const app = express();
 
 // ✅ Setup CORS to allow only your Vercel frontend
-const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3000','https://www.goperdoor.tech',
+const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3000','https://www.goperdoor.tech',
   'https://goperdoor.tech',
   'http://www.goperdoor.tech',
   'http://goperdoor.tech']; // Add more origins if needed
@@ -25,13 +25,30 @@ app.use(cors({
 
 app.use(express.json());
 
-// Connect to MongoDB
+// Connect to MongoDB (existing connection for bus data)
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-  .then(() => console.log('✅ Connected to MongoDB'))
+  .then(() => console.log('✅ Connected to MongoDB (Bus Data)'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
+
+// Create separate connection for store data
+const storeConnection = mongoose.createConnection(process.env.STORE_MONGODB_URI || 'mongodb+srv://goperdoor576124:Y2WWO1iRVEBE9HzP@cluster0.sdfm9ky.mongodb.net/goperdoor-store?retryWrites=true&w=majority&appName=Cluster0', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+storeConnection.on('connected', () => {
+  console.log('✅ Connected to Store MongoDB');
+});
+
+storeConnection.on('error', (err) => {
+  console.error('❌ Store MongoDB connection error:', err);
+});
+
+// Make store connection available globally
+global.storeConnection = storeConnection;
 
 // Helper: Check if bus runs today
 const isBusAvailableToday = (availability) => {
@@ -58,6 +75,10 @@ const getUpcomingBuses = (buses) => {
     })
     .sort((a, b) => a.minutesUntilDeparture - b.minutesUntilDeparture);
 };
+
+// Store routes
+const storeRoutes = require('./routes/store');
+app.use('/api/store', storeRoutes);
 
 // ================= PUBLIC ROUTES =================
 

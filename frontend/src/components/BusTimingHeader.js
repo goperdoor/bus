@@ -9,7 +9,8 @@ import {
   Info,
   BusFront,
   Globe,
-  Brain
+  Brain,
+  Store
 } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
@@ -219,6 +220,9 @@ const BusTimingHeader = () => {
           <nav className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
   <Link to="/" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Home size={18} /> Home
+  </Link>
+  <Link to="/store" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+   <Store size={18} /> Goperdoor Store
   </Link>
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
       <Info size={18} /> About Us
