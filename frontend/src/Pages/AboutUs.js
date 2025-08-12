@@ -3,6 +3,7 @@ import { Code, Smartphone, Globe, Zap, Users, Award, ArrowRight, CheckCircle } f
 import './AboutUs.css';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import InArticleAd from '../ads/InArticleAd';
 
 
 export default function AboutUs() {
@@ -186,7 +187,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-
+ <InArticleAd />
         {/* Call to Action */}
         <div className="cta-section">
           <h2 className="cta-title">
