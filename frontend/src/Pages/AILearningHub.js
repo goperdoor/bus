@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AdSenseAuto from '../ads/AdSenseAuto';
 
 const AILearningHub = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -409,6 +410,7 @@ const AILearningHub = () => {
               
               <ToolTable tools={category.tools} categoryId={categoryId} />
             </div>
+<AdSenseAuto />
           ))}
         </div>
 
