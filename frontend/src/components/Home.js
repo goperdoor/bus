@@ -653,6 +653,7 @@ const styles = {
           {buses.length > 0 && (
             <div className="bus-results">
               {buses.map((bus) => (
+<>
                 <div key={bus._id} className="bus-card">
                   <div className="bus-header">
                     <div className="bus-name">{bus.busName}</div>
@@ -686,7 +687,8 @@ const styles = {
                     </span>
                   </div>
                 </div>
-              ))}
+                    <FluidCustomAd />  
+          </> ))}
             </div>
           )}
         </div>
@@ -975,4 +977,5 @@ const styles = {
 };
 
 export default Home;
+
 
