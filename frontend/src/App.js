@@ -11,7 +11,9 @@ import SuperAdmin from './components/SuperAdmin';
   import RickshawBusManagement from './Pages/RickshawBusManagement';
 import ErrorPage from './Pages/ErrorPage';
   */
-
+ import WisdomWall from './Pages/WisdomWall';
+ import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
+  import PerdoorPage from './Pages/PerdoorPage'
 import './App.css';
 import ContactForm from './Pages/ContactForm';
 
@@ -65,6 +67,9 @@ function App() {
           <Route path="/store/shop/:storeId" element={<ShopPage />} />
           <Route path="/store/admin/login" element={<AdminLogin />} />
           <Route path="/store/admin/dashboard" element={<AdminDashboard />} />
+ <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
+    <Route path="/PerdoorPage" element={<PerdoorPage />} />
+      <Route path="/WisdomWall" element={<WisdomWall />} />
           
   {/* <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
@@ -89,4 +94,5 @@ function App() {
 }
 
 export default App;
+
 
