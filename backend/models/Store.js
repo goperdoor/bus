@@ -6,6 +6,11 @@ const ProductSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  subcategory: {
+    type: String,
+    default: '',
+    trim: true
+  },
   features: [{
     type: String,
     trim: true
@@ -47,6 +52,25 @@ const StoreSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  whatsappNumber: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  operatingHours: {
+    monday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    tuesday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    wednesday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    thursday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    friday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    saturday: { open: String, close: String, isOpen: { type: Boolean, default: true } },
+    sunday: { open: String, close: String, isOpen: { type: Boolean, default: false } }
+  },
+  socialLinks: {
+    instagram: { type: String, default: '' },
+    facebook: { type: String, default: '' },
+    twitter: { type: String, default: '' }
   },
   imageUrl: {
     type: String,

@@ -61,6 +61,28 @@
   text-decoration: none;
 }
 
+.notification-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.notification-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
 .loading-container, .error-container {
   display: flex;
   flex-direction: column;
@@ -135,11 +157,27 @@
 }
 
 .category-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #485eff;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  border-radius: 2px;
 }
 
 .stores-grid {
@@ -257,8 +295,9 @@
   }
 
   .category-title {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
   }
 
   .store-card {

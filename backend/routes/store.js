@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { deleteImagesFromCloudinary } = require('../utils/cloudinaryUtils');
 
 // Configure Cloudinary
 cloudinary.config({
@@ -174,15 +175,43 @@ router.get('/admin/store', verifyStoreAdmin, async (req, res) => {
 // Update store info
 router.put('/admin/store', verifyStoreAdmin, upload.single('storeImage'), async (req, res) => {
   try {
-    const { name, description, location, phone, category } = req.body;
+    const { 
+      name, 
+      description, 
+      location, 
+      phone, 
+      whatsappNumber,
+      category, 
+      socialLinks,
+      operatingHours 
+    } = req.body;
     
     const updateData = {
       name,
       description,
       location,
       phone,
+      whatsappNumber: whatsappNumber || '',
       category
     };
+
+    // Handle social links
+    if (socialLinks) {
+      if (typeof socialLinks === 'string') {
+        updateData.socialLinks = JSON.parse(socialLinks);
+      } else {
+        updateData.socialLinks = socialLinks;
+      }
+    }
+
+    // Handle operating hours
+    if (operatingHours) {
+      if (typeof operatingHours === 'string') {
+        updateData.operatingHours = JSON.parse(operatingHours);
+      } else {
+        updateData.operatingHours = operatingHours;
+      }
+    }
 
     if (req.file) {
       updateData.imageUrl = req.file.path;
@@ -208,10 +237,11 @@ router.put('/admin/store', verifyStoreAdmin, upload.single('storeImage'), async 
 // Add product
 router.post('/admin/products', verifyStoreAdmin, upload.single('productImage'), async (req, res) => {
   try {
-    const { name, features, price, isActive } = req.body;
+    const { name, subcategory, features, price, isActive } = req.body;
     
     const product = {
       name,
+      subcategory: subcategory || '',
       features: Array.isArray(features) ? features : features.split(',').map(f => f.trim()),
       price: parseFloat(price),
       isActive: isActive === 'true',
@@ -237,13 +267,14 @@ router.post('/admin/products', verifyStoreAdmin, upload.single('productImage'), 
 // Update product
 router.put('/admin/products/:productId', verifyStoreAdmin, upload.single('productImage'), async (req, res) => {
   try {
-    const { name, features, price, isActive } = req.body;
+    const { name, features, price, isActive, subcategory } = req.body;
     
     const updateData = {
       'products.$.name': name,
       'products.$.features': Array.isArray(features) ? features : features.split(',').map(f => f.trim()),
       'products.$.price': parseFloat(price),
-      'products.$.isActive': isActive === 'true'
+      'products.$.isActive': isActive === 'true',
+      'products.$.subcategory': subcategory || ''
     };
 
     if (req.file) {
@@ -431,6 +462,161 @@ router.put('/super-admin/stores/:id/toggle', verifySuperAdmin, async (req, res) 
 
     res.json(store);
   } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// DELETE route - Delete store (Super Admin only)
+router.delete('/stores/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { superAdminPassword } = req.body;
+
+    // Verify super admin password
+    if (superAdminPassword !== 'admin123') {
+      return res.status(401).json({ message: 'Invalid super admin credentials' });
+    }
+
+    // Find the store
+    const store = await Store.findById(id);
+    if (!store) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+
+    // Collect all image URLs to delete from Cloudinary
+    const imagesToDelete = [];
+    
+    // Add store main image
+    if (store.imageUrl) {
+      imagesToDelete.push(store.imageUrl);
+    }
+    
+    // Add carousel images
+    if (store.carouselImages && store.carouselImages.length > 0) {
+      store.carouselImages.forEach(carousel => {
+        if (carousel.url) {
+          imagesToDelete.push(carousel.url);
+        }
+      });
+    }
+    
+    // Add product images
+    if (store.products && store.products.length > 0) {
+      store.products.forEach(product => {
+        if (product.imageUrl) {
+          imagesToDelete.push(product.imageUrl);
+        }
+      });
+    }
+
+    console.log(`Deleting store "${store.name}" with ${imagesToDelete.length} images`);
+
+    // Delete images from Cloudinary
+    if (imagesToDelete.length > 0) {
+      const deletionResults = await deleteImagesFromCloudinary(imagesToDelete);
+      console.log('Cloudinary deletion results:', deletionResults);
+    }
+
+    // Delete the store admin if exists
+    if (store.adminId) {
+      await StoreAdmin.findByIdAndDelete(store.adminId);
+      console.log('Store admin deleted');
+    }
+
+    // Delete the store
+    await Store.findByIdAndDelete(id);
+
+    res.json({ 
+      message: 'Store deleted successfully',
+      deletedImages: imagesToDelete.length,
+      storeName: store.name
+    });
+
+  } catch (error) {
+    console.error('Error deleting store:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// Delete ALL stores (DANGER ZONE - Super Admin only)
+router.delete('/super-admin/stores/all', async (req, res) => {
+  try {
+    const { superAdminPassword } = req.body;
+    
+    // Verify super admin password
+    if (superAdminPassword !== process.env.SUPER_ADMIN_PASSWORD && superAdminPassword !== 'admin123') {
+      return res.status(401).json({ message: 'Invalid super admin password' });
+    }
+
+    // Get all stores
+    const stores = await Store.find({});
+    
+    if (stores.length === 0) {
+      return res.json({ 
+        message: 'No stores to delete',
+        deletedStoresCount: 0,
+        deletedImages: 0
+      });
+    }
+
+    let totalDeletedImages = 0;
+    const storeNames = [];
+
+    // Delete images and count them for each store
+    for (const store of stores) {
+      const imagesToDelete = [];
+      
+      // Add store image
+      if (store.imageUrl) {
+        imagesToDelete.push(store.imageUrl);
+      }
+      
+      // Add carousel images
+      if (store.carouselImages && store.carouselImages.length > 0) {
+        store.carouselImages.forEach(carousel => {
+          if (carousel.url) {
+            imagesToDelete.push(carousel.url);
+          }
+        });
+      }
+      
+      // Add product images
+      if (store.products && store.products.length > 0) {
+        store.products.forEach(product => {
+          if (product.imageUrl) {
+            imagesToDelete.push(product.imageUrl);
+          }
+        });
+      }
+
+      console.log(`Deleting store "${store.name}" with ${imagesToDelete.length} images`);
+      storeNames.push(store.name);
+
+      // Delete images from Cloudinary
+      if (imagesToDelete.length > 0) {
+        const deletedCount = await deleteImagesFromCloudinary(imagesToDelete);
+        totalDeletedImages += deletedCount;
+      }
+    }
+
+    // Delete all store admin accounts first
+    const storeAdminIds = stores.map(store => store.adminId);
+    await StoreAdmin.deleteMany({ _id: { $in: storeAdminIds } });
+    
+    // Delete all stores
+    await Store.deleteMany({});
+
+    console.log(`Successfully deleted ${stores.length} stores and ${totalDeletedImages} images`);
+
+    res.json({ 
+      message: `Successfully deleted all stores: ${storeNames.join(', ')}`,
+      deletedStoresCount: stores.length,
+      deletedImages: totalDeletedImages,
+      deletedStores: storeNames
+    });
+
+  } catch (error) {
+    console.error('Error deleting all stores:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });

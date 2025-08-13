@@ -212,12 +212,16 @@
 
 .category-badge {
   display: inline-block;
-  padding: 4px 12px;
-  background: #485eff;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
   color: white;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
   margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(72, 94, 255, 0.3);
 }
 
 .product-form-modal {
@@ -294,7 +298,7 @@
 
 .product-image {
   width: 100%;
-  height: 150px;
+  height: 200px; /* Increased from 150px for better product visibility */
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -642,5 +646,116 @@
   
   .carousel-form-container {
     padding: 20px;
+  }
+}
+
+/* Contact & Hours Section */
+.contact-section h3 {
+  color: #485eff;
+  margin: 30px 0 15px 0;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #e1e5e9;
+  padding-bottom: 10px;
+}
+
+.contact-section h3:first-of-type {
+  margin-top: 0;
+}
+
+.operating-hours {
+  display: grid;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.day-hours {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background: #f8f9ff;
+  border-radius: 10px;
+  border-left: 4px solid #485eff;
+}
+
+.day-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #485eff;
+  cursor: pointer;
+}
+
+.time-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.time-inputs input[type="time"] {
+  padding: 8px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+
+.time-inputs input[type="time"]:focus {
+  outline: none;
+  border-color: #485eff;
+  box-shadow: 0 0 0 3px rgba(72, 94, 255, 0.1);
+}
+
+.time-inputs span {
+  color: #666;
+  font-weight: 500;
+}
+
+.closed-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.closed-indicator span {
+  color: #dc3545;
+  font-weight: 500;
+  background: rgba(220, 53, 69, 0.1);
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .day-hours {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .time-inputs {
+    justify-content: center;
+  }
+  
+  .closed-indicator {
+    justify-content: center;
+  }
+  
+  .time-inputs input[type="time"] {
+    min-width: 100px;
   }
 }

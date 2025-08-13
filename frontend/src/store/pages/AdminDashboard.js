@@ -13,6 +13,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import storeService from '../services/storeAPI';
+import { getSubcategoriesForCategory } from '../utils/subcategories';
 import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -30,12 +31,28 @@ const AdminDashboard = () => {
     description: '',
     location: '',
     phone: '',
+    whatsappNumber: '',
     category: 'Other',
-    storeImage: null
+    storeImage: null,
+    socialLinks: {
+      instagram: '',
+      facebook: '',
+      twitter: ''
+    },
+    operatingHours: {
+      monday: { open: '09:00', close: '18:00', isOpen: true },
+      tuesday: { open: '09:00', close: '18:00', isOpen: true },
+      wednesday: { open: '09:00', close: '18:00', isOpen: true },
+      thursday: { open: '09:00', close: '18:00', isOpen: true },
+      friday: { open: '09:00', close: '18:00', isOpen: true },
+      saturday: { open: '09:00', close: '18:00', isOpen: true },
+      sunday: { open: '09:00', close: '18:00', isOpen: false }
+    }
   });
 
   const [productForm, setProductForm] = useState({
     name: '',
+    subcategory: '',
     features: '',
     price: '',
     isActive: true,
@@ -69,8 +86,23 @@ const AdminDashboard = () => {
         description: response.data.description || '',
         location: response.data.location || '',
         phone: response.data.phone || '',
+        whatsappNumber: response.data.whatsappNumber || '',
         category: response.data.category || 'Other',
-        storeImage: null
+        storeImage: null,
+        socialLinks: {
+          instagram: response.data.socialLinks?.instagram || '',
+          facebook: response.data.socialLinks?.facebook || '',
+          twitter: response.data.socialLinks?.twitter || ''
+        },
+        operatingHours: response.data.operatingHours || {
+          monday: { open: '09:00', close: '18:00', isOpen: true },
+          tuesday: { open: '09:00', close: '18:00', isOpen: true },
+          wednesday: { open: '09:00', close: '18:00', isOpen: true },
+          thursday: { open: '09:00', close: '18:00', isOpen: true },
+          friday: { open: '09:00', close: '18:00', isOpen: true },
+          saturday: { open: '09:00', close: '18:00', isOpen: true },
+          sunday: { open: '09:00', close: '18:00', isOpen: false }
+        }
       });
     } catch (error) {
       if (error.response?.status === 401) {
@@ -119,6 +151,7 @@ const AdminDashboard = () => {
       setShowAddProduct(false);
       setProductForm({
         name: '',
+        subcategory: '',
         features: '',
         price: '',
         isActive: true,
@@ -147,6 +180,7 @@ const AdminDashboard = () => {
     setEditingProduct(product._id);
     setProductForm({
       name: product.name,
+      subcategory: product.subcategory || '',
       features: product.features.join(', '),
       price: product.price.toString(),
       isActive: product.isActive,
@@ -234,6 +268,12 @@ const AdminDashboard = () => {
           onClick={() => setActiveTab('store')}
         >
           Store Info
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
+          onClick={() => setActiveTab('contact')}
+        >
+          Contact & Hours
         </button>
         <button 
           className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
@@ -358,6 +398,141 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {activeTab === 'contact' && (
+          <div className="contact-section">
+            <div className="section-header">
+              <h2>Contact Information & Operating Hours</h2>
+            </div>
+
+            <form onSubmit={handleStoreSubmit} className="store-form">
+              <h3>Contact Methods</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Phone Number *</label>
+                  <input
+                    type="tel"
+                    value={storeForm.phone}
+                    onChange={(e) => setStoreForm({...storeForm, phone: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>WhatsApp Number</label>
+                  <input
+                    type="tel"
+                    value={storeForm.whatsappNumber}
+                    onChange={(e) => setStoreForm({...storeForm, whatsappNumber: e.target.value})}
+                    placeholder="Same as phone if empty"
+                  />
+                </div>
+              </div>
+
+              <h3>Social Media Links</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Instagram URL</label>
+                  <input
+                    type="url"
+                    value={storeForm.socialLinks.instagram}
+                    onChange={(e) => setStoreForm({
+                      ...storeForm, 
+                      socialLinks: { ...storeForm.socialLinks, instagram: e.target.value }
+                    })}
+                    placeholder="https://instagram.com/your-store"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Facebook URL</label>
+                  <input
+                    type="url"
+                    value={storeForm.socialLinks.facebook}
+                    onChange={(e) => setStoreForm({
+                      ...storeForm, 
+                      socialLinks: { ...storeForm.socialLinks, facebook: e.target.value }
+                    })}
+                    placeholder="https://facebook.com/your-store"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Twitter URL</label>
+                  <input
+                    type="url"
+                    value={storeForm.socialLinks.twitter}
+                    onChange={(e) => setStoreForm({
+                      ...storeForm, 
+                      socialLinks: { ...storeForm.socialLinks, twitter: e.target.value }
+                    })}
+                    placeholder="https://twitter.com/your-store"
+                  />
+                </div>
+              </div>
+
+              <h3>Operating Hours</h3>
+              <div className="operating-hours">
+                {Object.entries(storeForm.operatingHours).map(([day, hours]) => (
+                  <div key={day} className="day-hours">
+                    <div className="day-name">
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          checked={hours.isOpen}
+                          onChange={(e) => setStoreForm({
+                            ...storeForm,
+                            operatingHours: {
+                              ...storeForm.operatingHours,
+                              [day]: { ...hours, isOpen: e.target.checked }
+                            }
+                          })}
+                        />
+                        {day.charAt(0).toUpperCase() + day.slice(1)}
+                      </label>
+                    </div>
+                    
+                    {hours.isOpen && (
+                      <div className="time-inputs">
+                        <input
+                          type="time"
+                          value={hours.open}
+                          onChange={(e) => setStoreForm({
+                            ...storeForm,
+                            operatingHours: {
+                              ...storeForm.operatingHours,
+                              [day]: { ...hours, open: e.target.value }
+                            }
+                          })}
+                        />
+                        <span>to</span>
+                        <input
+                          type="time"
+                          value={hours.close}
+                          onChange={(e) => setStoreForm({
+                            ...storeForm,
+                            operatingHours: {
+                              ...storeForm.operatingHours,
+                              [day]: { ...hours, close: e.target.value }
+                            }
+                          })}
+                        />
+                      </div>
+                    )}
+                    
+                    {!hours.isOpen && (
+                      <div className="closed-indicator">
+                        <span>Closed</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <button type="submit" className="save-button">
+                <Save size={18} />
+                Save Contact & Hours
+              </button>
+            </form>
+          </div>
+        )}
+
         {activeTab === 'products' && (
           <div className="products-section">
             <div className="section-header">
@@ -383,6 +558,7 @@ const AdminDashboard = () => {
                         setEditingProduct(null);
                         setProductForm({
                           name: '',
+                          subcategory: '',
                           features: '',
                           price: '',
                           isActive: true,
@@ -404,6 +580,18 @@ const AdminDashboard = () => {
                         onChange={(e) => setProductForm({...productForm, name: e.target.value})}
                         required
                       />
+                    </div>
+                    <div className="form-group">
+                      <label>Category</label>
+                      <select
+                        value={productForm.subcategory}
+                        onChange={(e) => setProductForm({...productForm, subcategory: e.target.value})}
+                      >
+                        <option value="">Select Category</option>
+                        {getSubcategoriesForCategory(store?.category || 'Other').map(subcat => (
+                          <option key={subcat} value={subcat}>{subcat}</option>
+                        ))}
+                      </select>
                     </div>
                     <div className="form-group">
                       <label>Price (₹) *</label>

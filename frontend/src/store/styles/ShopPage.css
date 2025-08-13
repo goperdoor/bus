@@ -62,13 +62,16 @@
 
 .store-category {
   display: inline-block;
-  padding: 6px 16px;
+  padding: 8px 20px;
   background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
   color: white;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 15px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(72, 94, 255, 0.3);
 }
 
 .store-name {
@@ -141,10 +144,26 @@
 }
 
 .section-header h2 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   color: #485eff;
-  margin-bottom: 10px;
-  font-weight: 700;
+  margin-bottom: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  border-radius: 2px;
 }
 
 .products-count {
@@ -195,7 +214,7 @@
 }
 
 .product-image-container {
-  height: 160px; /* Increased from 140px */
+  height: 220px; /* Increased from 160px for better product visibility */
   overflow: hidden;
   background: #f8f9fa;
 }
@@ -205,6 +224,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .product-card:hover .product-image {
@@ -286,6 +306,12 @@
   position: absolute;
   left: 0;
   top: -1px; /* Adjusted from -2px */
+}
+
+.product-actions {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
 }
 
 .order-footer {
@@ -395,6 +421,11 @@
     padding: 0 15px;
   }
 
+  .section-header h2 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
   .products-grid {
     grid-template-columns: repeat(2, 1fr); /* 2 products per row on mobile */
     gap: 12px;
@@ -405,7 +436,7 @@
   }
 
   .product-image-container {
-    height: 140px; /* Increased from 120px for mobile */
+    height: 180px; /* Increased from 140px for better mobile visibility */
   }
 
   .product-info {
@@ -448,6 +479,11 @@
     padding: 15px;
   }
 
+  .section-header h2 {
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+  }
+
   .store-name {
     font-size: 1.8rem;
   }
@@ -458,7 +494,7 @@
   }
 
   .product-image-container {
-    height: 120px; /* Increased from 100px for very small devices */
+    height: 160px; /* Increased from 120px for better small screen visibility */
   }
 
   .product-info {

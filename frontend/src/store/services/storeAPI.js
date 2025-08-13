@@ -28,6 +28,9 @@ export const storeService = {
     Object.keys(storeData).forEach(key => {
       if (key === 'storeImage' && storeData[key]) {
         formData.append('storeImage', storeData[key]);
+      } else if (key === 'socialLinks' || key === 'operatingHours') {
+        // Convert objects to JSON strings for FormData
+        formData.append(key, JSON.stringify(storeData[key]));
       } else {
         formData.append(key, storeData[key]);
       }
@@ -85,6 +88,12 @@ export const storeService = {
   }),
   toggleStoreStatus: (storeId, adminPassword) => storeAPI.put(`/super-admin/stores/${storeId}/toggle`, {}, {
     headers: { 'Admin-Password': adminPassword }
+  }),
+  deleteStore: (storeId, adminPassword) => storeAPI.delete(`/stores/${storeId}`, {
+    data: { superAdminPassword: adminPassword }
+  }),
+  deleteAllStores: (adminPassword) => storeAPI.delete('/super-admin/stores/all', {
+    data: { superAdminPassword: adminPassword }
   })
 };
 

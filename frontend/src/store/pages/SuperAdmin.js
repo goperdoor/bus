@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Shield, Store, Plus, Eye, EyeOff } from 'lucide-react';
+import { Users, Shield, Store, Plus, Eye, EyeOff, Trash2 } from 'lucide-react';
 import storeService from '../services/storeAPI';
 import '../styles/SuperAdmin.css';
 
@@ -64,6 +64,58 @@ const SuperAdmin = () => {
         type: 'error', 
         text: 'Failed to update store status' 
       });
+    }
+  };
+
+  const deleteStore = async (storeId, storeName) => {
+    if (!window.confirm(`Are you sure you want to permanently delete "${storeName}"?\n\nThis will:\n• Delete the store and all its products\n• Remove all images from Cloudinary\n• Delete the store admin account\n\nThis action cannot be undone!`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await storeService.deleteStore(storeId, adminPassword);
+      await loadStores(); // Reload stores
+      setMessage({ 
+        type: 'success', 
+        text: `Store "${response.data.storeName}" deleted successfully! ${response.data.deletedImages} images removed from Cloudinary.` 
+      });
+    } catch (error) {
+      setMessage({ 
+        type: 'error', 
+        text: error.response?.data?.message || 'Failed to delete store' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteAllStores = async () => {
+    if (!window.confirm(`⚠️ DANGER ZONE ⚠️\n\nAre you ABSOLUTELY SURE you want to delete ALL STORES?\n\nThis will:\n• Delete ALL stores and their products\n• Remove ALL images from Cloudinary\n• Delete ALL store admin accounts\n• This action is IRREVERSIBLE!\n\nType "DELETE ALL" in the next prompt to confirm.`)) {
+      return;
+    }
+
+    const confirmation = window.prompt('Type "DELETE ALL" to confirm permanent deletion of all stores:');
+    if (confirmation !== 'DELETE ALL') {
+      alert('Deletion cancelled. You must type "DELETE ALL" exactly.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await storeService.deleteAllStores(adminPassword);
+      await loadStores(); // Reload stores (should be empty)
+      setMessage({ 
+        type: 'success', 
+        text: `All stores deleted successfully! ${response.data.deletedStoresCount} stores and ${response.data.deletedImages} images removed from Cloudinary.` 
+      });
+    } catch (error) {
+      setMessage({ 
+        type: 'error', 
+        text: error.response?.data?.message || 'Failed to delete all stores' 
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -192,7 +244,19 @@ const SuperAdmin = () => {
       {activeTab === 'manage-stores' && (
         <div className="admin-content">
           <div className="content-card">
-            <h2>Manage Stores</h2>
+            <div className="section-header">
+              <h2>Manage Stores</h2>
+              {stores.length > 0 && (
+                <button
+                  onClick={deleteAllStores}
+                  className="danger-button"
+                  disabled={loading}
+                >
+                  <Trash2 size={18} />
+                  Delete All Stores
+                </button>
+              )}
+            </div>
             {stores.length === 0 ? (
               <p className="no-stores">No stores found</p>
             ) : (
@@ -207,12 +271,22 @@ const SuperAdmin = () => {
                         {store.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <button
-                      onClick={() => toggleStoreStatus(store._id)}
-                      className={`toggle-button ${store.isActive ? 'deactivate' : 'activate'}`}
-                    >
-                      {store.isActive ? 'Deactivate' : 'Activate'}
-                    </button>
+                    <div className="store-actions">
+                      <button
+                        onClick={() => toggleStoreStatus(store._id)}
+                        className={`toggle-button ${store.isActive ? 'deactivate' : 'activate'}`}
+                      >
+                        {store.isActive ? 'Deactivate' : 'Activate'}
+                      </button>
+                      <button
+                        onClick={() => deleteStore(store._id, store.name)}
+                        className="delete-button"
+                        disabled={loading}
+                      >
+                        <Trash2 size={16} />
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
