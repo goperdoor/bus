@@ -227,6 +227,9 @@ const BusTimingHeader = () => {
       <Link to="/AboutUs" className="menu-item" onClick={() => setIsMenuOpen(false)}>
       <Info size={18} /> About Us
   </Link>
+ <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
+     <BusFront size={18} /> Ricksha & tourist
+  </Link>
       
  {/* <Link to="/RickshawBusManagement" className="menu-item" onClick={() => setIsMenuOpen(false)}>
      <BusFront size={18} /> Ricksha & tourist
