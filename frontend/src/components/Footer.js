@@ -10,7 +10,9 @@ const Footer = () => {
   borderTopRightRadius: '27px',
   fontFamily: 'Arial, sans-serif',
   paddingTop: '45px',
-   boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
+  boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
+  marginTop: '40px',
+   
 };
 
 

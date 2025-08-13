@@ -172,13 +172,18 @@
   overflow: hidden;
   position: relative;
   background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .store-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
+  display: block;
 }
 
 .store-card:hover .store-image {
@@ -193,6 +198,9 @@
   justify-content: center;
   color: #ccc;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .store-info {

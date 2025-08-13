@@ -93,12 +93,22 @@ const StoreHome = () => {
                           src={store.imageUrl} 
                           alt={store.name}
                           className="store-image"
+                          onError={(e) => {
+                            console.log('Image failed to load:', store.imageUrl);
+                            e.target.style.display = 'none';
+                            e.target.parentElement.querySelector('.store-image-placeholder').style.display = 'flex';
+                          }}
+                          onLoad={() => {
+                            console.log('Image loaded successfully:', store.imageUrl);
+                          }}
                         />
-                      ) : (
-                        <div className="store-image-placeholder">
-                          <Store size={40} />
-                        </div>
-                      )}
+                      ) : null}
+                      <div 
+                        className="store-image-placeholder"
+                        style={{ display: store.imageUrl ? 'none' : 'flex' }}
+                      >
+                        <Store size={40} />
+                      </div>
                     </div>
                     <div className="store-info">
                       <h3 className="store-name">{store.name}</h3>
