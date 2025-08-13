@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import SuperAdmin from './components/SuperAdmin';
+ import RickshawBusManagement from './Pages/RickshawBusManagement';
   /* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
   import PerdoorPage from './Pages/PerdoorPage'
   import WisdomWall from './Pages/WisdomWall';
@@ -71,7 +72,7 @@ function App() {
        <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
        <Route path="*" element={<ErrorPage />} />
   */}
-         
+          <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
           <Route path="/ContactForm" element={<ContactForm />} />
         
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
@@ -88,3 +89,4 @@ function App() {
 }
 
 export default App;
+
