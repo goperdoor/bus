@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
+ import WisdomWall from './Pages/WisdomWall';
 import SuperAdmin from './components/SuperAdmin';
  import RickshawBusManagement from './Pages/RickshawBusManagement';
   /* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
@@ -79,7 +80,7 @@ function App() {
   */}
           <Route path="/RickshawBusManagement" element={<RickshawBusManagement />} />
           <Route path="/ContactForm" element={<ContactForm />} />
-        
+          <Route path="/WisdomWall" element={<WisdomWall />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         
           <Route path="/AboutUs" element={<AboutUs />} />
@@ -94,5 +95,6 @@ function App() {
 }
 
 export default App;
+
 
 
