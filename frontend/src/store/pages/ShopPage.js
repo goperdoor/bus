@@ -10,6 +10,7 @@ import ImageModal from '../components/ImageModal';
 import ProductSearch from '../components/ProductSearch';
 import { getProductInquiryMessage } from '../utils/storeUtils';
 import '../styles/ShopPage.css';
+import InArticleAd from '../../ads/InArticleAd';
 
 const ShopPage = () => {
   const { storeId } = useParams();
@@ -240,6 +241,8 @@ const ShopPage = () => {
       </div>
 
       <div className="order-footer">
+
+              <InArticleAd />  
         <div className="order-info">
           <p>Found something you like? Get in touch with {store.name} directly!</p>
           <ContactActions 
