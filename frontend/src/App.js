@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
- import WisdomWall from './Pages/WisdomWall';
+
 import SuperAdmin from './components/SuperAdmin';
  import RickshawBusManagement from './Pages/RickshawBusManagement';
   /* import PerdoorTempleHistory from './Pages/PerdoorTempleHistory'
@@ -70,7 +70,7 @@ function App() {
           <Route path="/store/admin/dashboard" element={<AdminDashboard />} />
  <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
-      <Route path="/WisdomWall" element={<WisdomWall />} />
+   
           
   {/* <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
@@ -95,6 +95,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
