@@ -11,7 +11,7 @@ const FluidCustomAd = () => {
 
   return (
     <ins className="adsbygoogle"
-      style={{ display: 'block' }}
+      style={{ display: 'block',padding:'10px' }}
       data-ad-format="fluid"
       data-ad-layout-key="-fb+5w+4e-db+86"
       data-ad-client="ca-pub-4093862221318795"
