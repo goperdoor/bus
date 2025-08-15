@@ -133,14 +133,7 @@ const styles = {
     destinationTables: {
       display: 'grid',
       gap: '20px',
-      '@media (min-width: 576px)': {
-        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-        gap: '25px'
-      },
-      '@media (min-width: 992px)': {
-        gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-        gap: '30px'
-      }
+      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'
     },
     destinationTableContainer: {
       backgroundColor: 'white',

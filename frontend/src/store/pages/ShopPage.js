@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Phone, ShoppingBag } from 'lucide-react';
 import storeService from '../services/storeAPI';
@@ -16,6 +16,7 @@ const ShopPage = () => {
   const navigate = useNavigate();
   const [store, setStore] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [showAllProducts, setShowAllProducts] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [imageModal, setImageModal] = useState({
@@ -62,9 +63,9 @@ const ShopPage = () => {
     });
   };
 
-  const handleFilteredProducts = (products) => {
+  const handleFilteredProducts = useCallback((products) => {
     setFilteredProducts(products);
-  };
+  }, []);
 
   if (loading) {
     return (
@@ -137,10 +138,30 @@ const ShopPage = () => {
         <div className="section-header">
           <h2>Our Products</h2>
           {store.products.length > 0 && (
-            <p className="products-count">
-              {filteredProducts.length} of {store.products.length} items 
-              {filteredProducts.length !== store.products.length ? ' (filtered)' : ''}
-            </p>
+            <div className="products-header-actions">
+              <p className="products-count">
+                Showing {filteredProducts.length} of {store.products.length} products
+                {filteredProducts.length !== store.products.length && (
+                  <span className="filtered-indicator"> (filtered)</span>
+                )}
+              </p>
+              {filteredProducts.length !== store.products.length && (
+                <button 
+                  onClick={() => {
+                    setShowAllProducts(!showAllProducts);
+                    if (showAllProducts) {
+                      // Reset to filtered view
+                    } else {
+                      // Show all products temporarily
+                      setFilteredProducts(store.products);
+                    }
+                  }}
+                  className="view-all-btn"
+                >
+                  {showAllProducts ? 'Show Filtered' : 'View All'}
+                </button>
+              )}
+            </div>
           )}
         </div>
 

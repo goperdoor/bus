@@ -1,112 +1,143 @@
-// Subcategories for different store types
-export const SUBCATEGORIES = {
+// Subcategory mappings for different store types
+
+const SUBCATEGORIES = {
   'Clothes': [
     'Mens Wear',
-    'Womens Wear', 
-    'Kids Wear',
+    'Womens Wear',
     'T-Shirts',
-    'Jeans', 
     'Shirts',
+    'Jeans',
     'Dresses',
-    'Sarees',
-    'Kurtas',
-    'Suits',
-    'Casual Wear',
+    'Ethnic Wear',
     'Formal Wear',
-    'Traditional Wear',
-    'Accessories'
+    'Casual Wear',
+    'Winter Wear',
+    'Accessories',
+    'Footwear',
+    'Undergarments',
+    'Sports Wear',
+    'Kids Wear'
   ],
   'Bakery': [
-    'Bread & Buns',
     'Cakes',
     'Pastries',
+    'Bread',
     'Cookies',
-    'Muffins',
     'Donuts',
-    'Croissants',
+    'Cupcakes',
+    'Muffins',
     'Pies',
-    'Birthday Cakes',
+    'Croissants',
+    'Bagels',
+    'Sweets',
+    'Beverages',
     'Custom Cakes',
-    'Fresh Bread',
-    'Sweet Items',
-    'Snacks'
+    'Birthday Cakes',
+    'Wedding Cakes'
   ],
   'Medical Store': [
-    'Prescription Drugs',
+    'Prescription Medicines',
     'Over-the-Counter',
-    'Ayurvedic Medicine',
+    'Ayurvedic Medicines',
+    'Homeopathic',
     'Health Supplements',
-    'Baby Care',
-    'Personal Care',
-    'First Aid',
-    'Medical Equipment',
     'Vitamins',
-    'Pain Relief',
-    'Cold & Flu',
-    'Digestive Health',
-    'Skin Care'
+    'First Aid',
+    'Personal Care',
+    'Baby Care',
+    'Diabetic Care',
+    'Orthopedic',
+    'Dental Care',
+    'Eye Care',
+    'Skin Care',
+    'Hair Care'
   ],
   'Grocery': [
     'Fruits & Vegetables',
-    'Rice & Grains',
-    'Dal & Pulses',
+    'Dairy Products',
+    'Meat & Poultry',
+    'Seafood',
+    'Grains & Pulses',
     'Spices',
     'Oil & Ghee',
-    'Milk & Dairy',
-    'Snacks & Biscuits',
-    'Tea & Coffee',
-    'Cleaning Supplies',
+    'Snacks',
+    'Beverages',
+    'Frozen Foods',
+    'Canned Goods',
+    'Household Items',
     'Personal Care',
     'Baby Products',
-    'Frozen Foods',
-    'Beverages'
+    'Pet Supplies'
   ],
   'Electronics': [
     'Mobile Phones',
-    'Laptops & Computers',
-    'TV & Audio',
-    'Home Appliances',
-    'Kitchen Appliances',
+    'Laptops',
+    'Tablets',
+    'Desktop Computers',
     'Gaming',
+    'Audio & Headphones',
     'Cameras',
-    'Accessories',
-    'Cables & Chargers',
-    'Smart Home',
-    'Wearables',
-    'Power Banks',
-    'Speakers'
+    'Smart Watches',
+    'TV & Home Theater',
+    'Kitchen Appliances',
+    'Air Conditioners',
+    'Refrigerators',
+    'Washing Machines',
+    'Smart Home Devices',
+    'Accessories'
   ],
   'Other': [
+    'General Items',
+    'Services',
+    'Tools & Hardware',
     'Books & Stationery',
     'Toys & Games',
-    'Sports & Fitness',
-    'Home & Garden',
+    'Sports Equipment',
     'Automotive',
+    'Home & Garden',
     'Beauty & Cosmetics',
     'Jewelry',
-    'Bags & Luggage',
-    'Footwear',
-    'Gift Items',
+    'Gifts',
     'Art & Crafts',
-    'Pet Supplies',
-    'Services'
+    'Musical Instruments',
+    'Travel Accessories',
+    'Pet Products'
   ]
 };
 
-// Get subcategories for a specific store category
+/**
+ * Get subcategories for a specific store category
+ * @param {string} category - The store category
+ * @returns {string[]} - Array of subcategory options
+ */
 export const getSubcategoriesForCategory = (category) => {
-  return SUBCATEGORIES[category] || SUBCATEGORIES['Other'];
+  if (!category) return SUBCATEGORIES['Other'] || [];
+  
+  // Normalize category name (handle case variations)
+  const normalizedCategory = Object.keys(SUBCATEGORIES).find(
+    key => key.toLowerCase() === category.toLowerCase()
+  );
+  
+  return SUBCATEGORIES[normalizedCategory] || SUBCATEGORIES['Other'] || [];
 };
 
-// Get all unique subcategories
+/**
+ * Get all available subcategories across all store types
+ * @returns {Object} - Object with category as key and subcategories as value
+ */
 export const getAllSubcategories = () => {
-  const allSubcategories = [];
-  Object.values(SUBCATEGORIES).forEach(subcats => {
-    subcats.forEach(subcat => {
-      if (!allSubcategories.includes(subcat)) {
-        allSubcategories.push(subcat);
-      }
-    });
-  });
-  return allSubcategories.sort();
+  return SUBCATEGORIES;
 };
+
+/**
+ * Check if a subcategory exists for a given category
+ * @param {string} category - The store category
+ * @param {string} subcategory - The subcategory to check
+ * @returns {boolean} - Whether the subcategory exists
+ */
+export const isValidSubcategory = (category, subcategory) => {
+  const subcategories = getSubcategoriesForCategory(category);
+  return subcategories.includes(subcategory);
+};
+
+export default SUBCATEGORIES;

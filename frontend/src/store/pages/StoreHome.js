@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Store, LogIn, ShoppingBag, Bell } from 'lucide-react';
+import { Store, LogIn, ShoppingBag } from 'lucide-react';
 import storeService from '../services/storeAPI';
-import pushNotification from '../services/pushNotification';
 import StoreStatus from '../components/StoreStatus';
 import SocialLinks from '../components/SocialLinks';
 import '../styles/StoreHome.css';
@@ -11,27 +10,10 @@ const StoreHome = () => {
   const [categories, setCategories] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [notificationEnabled, setNotificationEnabled] = useState(false);
 
   useEffect(() => {
     fetchCategories();
-    checkNotificationPermission();
   }, []);
-
-  const checkNotificationPermission = () => {
-    setNotificationEnabled(pushNotification.isEnabled());
-  };
-
-  const handleEnableNotifications = async () => {
-    const granted = await pushNotification.requestPermission();
-    if (granted) {
-      setNotificationEnabled(true);
-      pushNotification.showNotification('Notifications Enabled!', {
-        body: 'You\'ll now receive updates from Goperdoor Store.',
-        icon: '/web-app-manifest-192x192.png'
-      });
-    }
-  };
 
   useEffect(() => {
     fetchCategories();
@@ -90,13 +72,6 @@ const StoreHome = () => {
             <LogIn size={20} />
             Login as Store Admin
           </Link>
-          
-          {!notificationEnabled && (
-            <button onClick={handleEnableNotifications} className="notification-btn">
-              <Bell size={20} />
-              Enable Notifications
-            </button>
-          )}
         </div>
       </div>
 

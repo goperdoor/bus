@@ -64,6 +64,8 @@ const AdminDashboard = () => {
     caption: '',
     carouselImage: null
   });
+  const [isDragActive, setIsDragActive] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     // Check if user is logged in
@@ -204,6 +206,10 @@ const AdminDashboard = () => {
     try {
       await storeService.addCarouselImage(carouselForm);
       setCarouselForm({ caption: '', carouselImage: null });
+      setPreviewUrl(null);
+      // Clear file input
+      const fileInput = document.getElementById('carousel-file-input');
+      if (fileInput) fileInput.value = '';
       fetchCarouselImages();
       alert('Carousel image added successfully!');
     } catch (error) {
@@ -230,6 +236,69 @@ const AdminDashboard = () => {
     } catch (error) {
       alert('Failed to toggle image status');
     }
+  };
+
+  // Drag and Drop Handlers
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) {
+      const file = files[0];
+      if (file.type.startsWith('image/')) {
+        handleFileSelect(file);
+      } else {
+        alert('Please drop an image file');
+      }
+    }
+  };
+
+  const handleFileSelect = (file) => {
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      alert('File size should be less than 5MB');
+      return;
+    }
+
+    setCarouselForm({...carouselForm, carouselImage: file});
+    
+    // Create preview URL
+    const reader = new FileReader();
+    reader.onload = (e) => setPreviewUrl(e.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  };
+
+  const clearSelectedFile = () => {
+    setCarouselForm({...carouselForm, carouselImage: null});
+    setPreviewUrl(null);
+    // Clear file input
+    const fileInput = document.querySelector('.file-input');
+    if (fileInput) fileInput.value = '';
   };
 
   useEffect(() => {
@@ -709,12 +778,64 @@ const AdminDashboard = () => {
               <form onSubmit={handleCarouselSubmit} className="carousel-form">
                 <div className="form-group">
                   <label>Carousel Image</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => setCarouselForm({...carouselForm, carouselImage: e.target.files[0]})}
-                    required
-                  />
+                  <div 
+                    className={`file-upload-area ${isDragActive ? 'drag-active' : ''} ${previewUrl ? 'has-file' : ''}`}
+                    onDragEnter={handleDragEnter}
+                    onDragLeave={handleDragLeave}
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileInputChange}
+                      required
+                      className="file-input"
+                      id="carousel-file-input"
+                      style={{ display: 'none' }}
+                    />
+                    
+                    {previewUrl ? (
+                      <div className="file-preview-content">
+                        <div className="preview-image">
+                          <img src={previewUrl} alt="Preview" />
+                        </div>
+                        <div className="preview-info">
+                          <p>✓ Image selected</p>
+                          <small>{carouselForm.carouselImage?.name}</small>
+                          <button 
+                            type="button" 
+                            onClick={clearSelectedFile}
+                            className="clear-file-btn"
+                          >
+                            <X size={16} />
+                            Change Image
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="file-upload-content">
+                        <Upload size={32} />
+                        <p>
+                          {isDragActive 
+                            ? 'Drop your image here!' 
+                            : 'Drag & drop an image here'
+                          }
+                        </p>
+                        <div className="upload-options">
+                          <button 
+                            type="button"
+                            onClick={() => document.getElementById('carousel-file-input').click()}
+                            className="browse-btn"
+                          >
+                            <Plus size={16} />
+                            Choose from Device
+                          </button>
+                        </div>
+                        <small>PNG, JPG, JPEG up to 5MB</small>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 
                 <div className="form-group">
@@ -727,7 +848,11 @@ const AdminDashboard = () => {
                   />
                 </div>
                 
-                <button type="submit" className="submit-button">
+                <button 
+                  type="submit" 
+                  className="submit-button"
+                  disabled={!carouselForm.carouselImage}
+                >
                   <Plus size={18} />
                   Add to Carousel
                 </button>

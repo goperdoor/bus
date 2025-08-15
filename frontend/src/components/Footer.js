@@ -1,25 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MapPin, Phone, Mail, Clock, Bus, Facebook, Twitter, Instagram , Code } from 'lucide-react';
-import SuperAdmin from './SuperAdmin';
 
 const Footer = () => {
-  const [tapCount, setTapCount] = useState(0);
-  const [showSuperAdmin, setShowSuperAdmin] = useState(false);
-
-  const handleDeveloperTap = () => {
-    const newCount = tapCount + 1;
-    setTapCount(newCount);
-    
-    if (newCount >= 10) {
-      setShowSuperAdmin(true);
-      setTapCount(0); // Reset counter
-    }
-    
-    // Reset counter after 5 seconds if not reached 10 taps
-    setTimeout(() => {
-      setTapCount(0);
-    }, 5000);
-  };
  const footerStyle = {
   backgroundColor: '#1a202c',
   color: '#e2e8f0',
@@ -28,9 +10,7 @@ const Footer = () => {
   borderTopRightRadius: '27px',
   fontFamily: 'Arial, sans-serif',
   paddingTop: '45px',
-  boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
- 
-   
+   boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
 };
 
 
@@ -184,20 +164,10 @@ const Footer = () => {
               goperdoor576124@gmail.com
             </div>
 
-           <div 
-             style={{ 
-               ...linkStyle, 
-               cursor: 'default', 
-               fontSize: '15px', 
-               display: 'flex', 
-               alignItems: 'center', 
-               gap: '21px'
-             }}
-             onClick={handleDeveloperTap}
-           >
-             <Code size={14} />
-             Developed by Anvith Shetty & Rohan Shetty
-           </div>
+           <div style={{ ...linkStyle, cursor: 'default', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '21px' }}>
+  <Code size={14} />
+  Developed by Anvith Shetty & Rohan Shetty
+</div>
 
             
           </div>
@@ -208,61 +178,6 @@ const Footer = () => {
           <p>© 2024 GoPerdoor. All rights reserved. | Privacy Policy | Terms of Service | Accessibility</p>
         </div>
       </div>
-
-      {/* Super Admin Modal */}
-      {showSuperAdmin && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backdropFilter: 'blur(5px)'
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            width: '90%',
-            maxWidth: '800px',
-            maxHeight: '90vh',
-            overflow: 'auto',
-            position: 'relative',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-          }}>
-            <button
-              onClick={() => setShowSuperAdmin(false)}
-              style={{
-                position: 'absolute',
-                top: '15px',
-                right: '15px',
-                background: 'none',
-                border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-                color: '#666',
-                zIndex: 10000,
-                width: '30px',
-                height: '30px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '50%',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-            >
-              ×
-            </button>
-            <SuperAdmin />
-          </div>
-        </div>
-      )}
     </footer>
   );
 };

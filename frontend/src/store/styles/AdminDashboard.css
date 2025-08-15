@@ -759,3 +759,321 @@
     min-width: 100px;
   }
 }
+
+/* Carousel Submit Button */
+.submit-button {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  min-width: 150px;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #5b5bf1 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Enhanced File Input for Carousel */
+.carousel-form .form-group input[type="file"] {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-form .form-group input[type="file"]:hover {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+  transform: translateY(-2px);
+}
+
+.carousel-form .form-group input[type="file"]:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Carousel Form Container Enhancement */
+.carousel-form-container {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 30px;
+}
+
+.carousel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.carousel-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.carousel-form .form-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+.carousel-form .form-group input[type="text"] {
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.carousel-form .form-group input[type="text"]:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Modern File Upload Area */
+.file-upload-area {
+  position: relative;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 140px;
+}
+
+.file-upload-area:hover {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+}
+
+.file-upload-area.drag-active {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
+}
+
+.file-upload-area.has-file {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.file-upload-content {
+  padding: 30px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-upload-content svg {
+  color: #6366f1;
+  margin-bottom: 5px;
+}
+
+.file-upload-content p {
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  font-size: 14px;
+}
+
+.file-upload-content small {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.upload-options {
+  margin: 10px 0;
+}
+
+.browse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.browse-btn:hover {
+  background: linear-gradient(135deg, #5b59f0 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* File Preview Content */
+.file-preview-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.preview-image {
+  flex-shrink: 0;
+}
+
+.preview-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #22c55e;
+}
+
+.preview-info {
+  flex: 1;
+  text-align: left;
+}
+
+.preview-info p {
+  color: #22c55e;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.preview-info small {
+  color: #6b7280;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+
+.clear-file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-file-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Enhanced Carousel Image Grid */
+.carousel-images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+/* No Carousel Images State */
+.no-carousel-images {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 16px;
+  border: 2px dashed #cbd5e1;
+  grid-column: 1 / -1;
+}
+
+.no-carousel-images p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.no-carousel-images p:last-child {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Enhanced Toggle and Delete Buttons */
+.toggle-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.delete-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Carousel Image Overlay Enhancement */
+.carousel-image-overlay {
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive Design for Carousel */
+@media (max-width: 768px) {
+  .carousel-images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 14px 20px;
+  }
+  
+  .toggle-button {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+}

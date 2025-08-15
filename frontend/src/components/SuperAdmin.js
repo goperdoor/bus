@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Users, Plus, ToggleLeft, ToggleRight, Store } from 'lucide-react';
+import React, { useState } from 'react';
+import { Users, Plus, ToggleLeft, ToggleRight, Store, Trash2 } from 'lucide-react';
 import storeService from '../store/services/storeAPI';
 
 const SuperAdmin = () => {
@@ -59,6 +59,23 @@ const SuperAdmin = () => {
       setMessage('Store status updated successfully');
     } catch (error) {
       setMessage('Failed to update store status');
+    }
+  };
+
+  const deleteStore = async (storeId, storeName) => {
+    if (!window.confirm(`Are you sure you want to permanently delete "${storeName}"?\n\nThis will:\n• Delete the store and all its products\n• Remove all images from Cloudinary\n• Delete the store admin account\n\nThis action cannot be undone!`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await storeService.deleteStore(storeId, adminPassword);
+      await fetchStores(); // Reload stores
+      setMessage(`Store "${response.data.storeName}" deleted successfully! ${response.data.deletedImages} images removed from Cloudinary.`);
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Failed to delete store');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -330,7 +347,8 @@ const SuperAdmin = () => {
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-between'
+                      justifyContent: 'space-between',
+                      marginTop: '15px'
                     }}>
                       <div style={{
                         display: 'flex',
@@ -347,19 +365,42 @@ const SuperAdmin = () => {
                         </span>
                       </div>
                       
-                      <button
-                        onClick={() => toggleStoreStatus(store._id)}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                          color: store.isActive ? '#dc3545' : '#28a745',
-                          fontSize: '1.5rem'
-                        }}
-                        title={store.isActive ? 'Deactivate Store' : 'Activate Store'}
-                      >
-                        {store.isActive ? <ToggleRight size={32} /> : <ToggleLeft size={32} />}
-                      </button>
+                      <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <button
+                          onClick={() => toggleStoreStatus(store._id)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            color: store.isActive ? '#dc3545' : '#28a745',
+                            fontSize: '1.5rem'
+                          }}
+                          title={store.isActive ? 'Deactivate Store' : 'Activate Store'}
+                        >
+                          {store.isActive ? <ToggleRight size={28} /> : <ToggleLeft size={28} />}
+                        </button>
+                        
+                        <button
+                          onClick={() => deleteStore(store._id, store.name)}
+                          disabled={loading}
+                          style={{
+                            background: '#dc3545',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '8px 12px',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            fontSize: '0.85rem'
+                          }}
+                          title="Delete Store Permanently"
+                        >
+                          <Trash2 size={16} />
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
