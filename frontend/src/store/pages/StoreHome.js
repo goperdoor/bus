@@ -5,6 +5,7 @@ import storeService from '../services/storeAPI';
 import StoreStatus from '../components/StoreStatus';
 import SocialLinks from '../components/SocialLinks';
 import '../styles/StoreHome.css';
+import FluidCustomAd from '../ads/FluidCustomAd';
 
 const StoreHome = () => {
   const [categories, setCategories] = useState({});
@@ -127,6 +128,7 @@ const StoreHome = () => {
                   </Link>
                 ))}
               </div>
+                      <FluidCustomAd />  
             </div>
           ))}
         </div>
