@@ -28,117 +28,8 @@ const WisdomWall = () => {
 
   // Sample data - in real app, this would come from your backend
 const [posts, setPosts] = useState([
-  {
-    id: 1,
-    name: "Rohini Bhat",
-    type: "art",
-    content: "Yakshagana face painting for 'Kaurava Vesha' performed at Perdoor Temple festival",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Yakshagana_face_painting.jpg/640px-Yakshagana_face_painting.jpg",
-    likes: 54,
-    views: 210
-  },
-  {
-    id: 2,
-    name: "Avinash Rai",
-    type: "quote",
-    content: "Tulunadu is not just a place, it’s a heartbeat that dances with the waves of the sea and the beats of Chende.",
-    likes: 32,
-    views: 150
-  },
-  {
-    id: 3,
-    name: "Keerthi Shetty",
-    type: "drawing",
-    content: "Sketch of St. Mary's Island at sunset",
-    image: "https://images.unsplash.com/photo-1605531613064-3cc3b7a5a04b?w=400&h=300&fit=crop",
-    likes: 47,
-    views: 178
-  },
-  {
-    id: 4,
-    name: "Yathin Hegde",
-    type: "song",
-    content: "🎵 Tulu Folk Song: 'Bale Thelikeda Bolli' – A melody about monsoon and coconut palms swaying in the wind.",
-    likes: 29,
-    views: 112
-  },
-  {
-    id: 5,
-    name: "Divya Poojary",
-    type: "art",
-    content: "Kolam design inspired by Perdoor temple chariot carvings",
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/28/Kolam_2019.jpg",
-    likes: 33,
-    views: 141
-  },
-  {
-    id: 6,
-    name: "Pranav Kamath",
-    type: "quote",
-    content: "Ooru da gindi, marada thudi – that’s where my story begins. #TuluNad",
-    likes: 39,
-    views: 120
-  },
-  {
-    id: 7,
-    name: "Sneha D'Souza",
-    type: "art",
-    content: "Acrylic painting of Ullal Beach during twilight",
-    image: "https://images.unsplash.com/photo-1582076956117-0fa2e2c84a2d?w=400&h=300&fit=crop",
-    likes: 26,
-    views: 96
-  },
-  {
-    id: 8,
-    name: "Ganesh Kotian",
-    type: "quote",
-    content: "Namma Tulu, namma nadu, namma hemme! Let’s preserve what we proudly call Tulunadu.",
-    likes: 44,
-    views: 133
-  },
-  {
-    id: 9,
-    name: "Meghana Nayak",
-    type: "quote",
-    content: "Perdooru yochchi, muttu onji buthi – peace lives in Perdoor’s breeze.",
-    likes: 37,
-    views: 111
-  },
-  {
-    id: 10,
-    name: "Rakesh Shetty",
-    type: "art",
-    content: "Captured this photo during Rathotsava at Sri Ananthapadmanabha Temple, Perdoor",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Temple_car.jpg/640px-Temple_car.jpg",
-    likes: 61,
-    views: 219
-  },
-  {
-    id: 11,
-    name: "Harshini D.",
-    type: "drawing",
-    content: "Pen sketch of Perdoor bridge over river Swarna",
-    image: "https://images.unsplash.com/photo-1602779136942-daf594edb9d2?w=400&h=300&fit=crop",
-    likes: 45,
-    views: 142
-  },
-  {
-    id: 12,
-    name: "Ajith Karkera",
-    type: "quote",
-    content: "Perdoor is where the temple bell rings louder than traffic – and that’s how I like it.",
-    likes: 49,
-    views: 172
-  },
-    {
-    id: 13,
-    name: "Nitin Salian",
-    type: "sports",
-    content: "🏏 Perdoor Premier League 2025 – Team Namma Tigers took the win in a thrilling final!",
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&h=300&fit=crop",
-    likes: 58,
-    views: 190
-  },
+
+ 
   {
     id: 14,
     name: "Sandhya Poojary",
@@ -956,3 +847,4 @@ const [posts, setPosts] = useState([
 };
 
 export default WisdomWall;
+
