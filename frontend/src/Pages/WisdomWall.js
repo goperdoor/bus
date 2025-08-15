@@ -46,23 +46,7 @@ const [posts, setPosts] = useState([
     likes: 39,
     views: 110
   },
-  {
-    id: 16,
-    name: "Prajwal Hegde",
-    type: "sports",
-    content: "🏐 Evening volleyball matches near Perdoor High School bring together all age groups. Pure joy!",
-    image: "https://images.unsplash.com/photo-1600093463592-44b0e8b682d4?w=400&h=300&fit=crop",
-    likes: 33,
-    views: 102
-  },
-  {
-    id: 17,
-    name: "Aishwarya Shenoy",
-    type: "quote",
-    content: "ತುಂಬಾ ದೂರದ ಕನಸು ಕಾಣಿರಿ, ದಾರಿ ಸಿಗುತ್ತೆ.",
-    likes: 48,
-    views: 128
-  },
+  
   {
     id: 18,
     name: "Roshan Shetty",
@@ -847,4 +831,5 @@ const [posts, setPosts] = useState([
 };
 
 export default WisdomWall;
+
 
