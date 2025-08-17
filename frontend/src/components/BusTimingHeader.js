@@ -242,7 +242,7 @@ const BusTimingHeader = () => {
   </Link>
    */}
 <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
-   <Users size={18} /> Perdoor Bulletin
+   <Users size={18} /> Voice of Perdoor
   </Link>
    <Link to="/AILearningHub" className="menu-item" onClick={() => setIsMenuOpen(false)}>
   <Brain size={18} /> AI Learning Hub

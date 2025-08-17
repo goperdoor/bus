@@ -1077,3 +1077,41 @@
     padding: 5px 8px;
   }
 }
+
+/* Loading State for Buttons */
+.save-button.submitting,
+.submit-button.submitting {
+  opacity: 0.8;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+}
+
+.save-button:disabled,
+.submit-button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button Loading Animation */
+.save-button.submitting:hover,
+.submit-button.submitting:hover {
+  transform: none;
+  box-shadow: none;
+}

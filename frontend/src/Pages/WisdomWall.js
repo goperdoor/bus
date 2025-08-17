@@ -28,6 +28,17 @@ const WisdomWall = () => {
 
   // Sample data - in real app, this would come from your backend
 const [posts, setPosts] = useState([
+{
+  id: 1,
+  name: "Unknown",
+  type: "quote",
+  content: "Felt like a child again 💙 Celebrated Independence Day at my childhood school 🇮🇳. Memories that never fade.",
+  likes: 122,
+  views: 241,
+
+  image: "https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755314457/ixinfvcrfy4uuolo9j2x.jpg",
+}
+,
 
  
   {
@@ -38,15 +49,7 @@ const [posts, setPosts] = useState([
     likes: 42,
     views: 123
   },
-  {
-    id: 15,
-    name: "Rajeev Nayak",
-    type: "motivational",
-    content: "Don’t wait for inspiration. Be the reason someone believes in change. 💫",
-    likes: 39,
-    views: 110
-  },
-  
+ 
   {
     id: 18,
     name: "Roshan Shetty",
@@ -55,31 +58,7 @@ const [posts, setPosts] = useState([
     likes: 51,
     views: 150
   },
-  {
-    id: 19,
-    name: "Bhavya D'Souza",
-    type: "quote",
-    content: "Nenepuga onji gadyānta, gathaka onji parisar – Perdoor gattava ulladu. 🙏 (Memories are poems, Perdoor is heritage.)",
-    likes: 36,
-    views: 97
-  },
-  {
-    id: 20,
-    name: "Sharan Poojary",
-    type: "sports",
-    content: "🥇 Winners of the rural-level kabaddi tournament held near Perdoor Bus Stand. Great crowd energy!",
-    image: "https://images.unsplash.com/photo-1597751102935-73b0b546da1f?w=400&h=300&fit=crop",
-    likes: 62,
-    views: 204
-  },
-  {
-    id: 21,
-    name: "Chaitra Udupa",
-    type: "quote",
-    content: "ಜೀವನದಲ್ಲಿ ಯಶಸ್ಸು ಬೇಕಾದರೆ ಮೊದಲಿಗೆ ನಂಬಿಕೆ ಬೇಕು.",
-    likes: 41,
-    views: 120
-  },
+ 
   {
     id: 22,
     name: "Anvith Shetty",
@@ -637,7 +616,7 @@ const [posts, setPosts] = useState([
         <div style={mainContentStyle} className="main-content">
           <div style={headerStyle}>
             <h1 style={titleStyle} className="title">
-              Community Skills Gallery
+              PERDOOR SKILLS GALLERY
             </h1>
             <p style={subtitleStyle} className="subtitle">
               Share your talents with the world - art, drawings, songs, quotes & more

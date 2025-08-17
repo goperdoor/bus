@@ -80,9 +80,7 @@ router.get('/categories', async (req, res) => {
         location: store.location,
         phone: store.phone,
         imageUrl: store.imageUrl,
-        category: store.category,
-        operatingHours: store.operatingHours,
-        socialLinks: store.socialLinks
+        category: store.category
       });
       return acc;
     }, {});
@@ -109,11 +107,8 @@ router.get('/store/:id', async (req, res) => {
       description: store.description,
       location: store.location,
       phone: store.phone,
-      whatsappNumber: store.whatsappNumber,
       imageUrl: store.imageUrl,
       category: store.category,
-      operatingHours: store.operatingHours,
-      socialLinks: store.socialLinks,
       carouselImages: store.carouselImages ? store.carouselImages.filter(img => img.isActive) : [],
       products: store.products.filter(product => product.isActive)
     };

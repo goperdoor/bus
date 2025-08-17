@@ -25,6 +25,9 @@ const AdminDashboard = () => {
   const [editingStore, setEditingStore] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showAddProduct, setShowAddProduct] = useState(false);
+  const [productSubmitting, setProductSubmitting] = useState(false);
+  const [carouselSubmitting, setCarouselSubmitting] = useState(false);
+  const [storeSubmitting, setStoreSubmitting] = useState(false);
 
   const [storeForm, setStoreForm] = useState({
     name: '',
@@ -128,6 +131,12 @@ const AdminDashboard = () => {
 
   const handleStoreSubmit = async (e) => {
     e.preventDefault();
+    
+    // Prevent multiple submissions
+    if (storeSubmitting) return;
+    
+    setStoreSubmitting(true);
+    
     try {
       const response = await storeService.updateStore(storeForm);
       setStore(response.data);
@@ -136,11 +145,19 @@ const AdminDashboard = () => {
       alert('Store information updated successfully!');
     } catch (error) {
       alert('Failed to update store information');
+    } finally {
+      setStoreSubmitting(false);
     }
   };
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
+    
+    // Prevent multiple submissions
+    if (productSubmitting) return;
+    
+    setProductSubmitting(true);
+    
     try {
       if (editingProduct) {
         await storeService.updateProduct(editingProduct, productForm);
@@ -163,6 +180,8 @@ const AdminDashboard = () => {
       alert(editingProduct ? 'Product updated successfully!' : 'Product added successfully!');
     } catch (error) {
       alert('Failed to save product');
+    } finally {
+      setProductSubmitting(false);
     }
   };
 
@@ -203,6 +222,12 @@ const AdminDashboard = () => {
 
   const handleCarouselSubmit = async (e) => {
     e.preventDefault();
+    
+    // Prevent multiple submissions
+    if (carouselSubmitting) return;
+    
+    setCarouselSubmitting(true);
+    
     try {
       await storeService.addCarouselImage(carouselForm);
       setCarouselForm({ caption: '', carouselImage: null });
@@ -214,6 +239,8 @@ const AdminDashboard = () => {
       alert('Carousel image added successfully!');
     } catch (error) {
       alert('Failed to add carousel image');
+    } finally {
+      setCarouselSubmitting(false);
     }
   };
 
@@ -445,9 +472,22 @@ const AdminDashboard = () => {
                   />
                 </div>
 
-                <button type="submit" className="save-button">
-                  <Save size={18} />
-                  Save Store Information
+                <button 
+                  type="submit" 
+                  className={`save-button ${storeSubmitting ? 'submitting' : ''}`}
+                  disabled={storeSubmitting}
+                >
+                  {storeSubmitting ? (
+                    <>
+                      <div className="spinner"></div>
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={18} />
+                      Save Store Information
+                    </>
+                  )}
                 </button>
               </form>
             ) : (
@@ -594,9 +634,22 @@ const AdminDashboard = () => {
                 ))}
               </div>
 
-              <button type="submit" className="save-button">
-                <Save size={18} />
-                Save Contact & Hours
+              <button 
+                type="submit" 
+                className={`save-button ${storeSubmitting ? 'submitting' : ''}`}
+                disabled={storeSubmitting}
+              >
+                {storeSubmitting ? (
+                  <>
+                    <div className="spinner"></div>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Save size={18} />
+                    Save Contact & Hours
+                  </>
+                )}
               </button>
             </form>
           </div>
@@ -706,9 +759,22 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-                  <button type="submit" className="save-button">
-                    <Save size={18} />
-                    {editingProduct ? 'Update Product' : 'Add Product'}
+                  <button 
+                    type="submit" 
+                    className={`save-button ${productSubmitting ? 'submitting' : ''}`}
+                    disabled={productSubmitting}
+                  >
+                    {productSubmitting ? (
+                      <>
+                        <div className="spinner"></div>
+                        {editingProduct ? 'Updating...' : 'Adding...'}
+                      </>
+                    ) : (
+                      <>
+                        <Save size={18} />
+                        {editingProduct ? 'Update Product' : 'Add Product'}
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -850,11 +916,20 @@ const AdminDashboard = () => {
                 
                 <button 
                   type="submit" 
-                  className="submit-button"
-                  disabled={!carouselForm.carouselImage}
+                  className={`submit-button ${carouselSubmitting ? 'submitting' : ''}`}
+                  disabled={!carouselForm.carouselImage || carouselSubmitting}
                 >
-                  <Plus size={18} />
-                  Add to Carousel
+                  {carouselSubmitting ? (
+                    <>
+                      <div className="spinner"></div>
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={18} />
+                      Add to Carousel
+                    </>
+                  )}
                 </button>
               </form>
             </div>
