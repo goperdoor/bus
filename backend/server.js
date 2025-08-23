@@ -8,14 +8,29 @@ const Bus = require('./models/Bus');
 
 const app = express();
 
-// ✅ Setup CORS to allow only your Vercel frontend
-const allowedOrigins = ['https://bus-alpha-ten.vercel.app', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3000','https://www.goperdoor.tech',
+// ✅ Setup CORS to allow web and mobile app requests
+const allowedOrigins = [
+  'https://bus-alpha-ten.vercel.app', 
+  'http://localhost:3001', 
+  'http://localhost:3002', 
+  'http://localhost:3000',
+  'https://www.goperdoor.tech',
   'https://goperdoor.tech',
   'http://www.goperdoor.tech',
-  'http://goperdoor.tech']; // Add more origins if needed
+  'http://goperdoor.tech'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (mobile apps, postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // For development, allow all origins
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'), false);
@@ -85,9 +100,12 @@ app.use('/api/store', storeRoutes);
 // Get all destinations
 app.get('/api/destinations', async (req, res) => {
   try {
+    console.log('📍 Fetching destinations...');
     const destinations = await Bus.distinct('destination', { active: true });
+    console.log('📍 Found destinations:', destinations);
     res.json(destinations);
   } catch (error) {
+    console.error('❌ Error fetching destinations:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -119,9 +137,12 @@ app.get('/api/buses/search', async (req, res) => {
 // Get all buses
 app.get('/api/admin/buses', async (req, res) => {
   try {
+    console.log('🚌 Fetching all buses...');
     const buses = await Bus.find().sort({ createdAt: -1 });
+    console.log('🚌 Found buses count:', buses.length);
     res.json(buses);
   } catch (error) {
+    console.error('❌ Error fetching buses:', error);
     res.status(500).json({ error: error.message });
   }
 });
