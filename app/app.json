@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "GoPerdoor",
+    "slug": "goperdoor-app",
+    "version": "1.0.0",
+    "sdkVersion": "53.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#485eff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.goperdoor.app"
+    },
+    "web": {
+    }
+  }
+}
