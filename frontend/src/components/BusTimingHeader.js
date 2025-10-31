@@ -240,7 +240,7 @@ const BusTimingHeader = () => {
   <Link to="/PerdoorPages" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <MapPinned size={18} /> explore perdoor 
   </Link>
-
+   */}
 <Link to="/WisdomWall" className="menu-item" onClick={() => setIsMenuOpen(false)}>
    <Users size={18} /> Voice of Perdoor
   </Link>
