@@ -167,5 +167,6 @@ const StoreStatus = ({ store, showDetails = false }) => {
     )}  
   </div>  
 );
+};
 
 export default StoreStatus;
