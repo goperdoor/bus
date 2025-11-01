@@ -112,7 +112,7 @@ const StoreStatus = ({ store, showDetails = false }) => {
     gap: '8px',
     fontSize: '14px',
     fontWeight: '600',
-    color: isOpen ? '#10B981' : '#EF4444',
+    color: isOpen ? '#10B981' : '#10B981',
     marginBottom: showDetails ? '8px' : '0'
   };
 
