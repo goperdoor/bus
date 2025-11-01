@@ -134,42 +134,38 @@ const StoreStatus = ({ store, showDetails = false }) => {
     marginTop: '9px'
   };
 
-  return (
-    <div className="store-status">
-      <div style={statusStyle}>
-        {isOpen ? (
-          <>
-            <CheckCircle size={16} />
-            <span>Open now</span>
-          </>
-        ) : (
-          <>
-            <CheckCircle size={16} />
-            <span>Open now</span>
-          </>
-                   {/* Advanced Filters <>
-            <XCircle size={16} />
-            <span>Closed</span>
-          </> */}
-        )}
-      </div>
+  return (  
+  <div className="store-status">  
+    <div style={statusStyle}>  
+      {isOpen ? (  
+        <>  
+          <CheckCircle size={16} />  
+          <span>Open now</span>  
+        </>  
+      ) : (  
+        <>  
+          <CheckCircle size={16} />  
+          <span>Open now</span>  
+        </>  
+        // If you ever want to add "Closed" UI, put it here properly, not inside a comment
+      )}  
+    </div>  
       
-      {showDetails && (
-        <div className="store-hours-details">
-          <div style={hoursStyle}>
-            <Clock size={14} />
-            <span>Today: {todayHours}</span>
-          </div>
+    {showDetails && (  
+      <div className="store-hours-details">  
+        <div style={hoursStyle}>  
+          <Clock size={14} />  
+          <span>Today: {todayHours}</span>  
+        </div>  
           
-          {!isOpen && nextOpen && (
-            <div style={nextOpenStyle}>
-              {nextOpen}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+        {!isOpen && nextOpen && (  
+          <div style={nextOpenStyle}>  
+            {nextOpen}  
+          </div>  
+        )}  
+      </div>  
+    )}  
+  </div>  
+);
 
 export default StoreStatus;
