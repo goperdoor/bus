@@ -364,7 +364,7 @@ const StoreHome = () => {
                     <div className="store-info">
                       <h3 className="store-name">{store.name}</h3>
                       <p className="store-description">{store.description}</p>
-                      <StoreStatus store={store} showDetails={false} />
+                     // <StoreStatus store={store} showDetails={false} />
                       <p className="store-location">📍 {store.location}</p>
                       <p className="store-phone">📞 {store.phone}</p>
                       <SocialLinks socialLinks={store.socialLinks} storeName={store.name} />
