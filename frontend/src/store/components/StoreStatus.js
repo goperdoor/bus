@@ -144,9 +144,13 @@ const StoreStatus = ({ store, showDetails = false }) => {
           </>
         ) : (
           <>
+            <CheckCircle size={16} />
+            <span>Open now</span>
+          </>
+                   {/* Advanced Filters <>
             <XCircle size={16} />
             <span>Closed</span>
-          </>
+          </> */}
         )}
       </div>
       
