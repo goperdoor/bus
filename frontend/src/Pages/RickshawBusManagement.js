@@ -23,22 +23,7 @@ const RickshawBusManagement = () => {
 
   const [touristBuses] = useState([
     {
-      id: 1,
-      name: "Himalayan Express",
-      capacity: 45,
-      route: "",
-      facilities: ["AC", "WiFi", "Reclining Seats", "Entertainment System"],
-      contactNumber: "",
-      fareRange: "₹1500 - ₹2500"
-    },
-    {
-      id: 2,
-      name: "Golden Triangle Tours",
-      capacity: 35,
-      route: "",
-      facilities: ["AC", "GPS Tracking", "First Aid", "Comfortable Seating"],
-      contactNumber: "",
-      fareRange: "₹1200 - ₹2000"
+      
     }
   ]);
 
