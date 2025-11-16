@@ -200,11 +200,17 @@ app.get('/api/admin/buses/:id', async (req, res) => {
   }
 });
 
+app.get('/api/ping', (req, res) => {
+  res.json({ message: "Server is awake" });
+});
+
+
 // ================= START SERVER =================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚍 Server running on port ${PORT}`);
   console.log('🕒 Timezone enforced: Asia/Kolkata -', moment().tz('Asia/Kolkata').format());
 });
+
 
 
