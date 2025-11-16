@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import FluidCustomAd from '../ads/FluidCustomAd';
+import BusFinderChat from './BusFinderChat';
 
 const Home = () => {
   const [destination, setDestination] = useState('');
@@ -73,6 +74,30 @@ const Home = () => {
       setBuses([]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Auto-submit when destination is selected
+  const handleDestinationChange = async (e) => {
+    const selectedDestination = e.target.value;
+    setDestination(selectedDestination);
+    
+    if (selectedDestination.trim()) {
+      setLoading(true);
+      setSearched(true);
+      setMessage('');
+
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/buses/search?destination=${selectedDestination}`);
+        setBuses(response.data.buses || []);
+        setMessage(response.data.message || '');
+      } catch (error) {
+        console.error('Error searching buses:', error);
+        setMessage('Error searching for buses. Please try again.');
+        setBuses([]);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -490,131 +515,765 @@ const styles = {
 
 
   // Add CSS animations
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        25% { transform: translateY(-10px) rotate(2deg); }
-        50% { transform: translateY(-20px) rotate(0deg); }
-        75% { transform: translateY(-10px) rotate(-2deg); }
-      }
-      
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-5px); }
-      }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-        50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
-      }
-      
-      @keyframes shimmer {
-        0% { background-position: -200% center; }
-        100% { background-position: 200% center; }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => document.head.removeChild(style);
-  }, []);
+  
 
-  const benefits = [
-    {
-      icon: '📆',
-      title: 'Up-to-Date Bus Timings',
-      description: 'Find accurate schedules from Perdoor to Udupi, Manipal, Kukkikatte, KG Road, Ajekar, Hebri, and other nearby places.'
-    },
-    {
-      icon: '🚖',
-      title: 'Rickshaw and Tourist Bus Info',
-      description: 'Go beyond buses — explore pages dedicated to local auto rickshaw options, shared rides, and tourist buses available for nearby temple visits or group trips.'
-    },
-    {
-      icon: '🛕',
-      title: 'Explore Perdoor',
-      description: 'Discover cultural spots, temples, and unique places through our detailed "Explore Perdoor" section.'
-    },
-    {
-      icon: '📱',
-      title: 'PWA Support (Install as an App)',
-      description: 'GoPerdoor works like a mobile app — simply install it from your browser and access it anytime, even without visiting the website again.'
-    },
-    {
-      icon: '🔒',
-      title: 'Privacy-First',
-      description: 'No login needed, no tracking. Just useful travel information, ready when you are.'
-    }
-  ];
+ 
+ 
 
-  const navigationSteps = [
-    { step: '1.', text: 'Homepage – See what GoPerdoor offers and access main sections.' },
-    { step: '2.', text: 'Bus Timings – Select your destination to view current bus schedules.' },
-    { step: '3.', text: 'Rickshaw & Tourist Bus Info – Know your options for last-mile travel and sightseeing.' },
-    { step: '4.', text: 'Explore Perdoor – Learn about famous temples and places to visit.' },
-    { step: '5.', text: 'Temple History – Dive into the history of local temples and cultural heritage.' },
-    { step: '6.', text: 'About Us / Contact – Connect with the team or share suggestions.' }
-  ];
-
-  const features = [
-    {
-      icon: '⚡',
-      title: 'Fast & Lightweight',
-      description: 'Optimized for quick loading even on low networks.'
-    },
-    {
-      icon: '📱',
-      title: 'Installable Web App (PWA)',
-      description: 'Add GoPerdoor to your home screen and use it like a native app. Instant access with no need to open a browser.'
-    },
-    {
-      icon: '🧑‍💻',
-      title: 'Created by Local Developers',
-      description: 'Made by the people of Perdoor, for the people of Perdoor.'
-    },
-    {
-      icon: '🔁',
-      title: 'Updated Regularly',
-      description: 'We add new timings, routes, and services based on user feedback and local updates.'
-    }
-  ];
-
-  const faqs = [
-    {
-      question: 'Is GoPerdoor officially connected to KSRTC or any travel agency?',
-      answer: 'No, it\'s a community-built platform and not affiliated with government transport services. Information is collected from trusted local sources.'
-    },
-    {
-      question: 'How do I install GoPerdoor as an app?',
-      answer: 'Just visit goperdoor.tech on your mobile browser and tap "Add to Home Screen" to install.'
-    },
-    {
-      question: 'Can I use GoPerdoor without internet?',
-      answer: 'Yes! Once installed as a PWA, you can access most features offline.'
-    },
-    {
-      question: 'How can I share updated travel info or timings?',
-      answer: 'Go to the Contact Us section and send us a message. We regularly update data based on community inputs.'
-    }
-  ];
-
-  const [hoveredBenefit, setHoveredBenefit] = useState(-1);
-  const [hoveredFeature, setHoveredFeature] = useState(-1);
-  const [hoveredFaq, setHoveredFaq] = useState(-1);
-  const [hoveredNav, setHoveredNav] = useState(-1);
-
+ 
+ 
 
 
   
   return (
-    <div className="home-container">
-      <div className="header2" id='header2'>
-        <h1> ಪೆರ್ಡೂರು ಬಸ್ ಸಮಯ</h1>
-        <p>ನಿಮ್ಮ ಬಸ್ ಸಮಯವನ್ನು ಸುಲಭವಾಗಿ ಹುಡುಕಿ</p>
-      </div>
+    <>
+      <style jsx>{`
+        .home-container {
+          min-height: 100vh;
+          padding: 0;
+          background: linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%);
+        }
 
-      <div className="search-section" id='search-section'>
+        .hero-section {
+          position: relative;
+          width: 100%;
+          max-width: 1400px;
+          margin: 20px auto 90px;
+          padding: 0 20px;
+        }
+
+        .hero-video-container {
+          position: relative;
+          width: 100%;
+          height: 600px;
+          border-radius: 24px;
+          overflow: visible;
+          background: rgba(255, 255, 255, 0.75);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+          animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 24px;
+        }
+
+        .hero-overlay {
+          position: absolute;
+          bottom: -60px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%;
+          max-width: 600px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          padding: 30px;
+          border-radius: 24px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-title {
+          font-size: clamp(1.8rem, 5vw, 3rem);
+          font-weight: 800;
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin: 0 0 10px 0;
+          text-align: center;
+        }
+
+        .hero-subtitle {
+          font-size: clamp(1rem, 3vw, 1.3rem);
+          color: #6c757d;
+          margin: 0 0 25px 0;
+          font-weight: 600;
+          text-align: center;
+        }
+
+        .hero-search-form {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .hero-input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .hero-input-group label {
+          font-weight: 700;
+          color: #2c3e50;
+          font-size: 1rem;
+          text-align: center;
+        }
+
+        .hero-loading {
+          color: #485eff;
+          font-size: 0.9rem;
+          text-align: center;
+          font-weight: 600;
+          animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        .hero-select {
+          width: 100%;
+          padding: 16px 18px;
+          padding-right: 40px;
+          border: 2px solid #e0e0e0;
+          border-radius: 12px;
+          font-size: 1.05rem;
+          background: #ffffff;
+          color: #333;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23485eff' stroke-width='2'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 15px center;
+          background-size: 16px 16px;
+          transition: all 0.3s ease;
+          font-weight: 600;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-select:hover {
+          border-color: #a3bffa;
+          cursor: pointer;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(72, 94, 255, 0.15);
+        }
+
+        .hero-select:focus {
+          outline: none;
+          border-color: #485eff;
+          box-shadow: 0 0 0 4px rgba(72, 94, 255, 0.2);
+        }
+
+        .header2 {
+          text-align: center;
+          margin: 0 auto 30px;
+          max-width: 800px;
+          padding: 30px 25px;
+          background: rgba(255, 255, 255, 0.75);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border-radius: 20px;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+          animation: fadeInUp 0.8s ease;
+          margin-top: 20px;
+        }
+
+        .header2 h1 {
+          font-size: clamp(1.8rem, 5vw, 2.5rem);
+          margin: 0 0 10px 0;
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-weight: 800;
+          letter-spacing: -0.5px;
+        }
+
+        .header2 p {
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-size: clamp(1rem, 3.5vw, 1.2rem);
+          opacity: 0.9;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .search-section {
+          max-width: 600px;
+          margin: 0 auto 30px;
+          background: rgba(255, 255, 255, 0.75);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          padding: 35px;
+          border-radius: 20px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          transition: all 0.3s ease;
+          animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .search-section:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 30px rgba(72, 94, 255, 0.12);
+        }
+
+        .search-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .input-group label {
+          font-weight: 700;
+          color: #555;
+          font-size: 1.1rem;
+        }
+
+        .input-group select {
+          width: 100%;
+          padding: 15px;
+          padding-right: 40px;
+          border: 2px solid #e0e0e0;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          background-color: #f9fafb;
+          color: #333;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23667eea' stroke-width='2'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 15px center;
+          background-size: 16px 16px;
+          transition: all 0.3s ease;
+        }
+
+        .input-group select:hover {
+          border-color: #a3bffa;
+          cursor: pointer;
+        }
+
+        .input-group select:focus {
+          outline: none;
+          border-color: #667eea;
+          background-color: #f0f4ff;
+          box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+        }
+
+        .search-btn {
+          padding: 15px 30px;
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(72, 94, 255, 0.3);
+        }
+
+        .search-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(72, 94, 255, 0.4);
+        }
+
+        .search-btn:active {
+          transform: translateY(0);
+        }
+
+        .search-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        .results-section {
+          max-width: 900px;
+          margin: 30px auto;
+          animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .results-header {
+          text-align: center;
+          margin-bottom: 30px;
+          padding: 25px 30px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 20px;
+          border: 1px solid rgba(72, 94, 255, 0.15);
+          box-shadow: 0 8px 30px rgba(72, 94, 255, 0.12);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .results-header::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #485eff 0%, #a955ff 50%, #ff6b9d 100%);
+        }
+
+        .results-header h2 {
+          font-size: clamp(1.5rem, 4vw, 2rem);
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-weight: 800;
+          margin: 0;
+          letter-spacing: -0.5px;
+        }
+
+        .no-results {
+          text-align: center;
+          padding: 40px 30px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 20px;
+          font-size: 1.1rem;
+          color: #6c757d;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .bus-results {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+
+        .bus-card {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          padding: 25px;
+          border-radius: 20px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+          border: 1px solid rgba(72, 94, 255, 0.1);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          animation: fadeInUp 0.5s ease forwards;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .bus-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          transform: scaleY(0);
+          transition: transform 0.4s ease;
+        }
+
+        .bus-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 40px rgba(72, 94, 255, 0.15);
+          border-color: rgba(72, 94, 255, 0.25);
+        }
+
+        .bus-card:hover::before {
+          transform: scaleY(1);
+        }
+
+        .bus-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          flex-wrap: nowrap;
+          gap: 15px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid rgba(72, 94, 255, 0.1);
+        }
+
+        .bus-name {
+          font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+          font-weight: 800;
+          color: #2c3e50;
+          letter-spacing: -0.3px;
+          flex: 1;
+          min-width: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .bus-number {
+          background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+          color: white;
+          padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
+          border-radius: 25px;
+          font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+          font-weight: 700;
+          box-shadow: 0 4px 12px rgba(72, 94, 255, 0.3);
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        .bus-details {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+          margin-bottom: 18px;
+        }
+
+        .detail-item {
+          text-align: center;
+          padding: 16px;
+          background: linear-gradient(135deg, rgba(248, 249, 250, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-radius: 14px;
+          border: 1px solid rgba(72, 94, 255, 0.08);
+          transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+          background: linear-gradient(135deg, rgba(72, 94, 255, 0.05) 0%, rgba(169, 85, 255, 0.05) 100%);
+          border-color: rgba(72, 94, 255, 0.2);
+          transform: translateY(-2px);
+        }
+
+        .detail-label {
+          font-size: 0.85rem;
+          color: #6c757d;
+          font-weight: 700;
+          margin-bottom: 6px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+          font-size: 1.3rem;
+          font-weight: 800;
+          color: #2c3e50;
+          letter-spacing: -0.3px;
+        }
+
+        .next-departure {
+          text-align: center;
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+          padding: 18px 20px;
+          border-radius: 16px;
+          margin-top: 18px;
+          box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .next-departure::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+          animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+          0%, 100% { transform: translate(-50%, -50%); }
+          50% { transform: translate(0%, 0%); }
+        }
+
+        .next-departure-time {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 5px;
+          position: relative;
+          z-index: 1;
+        }
+
+        .minutes-left {
+          font-size: 1.05rem;
+          opacity: 0.95;
+          font-weight: 600;
+          position: relative;
+          z-index: 1;
+        }
+
+        .availability-badge-container {
+          text-align: center;
+          margin-top: 15px;
+        }
+
+        .availability-badge {
+          display: inline-block;
+          padding: 8px 18px;
+          border-radius: 25px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .availability-daily {
+          background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+          color: white;
+        }
+
+        .availability-weekdays {
+          background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+          color: white;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .home-container {
+            padding: 0;
+          }
+
+          .hero-section {
+            margin: 15px auto 70px;
+            padding: 0 15px;
+          }
+
+          .hero-video-container {
+            height: 250px;
+            border-radius: 20px;
+          }
+
+          .hero-video {
+            border-radius: 20px;
+          }
+
+          .hero-overlay {
+            bottom: -35px;
+            width: 95%;
+            padding: 10px;
+            border-radius: 20px;
+          }
+
+          .hero-search-form {
+            gap: 12px;
+          }
+
+          .hero-input-group label {
+            font-size: 0.95rem;
+          }
+
+          .hero-select {
+            padding: 12px 15px;
+            padding-right: 35px;
+            font-size: 1rem;
+          }
+
+          .header2 {
+            padding: 25px 20px;
+            margin: 20px 15px;
+          }
+
+          .search-section {
+            padding: 25px;
+            margin: 0 15px 30px;
+          }
+
+          .results-section {
+            padding: 0 15px;
+          }
+
+          .bus-header {
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .bus-name {
+            font-size: 1.1rem;
+            max-width: calc(100% - 120px);
+          }
+
+          .bus-number {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+          }
+
+          .bus-card {
+            padding: 20px;
+          }
+
+          .detail-item {
+            padding: 12px;
+          }
+
+          .detail-label {
+            font-size: 0.75rem;
+          }
+
+          .detail-value {
+            font-size: 1.1rem;
+          }
+        }
+
+        @media (min-width: 480px) and (max-width: 768px) {
+          .hero-video-container {
+            height: 350px;
+          }
+
+          .bus-name {
+            font-size: 1.25rem;
+            max-width: calc(100% - 140px);
+          }
+
+          .bus-number {
+            font-size: 0.85rem;
+            padding: 7px 14px;
+          }
+
+          .bus-card {
+            padding: 22px;
+          }
+
+          .detail-item {
+            padding: 14px;
+          }
+
+          .detail-value {
+            font-size: 1.2rem;
+          }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-video-container {
+            height: 450px;
+          }
+
+          .bus-name {
+            font-size: 1.35rem;
+          }
+
+          .bus-number {
+            font-size: 0.9rem;
+            padding: 7px 15px;
+          }
+
+          .bus-card {
+            padding: 24px;
+          }
+        }
+
+        @media (min-width: 1025px) {
+          .hero-video-container {
+            height: 600px;
+          }
+
+          .bus-name {
+            font-size: 1.5rem;
+          }
+
+          .bus-number {
+            font-size: 0.95rem;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .bus-name {
+            font-size: 1rem;
+            max-width: calc(100% - 110px);
+          }
+
+          .bus-number {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+          }
+
+          .bus-card {
+            padding: 18px;
+          }
+
+          .bus-details {
+            gap: 12px;
+          }
+
+          .detail-item {
+            padding: 10px;
+          }
+
+          .detail-label {
+            font-size: 0.7rem;
+          }
+
+          .detail-value {
+            font-size: 1rem;
+          }
+        }
+      `}</style>
+      
+      <div className="home-container">
+      {/* Hero Section with Video */}
+      <section className="hero-section">
+        <div className="hero-video-container">
+          <video 
+            className="hero-video"
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src="/perdoordrone.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="hero-overlay">
+           
+            {/* Search Form in Hero */}
+            <form onSubmit={handleSearch} className="hero-search-form">
+              <div className="hero-input-group">
+                <select
+                  id="hero-destination"
+                  value={destination}
+                  onChange={handleDestinationChange}
+                  required
+                  className="hero-select"
+                >
+                  <option value="" disabled> ಆಯ್ಕೆಮಾಡಿ (Select Destination)</option>
+                  {destinations.map((dest, index) => (
+                    <option key={index} value={dest}>
+                      {dest}
+                    </option>
+                  ))}
+                </select>
+                {loading && <span className="hero-loading">ಲೋಡ್ ಆಗುತ್ತಿದೆ... Loading...</span>}
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+<FluidCustomAd />  
+    
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        {/* Old search section - now in hero overlay 
+        <div className="search-section" id='search-section'>
         <form onSubmit={handleSearch} className="search-form">
           <div className="input-group">
             <label htmlFor="destination">ಎಲ್ಲಿಗೆ ಹೋಗಬೇಕು?</label>
@@ -637,12 +1296,11 @@ const styles = {
           </button>
         </form>
       </div>
+      */}
 
       {searched && (
         <div className="results-section">
-          <div className="results-header">
-            <h2> "{destination}" ಫಲಿತಾಂಶಗಳು</h2>
-          </div>
+          
 
           {message && buses.length === 0 && (
             <div className="no-results">
@@ -730,6 +1388,7 @@ const styles = {
             }}>
               ಯಾವುದೇ ಬಸ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ | No bus information available
             </p>
+          <FluidCustomAd />  
           </div>
         ) : (
           <div style={styles.destinationTables} className="destination-tables">
@@ -820,162 +1479,20 @@ const styles = {
           </div>
         )}
       </div>
+      </div>
      {/* <Link to="/admin" className="admin-link">
       Admin Panel
 </Link> */}
 
+      {/* Bus Finder Chat Component */}
+      <BusFinderChat />
 
-           <div style={styles.mainContainer}>
-      {/* Floating background shapes */}
-      <div style={styles.floatingShapes}>
-        <div style={{...styles.shape, width: '120px', height: '120px', top: '10%', left: '5%', animationDelay: '0s'}}></div>
-        <div style={{...styles.shape, width: '80px', height: '80px', top: '20%', right: '10%', animationDelay: '2s'}}></div>
-        <div style={{...styles.shape, width: '100px', height: '100px', top: '60%', left: '8%', animationDelay: '4s'}}></div>
-        <div style={{...styles.shape, width: '60px', height: '60px', bottom: '15%', right: '15%', animationDelay: '6s'}}></div>
       </div>
-
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <div style={styles.headerGlow}></div>
-          <h1 style={styles.mainTitle}>Welcome to GoPerdoor</h1>
-          <p style={styles.subtitle}>🚌 Your Local Bus Companion!</p>
-        </div>
-
-        <div style={{...styles.section, ...(visibleSections.includes(0) ? styles.sectionVisible : {})}}>
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionTitleIcon}>🎯</span>
-            Our Mission
-          </h2>
-          <div style={styles.sectionContent}>
-            At GoPerdoor, our mission is to make travel from Perdoor to nearby towns simple, reliable, and easily accessible. Whether you're commuting to Udupi for work, traveling to Manipal for studies, or visiting local temples, GoPerdoor gives you all the information you need — bus schedules, tourist vehicle options, and community updates — in one place.
-            <br /><br />
-            We created GoPerdoor to solve a local problem: lack of organized travel info in rural and semi-urban areas. No more guessing bus times or relying on hearsay — our platform ensures you're always informed and on time.
-          </div>
-        </div>
-
-        <div style={styles.divider}>
-          <div style={styles.dividerGlow}></div>
-        </div>
-
-        <div style={{...styles.section, ...(visibleSections.includes(1) ? styles.sectionVisible : {})}}>
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionTitleIcon}>✅</span>
-            Key Benefits of Using GoPerdoor
-          </h2>
-          <div style={styles.benefitsList}>
-            {benefits.map((benefit, index) => (
-              <div 
-                key={index} 
-                style={{
-                  ...styles.benefitItem,
-                  ...(hoveredBenefit === index ? styles.benefitItemHover : {})
-                }}
-                onMouseEnter={() => setHoveredBenefit(index)}
-                onMouseLeave={() => setHoveredBenefit(-1)}
-              >
-                <div style={{...styles.benefitIcon, animationDelay: `${index * 0.5}s`}}>{benefit.icon}</div>
-                <div style={styles.benefitContent}>
-                  <div style={styles.benefitTitle}>{benefit.title}</div>
-                  <div style={styles.benefitDescription}>{benefit.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div style={styles.divider}>
-          <div style={styles.dividerGlow}></div>
-        </div>
-
-        <div style={{...styles.section, ...(visibleSections.includes(2) ? styles.sectionVisible : {})}}>
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionTitleIcon}>🧭</span>
-            How to Navigate the Site
-          </h2>
-          <div style={styles.navigationList}>
-            {navigationSteps.map((item, index) => (
-              <div 
-                key={index} 
-                style={{
-                  ...styles.navigationItem,
-                  ...(hoveredNav === index ? styles.navigationItemHover : {})
-                }}
-                onMouseEnter={() => setHoveredNav(index)}
-                onMouseLeave={() => setHoveredNav(-1)}
-              >
-                <span style={{ fontWeight: '800', color: '#485eff', fontSize: '18px' }}>{item.step}</span>
-                <span>{item.text}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{...styles.sectionContent, marginTop: '20px'}}>
-            The top navigation bar makes everything easy to access, whether you're using a phone or computer.
-          </div>
-        </div>
-
-        <div style={styles.divider}>
-          <div style={styles.dividerGlow}></div>
-        </div>
-
-        <div style={{...styles.section, ...(visibleSections.includes(3) ? styles.sectionVisible : {})}}>
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionTitleIcon}>🌟</span>
-            Unique Features
-          </h2>
-          <div style={styles.featureGrid}>
-            {features.map((feature, index) => (
-              <div 
-                key={index} 
-                style={{
-                  ...styles.featureCard,
-                  ...(hoveredFeature === index ? styles.featureCardHover : {})
-                }}
-                onMouseEnter={() => setHoveredFeature(index)}
-                onMouseLeave={() => setHoveredFeature(-1)}
-              >
-                <div style={styles.featureTitle}>
-                  <span style={styles.featureIcon}>{feature.icon}</span>
-                  {feature.title}
-                </div>
-                <div style={styles.featureDescription}>{feature.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div style={styles.divider}>
-          <div style={styles.dividerGlow}></div>
-        </div>
-
-        <div style={{...styles.faqSection, ...styles.section, ...(visibleSections.includes(4) ? styles.sectionVisible : {})}}>
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionTitleIcon}>❓</span>
-            Frequently Asked Questions (FAQ)
-          </h2>
-          {faqs.map((faq, index) => (
-            <div 
-              key={index} 
-              style={{
-                ...styles.faqItem,
-                ...(hoveredFaq === index ? styles.faqItemHover : {})
-              }}
-              onMouseEnter={() => setHoveredFaq(index)}
-              onMouseLeave={() => setHoveredFaq(-1)}
-            >
-              <div style={styles.faqQuestion}>
-                <span style={{ color: '#485eff', fontSize: '16px' }}>Q:</span>
-                {faq.question}
-              </div>
-              <div style={styles.faqAnswer}>{faq.answer}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-    </div>
+    </>
   );
 };
 
 export default Home;
+
 
 

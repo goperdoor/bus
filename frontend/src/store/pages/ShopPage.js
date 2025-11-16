@@ -98,7 +98,7 @@ const ShopPage = () => {
       <div className="shop-header">
         <button onClick={() => navigate('/store')} className="back-button">
           <ArrowLeft size={20} />
-          Back to Stores
+        
         </button>
         
         <div className="store-banner">
@@ -110,7 +110,7 @@ const ShopPage = () => {
           <div className="store-main-info">
             <div className="store-details">
               <span className="store-category">{store.category}</span>
-              <h1 className="store-name">{store.name}</h1>
+              <h3 className="store-name">{store.name}</h3>
               <p className="store-description">{store.description}</p>
               <StoreStatus store={store} showDetails={true} />
               <div className="store-contact-info">

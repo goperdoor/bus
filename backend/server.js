@@ -15,7 +15,7 @@ const allowedOrigins = [
   'http://localhost:3002', 
   'http://localhost:3000',
   'https://www.goperdoor.tech',
-  'https://goperdoor.tech',
+  'https://goperdoorbus.vercel.app',
   'http://www.goperdoor.tech',
   'http://goperdoor.tech'
 ];
@@ -205,3 +205,4 @@ app.listen(PORT, () => {
   console.log(`🚍 Server running on port ${PORT}`);
   console.log('🕒 Timezone enforced: Asia/Kolkata -', moment().tz('Asia/Kolkata').format());
 });
+

@@ -169,6 +169,7 @@ const AILearningHub = () => {
             backgroundColor: 'rgba(255, 255, 255, 0.7)',
             borderRadius: '12px',
             overflow: 'hidden',
+           
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
           }}>
             <thead>
@@ -306,6 +307,7 @@ const AILearningHub = () => {
     <div style={{ 
       background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
       minHeight: '100vh',
+      marginTop: '-100px',
       padding: '144px 16px'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -314,7 +316,10 @@ const AILearningHub = () => {
           <h1 style={{
             fontSize: window.innerWidth <= 768 ? '28px' : '36px',
             fontWeight: 'bold',
-            color: '#1f2937',
+            background: 'linear-gradient(135deg, #485eff 0%, #a955ff 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             marginBottom: '16px',
             lineHeight: '1.2'
           }}>

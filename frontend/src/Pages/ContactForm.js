@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { Send, Mail, User, MessageSquare, Phone, MapPin, Clock, CheckCircle, XCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import './ContactForm.css';
 
 const ContactForm = () => {
   useEffect(() => {
@@ -73,40 +74,8 @@ await emailjs.send(serviceId, templateId, templateParams);
   };
 
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
-      minHeight: '100vh',
-      padding: '10px 10px'
-    }}>
-      <style>
-        {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          .contact-input:focus {
-            outline: none;
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-          }
-          .contact-textarea:focus {
-            outline: none;
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-          }
-          .submit-button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-          }
-        `}
-      </style>
-
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-       marginTop: '100px', 
-        alignItems: 'start'
-      }} id='scroll'>
+    <div className="contact-form-page">
+      <div className="contact-container">
         {/* Contact Information */}
         <div style={{
           background: 'rgba(255, 255, 255, 0.95)',
@@ -498,8 +467,9 @@ await emailjs.send(serviceId, templateId, templateParams);
             </button>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+   
   );
 };
 

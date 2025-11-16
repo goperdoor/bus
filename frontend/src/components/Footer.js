@@ -1,183 +1,226 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Bus, Facebook, Twitter, Instagram , Code } from 'lucide-react';
+import { MapPin, Mail, Bus, Instagram, Code } from 'lucide-react';
 
 const Footer = () => {
- const footerStyle = {
-  backgroundColor: '#1a202c',
-  color: '#e2e8f0',
-  padding: '60px 20px 20px',
-  borderTopLeftRadius: '27px',
-  borderTopRightRadius: '27px',
-  fontFamily: 'Arial, sans-serif',
-  paddingTop: '45px',
-   boxShadow: '0px -3px 20px rgba(0, 0, 0, 0.5)',
-};
-
-
-  const containerStyle = {
-    maxWidth: '1200px',
-    margin: '0 auto'
-  };
-
-  const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '40px',
-    marginBottom: '40px'
-  };
-
-  const sectionStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px'
-  };
-
-  const titleStyle = {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    marginBottom: '1px',
-    color: '#60a5fa',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px'
-  };
-
-  const linkStyle = {
-    color: '#cbd5e0',
-    textDecoration: 'none',
-    padding: '0px 0',
-    transition: 'color 0.3s ease',
-    display: 'flex',
-    flexDirection:'row',
-    alignItems: 'center',
-    textAlign:'center',
-    gap: '21px',
-    paddingleft:'0px'
-  };
-
-  const socialStyle = {
-    display: 'flex',
-    gap: '15px',
-    marginTop: '10px'
-  };
-
-  const socialIconStyle = {
-    width: '40px',
-    height: '40px',
-    backgroundColor: '#2d3748',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#e2e8f0',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer'
-  };
-
-  const bottomStyle = {
-    borderTop: '1px solid #2d3748',
-    paddingTop: '20px',
-    textAlign: 'center',
-    color: '#a0aec0',
-    fontSize: '14px',
-   
-  };
-
-  const brandStyle = {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#60a5fa',
-    marginBottom: '15px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px'
-  };
-
-  const handleLinkHover = (e) => {
-    e.target.style.color = '#60a5fa';
-  };
-
-  const handleLinkLeave = (e) => {
-    e.target.style.color = '#cbd5e0';
-  };
-
-  const handleSocialHover = (e) => {
-    e.target.style.backgroundColor = '#60a5fa';
-    e.target.style.transform = 'translateY(-2px)';
-  };
-
-  const handleSocialLeave = (e) => {
-    e.target.style.backgroundColor = '#2d3748';
-    e.target.style.transform = 'translateY(0)';
-  };
-
   return (
-    <footer style={footerStyle}>
-      <div style={containerStyle}>
-        <div style={gridStyle}>
-          {/* Brand Section */}
-          <div style={sectionStyle}>
-            <div style={brandStyle}>
-              <Bus size={28} />
-              GoPerdoor
-            </div>
-            <p style={{ color: '#a0aec0', lineHeight: '1.6' }}>
-              Your reliable companion for bus schedules and real-time updates. 
-              Never miss your bus again with our accurate timing information.
-            </p>
-            <div style={socialStyle}>
-             <div 
-  style={socialIconStyle}
-  onMouseEnter={handleSocialHover}
-  onMouseLeave={handleSocialLeave}
-  onClick={() => window.location.href = "mailto:goperdoor576124@gmail.com"}
->
-  <Mail size={20} />
-</div>
-             
-              <div 
-                style={socialIconStyle}
-                onMouseEnter={handleSocialHover}
-                onMouseLeave={handleSocialLeave}
-                   onClick={() => window.open('https://www.instagram.com/goperdoor?igsh=NzdnNnVpbjJrN3Fh', '_blank')}
-              >
-                <Instagram size={20} />
-              </div>
+    <footer className="simple-footer">
+      <div className="footer-content">
+        {/* First Row: Brand + Social */}
+        <div className="first-row">
+          <div className="footer-brand">
+            <Bus size={24} />
+            <div>
+              <div className="brand-name">GoPerdoor</div>
+              <div className="brand-tagline">ಇಲ್ಲಿದೆ ಬಸ್ ಟೈಮ್ !</div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          
-          {/* Contact Info */}
-          <div style={sectionStyle}>
-            <h3 style={titleStyle}>
-              <MapPin size={20} />
-              Contact Us
-            </h3>
-            <div style={{ ...linkStyle, cursor: 'default' }}>
-              <MapPin size={16} />
-              Perdoor Udupi, Karnataka
-            </div>
-            
-            <div style={{ ...linkStyle, cursor: 'default' }}>
-              <Mail size={16} />
-              goperdoor576124@gmail.com
-            </div>
-
-           <div style={{ ...linkStyle, cursor: 'default', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '21px' }}>
-  <Code size={14} />
-  Developed by Anvith Shetty & Rohan Shetty
-</div>
-
-            
+          {/* Social */}
+          <div className="footer-social">
+            <button 
+              className="social-btn" 
+              onClick={() => window.location.href = 'mailto:goperdoor576124@gmail.com'}
+              aria-label="Email"
+            >
+              <Mail size={18} />
+            </button>
+            <button 
+              className="social-btn" 
+              onClick={() => window.open('https://www.instagram.com/goperdoor?igsh=NzdnNnVpbjJrN3Fh', '_blank')}
+              aria-label="Instagram"
+            >
+              <Instagram size={18} />
+            </button>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div style={bottomStyle}>
-          <p>© 2024 GoPerdoor. All rights reserved. | Privacy Policy | Terms of Service | Accessibility</p>
+        {/* Contact */}
+        <div className="footer-info">
+          <div className="info-item">
+            <MapPin size={14} />
+            <span>Perdoor, Udupi, Karnataka</span>
+          </div>
+          <div className="info-item">
+            <Mail size={14} />
+            <span>goperdoor576124@gmail.com</span>
+          </div>
         </div>
       </div>
+
+      {/* Bottom Bar */}
+      <div className="footer-bar">
+        <div className="copyright">© 2024 GoPerdoor. All rights reserved.</div>
+        <div className="developer">
+          <Code size={14} />
+          <span>Built by Anvith & Rohan</span>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .simple-footer {
+          background: #f8f9fa81;
+          padding: 32px 20px 20px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .footer-content {
+          max-width: 1000px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 30px;
+          padding-bottom: 24px;
+          border-bottom: 2px solid #e9ecef;
+        }
+
+        .first-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 20px;
+          flex: 1;
+        }
+
+        .footer-brand {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        }
+
+        .footer-brand svg {
+          color: #485eff;
+        }
+
+        .brand-name {
+          font-size: 20px;
+          font-weight: 800;
+          color: #2c3e50;
+        }
+
+        .brand-tagline {
+          font-size: 11px;
+          color: #6c757d;
+          font-weight: 600;
+        }
+
+        .footer-info {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .info-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #495057;
+          font-size: 14px;
+        }
+
+        .info-item svg {
+          color: #485eff;
+        }
+
+        .footer-social {
+          display: flex;
+          gap: 10px;
+        }
+
+        .social-btn {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          border: 2px solid #e9ecef;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #485eff;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .social-btn:hover {
+          background: #485eff;
+          color: white;
+          border-color: #485eff;
+          transform: translateY(-2px);
+        }
+
+        .footer-bar {
+          max-width: 1000px;
+          margin: 0 auto;
+          padding-top: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .copyright {
+          color: #6c757d;
+          font-size: 13px;
+        }
+
+        .developer {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          color: #6c757d;
+          font-size: 13px;
+        }
+
+        .developer svg {
+          color: #485eff;
+        }
+
+        @media (max-width: 768px) {
+          .footer-content {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+          }
+
+          .first-row {
+            width: 100%;
+          }
+
+          .footer-info {
+            width: 100%;
+          }
+
+          .footer-bar {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .simple-footer {
+            padding: 24px 16px 16px;
+          }
+
+          .first-row {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .brand-name {
+            font-size: 18px;
+          }
+
+          .info-item {
+            font-size: 13px;
+          }
+
+          .social-btn {
+            width: 36px;
+            height: 36px;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

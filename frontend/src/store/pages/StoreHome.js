@@ -8,8 +8,6 @@ import {
   X, 
   SlidersHorizontal, 
   Star, 
-  Clock,
-  TrendingUp,
   Filter,
   MapPin
 } from 'lucide-react';
@@ -124,7 +122,60 @@ const StoreHome = () => {
       <div className="store-home">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p>Loading stores...</p>
+          <h2 style={{
+            color: '#485eff',
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            marginBottom: '10px',
+            marginTop: '20px'
+          }}>Loading Goperdoor Store...</h2>
+          <p style={{
+            color: '#666',
+            fontSize: '1rem',
+            marginTop: '10px'
+          }}>Fetching all stores data from database</p>
+          <div style={{
+            marginTop: '20px',
+            display: 'flex',
+            gap: '8px',
+            alignItems: 'center'
+          }}>
+            <div className="loading-dot" style={{
+              width: '10px',
+              height: '10px',
+              background: '#485eff',
+              borderRadius: '50%',
+              animation: 'bounce 1.4s infinite ease-in-out both',
+              animationDelay: '-0.32s'
+            }}></div>
+            <div className="loading-dot" style={{
+              width: '10px',
+              height: '10px',
+              background: '#a955ff',
+              borderRadius: '50%',
+              animation: 'bounce 1.4s infinite ease-in-out both',
+              animationDelay: '-0.16s'
+            }}></div>
+            <div className="loading-dot" style={{
+              width: '10px',
+              height: '10px',
+              background: '#ff6b9d',
+              borderRadius: '50%',
+              animation: 'bounce 1.4s infinite ease-in-out both'
+            }}></div>
+          </div>
+          <style>{`
+            @keyframes bounce {
+              0%, 80%, 100% { 
+                transform: scale(0);
+                opacity: 0.5;
+              } 
+              40% { 
+                transform: scale(1);
+                opacity: 1;
+              }
+            }
+          `}</style>
         </div>
       </div>
     );
@@ -177,7 +228,7 @@ const StoreHome = () => {
         )}
       </div>
       <div className="store-info">
-        <h3 className="store-name">{store.name}</h3>
+        <h3 className="store-name" style={{fontSize: '1rem'}}>{store.name}</h3>
         <p className="store-category">{store.category}</p>
         <p className="store-description">{store.description}</p>
         <StoreStatus store={store} showDetails={false} />
@@ -193,116 +244,103 @@ const StoreHome = () => {
 
   return (
     <div className="store-home">
-      <div className="store-header">
-        <div className="store-title">
-          <Store size={32} />
-          <h1>Goperdoor Store</h1>
-        </div>
-        <p className="store-subtitle">Discover local businesses and shop from your neighborhood</p>
-        
-        <div className="admin-buttons">
-          <Link to="/store/admin/login" className="admin-login-btn">
+      {/* Professional Header - Row 1: Title and Admin Button */}
+      <div className="store-header-container">
+        <div className="store-header-row-1">
+          <div className="store-title-section">
+            <Store size={36} className="store-icon" />
+            <h1 className="store-main-title">Goperdoor Store</h1>
+          </div>
+          <Link to="/store/admin/login" className="admin-login-button">
             <LogIn size={20} />
-            Login as Store Admin
+            Store Admin Login
           </Link>
         </div>
-      </div>
 
-      {/* Search and Filter Section */}
-      {categoryNames.length > 0 && (
-        <div className="search-filter-section">
-          {/* Search Summary */}
-          <div className="search-summary">
-            <div className="results-count">
-              <Store size={16} />
-              <span>
-                {filteredStores.length} of {allStores.length} stores
-                {hasActiveFilters && ' (filtered)'}
-              </span>
-            </div>
-            {hasActiveFilters && (
-              <button onClick={clearFilters} className="clear-all-btn">
-                <X size={16} />
-                Clear All
+        {/* Row 2: Search and Filter */}
+        <div className="store-header-row-2">
+          <div className="search-bar-wrapper">
+            <Search className="search-icon-main" size={20} />
+            <input
+              type="text"
+              placeholder="Search stores by name, description, or location..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input-main"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="clear-search-button"
+              >
+                <X size={18} />
               </button>
             )}
           </div>
+          
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`filter-toggle-button ${showFilters ? 'active' : ''}`}
+          >
+            <SlidersHorizontal size={18} />
+            Filters
+            {hasActiveFilters && <span className="active-filter-dot"></span>}
+          </button>
+        </div>
 
-          {/* Search Bar */}
-          <div className="search-main">
-            <div className="search-input-container">
-              <Search className="search-icon" size={20} />
-              <input
-                type="text"
-                placeholder="Search stores by name, description, or location..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm('')}
-                  className="clear-search-btn"
+        {/* Advanced Filters Panel */}
+        {showFilters && (
+          <div className="advanced-filters-panel">
+            <div className="filter-controls">
+              <div className="filter-control-group">
+                <label>Category:</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="filter-dropdown"
                 >
-                  <X size={18} />
+                  <option value="">All Categories</option>
+                  {categoryNames.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="filter-control-group">
+                <label>Sort by:</label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="filter-dropdown"
+                >
+                  <option value="name">Name (A-Z)</option>
+                  <option value="name-desc">Name (Z-A)</option>
+                  <option value="newest">Newest First</option>
+                  <option value="location">Location</option>
+                </select>
+              </div>
+
+              {hasActiveFilters && (
+                <button onClick={clearFilters} className="clear-filters-button">
+                  <X size={16} />
+                  Clear All
                 </button>
               )}
             </div>
-            
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`filters-toggle ${showFilters ? 'active' : ''}`}
-            >
-              <SlidersHorizontal size={18} />
-              Filters
-              {hasActiveFilters && <span className="filter-indicator"></span>}
-            </button>
           </div>
+        )}
 
-      
-          
-
-          {/* Advanced Filters */}
-          {showFilters && (
-            <div className="search-filters">
-              <h4 className="filters-title">
-                <Filter size={18} />
-                Advanced Filters
-              </h4>
-              
-              <div className="filter-row">
-                <div className="filter-group">
-                  <label>Category:</label>
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="">All Categories</option>
-                    {categoryNames.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="filter-group">
-                  <label>Sort by:</label>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="name">Name (A-Z)</option>
-                    <option value="name-desc">Name (Z-A)</option>
-                    <option value="newest">Newest First</option>
-                    <option value="location">Location</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+        {/* Results Count */}
+        {categoryNames.length > 0 && (
+          <div className="results-info">
+            <Store size={16} />
+            <span>
+              {filteredStores.length} of {allStores.length} stores
+              {hasActiveFilters && ' (filtered)'}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* Stores Display */}
       {categoryNames.length === 0 ? (
@@ -364,7 +402,7 @@ const StoreHome = () => {
                     <div className="store-info">
                       <h3 className="store-name">{store.name}</h3>
                       <p className="store-description">{store.description}</p>
-                     // <StoreStatus store={store} showDetails={false} />
+                      <StoreStatus store={store} showDetails={false} />
                       <p className="store-location">📍 {store.location}</p>
                       <p className="store-phone">📞 {store.phone}</p>
                       <SocialLinks socialLinks={store.socialLinks} storeName={store.name} />

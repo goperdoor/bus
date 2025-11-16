@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import './RickshawBusManagement.css';
 
 const RickshawBusManagement = () => {
 
@@ -23,151 +24,93 @@ const RickshawBusManagement = () => {
 
   const [touristBuses] = useState([
     {
-      
+      id: 1,
+      name: "Himalayan Express",
+      capacity: 45,
+      route: "",
+      facilities: ["AC", "WiFi", "Reclining Seats", "Entertainment System"],
+      contactNumber: "",
+      fareRange: "₹1500 - ₹2500"
+    },
+    {
+      id: 2,
+      name: "Golden Triangle Tours",
+      capacity: 35,
+      route: "",
+      facilities: ["AC", "GPS Tracking", "First Aid", "Comfortable Seating"],
+      contactNumber: "",
+      fareRange: "₹1200 - ₹2000"
     }
   ]);
 
   const RickshawTable = ({ title, rickshaws, bgColor }) => (
-    <div style={{ marginBottom: '2rem' }}>
-
-
-  
-      <h2 style={{
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-        color: '#1f2937',
-        marginBottom: '1rem',
-        textAlign: 'center',
-        textShadow: '0 1px 2px rgba(0,0,0,0.1)'
-      }}>
-        {title}
-      </h2>
-     
-
-        
-      <div style={{
-        overflowX: 'auto',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: '12px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        padding: '1rem'
-      }}>
-        <table style={{
-          width: '100%',
-          borderCollapse: 'collapse',
-          
-        }}>
+    <div className="rickshaw-stand-card">
+      <h2 className="stand-title">{title}</h2>
+      <div className="table-container">
+        <table className="rickshaw-table">
           <thead>
-            <tr style={{ backgroundColor: bgColor }}>
-              <th style={headerStyle}>Rickshaw Number</th>
-              <th style={headerStyle}>Driver Name</th>
-              <th style={headerStyle}>Phone Number</th>
+            <tr>
+              <th>Rickshaw Number</th>
+              <th>Driver Name</th>
+              <th>Phone Number</th>
             </tr>
           </thead>
           <tbody>
-            {rickshaws.map((rickshaw, index) => (
-              <tr key={rickshaw.id} style={{
-                backgroundColor: index % 2 === 0 ? 'rgba(248, 250, 252, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-                transition: 'all 0.2s ease'
-              }}>
-                <td style={cellStyle}>{rickshaw.number}</td>
-                <td style={cellStyle}>{rickshaw.driverName}</td>
-                <td style={cellStyle}>
-                  <a href={`tel:${rickshaw.phone}`} style={{
-                    color: '#3b82f6',
-                    textDecoration: 'none',
-                    fontWeight: '500'
-                  }}>
-                    {rickshaw.phone}
-                  </a>
-                </td>
+            {rickshaws.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="no-data">No rickshaws available at this stand</td>
               </tr>
-            ))}
+            ) : (
+              rickshaws.map((rickshaw, index) => (
+                <tr key={rickshaw.id}>
+                  <td>{rickshaw.number}</td>
+                  <td>{rickshaw.driverName}</td>
+                  <td>
+                    <a href={`tel:${rickshaw.phone}`} className="phone-link">
+                      📞 {rickshaw.phone}
+                    </a>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
 
-  const headerStyle = {
-    padding: '0.75rem',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    borderBottom: '2px solid rgba(31, 41, 55, 0.1)',
-    fontSize: '0.875rem'
-  };
-
-  const cellStyle = {
-    padding: '0.75rem',
-    borderBottom: '1px solid rgba(229, 231, 235, 0.8)',
-    fontSize: '0.875rem',
-    color: '#374151'
-  };
-
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%)',
-      minHeight: '100vh',
-      padding: '1rem'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
+    <div className="rickshaw-management-page">
+      <div className="page-container">
+        {/* Hero Header */}
+        <div className="hero-header">
+          <h1 className="page-title">🚖 Rickshaw Management System</h1>
+          <p className="page-subtitle">Find rickshaw drivers and tourist bus services in Perdoor</p>
+       
+ <br/>
+          
+          <p className="submit-description">
+            <h3 className="submit-title">
+            🚖 Are you a rickshaw driver, taxi owner, or tourist bus operator?
+          </h3>
+            Help us add new vehicles by submitting this form.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
+            className="submit-button"
+          >
+            📌 Submit Your Vehicle Info
+          </button>
+        
+        </div>
+
+        {/* Submit Form Card */}
+        
+
         {/* Rickshaw Tables */}
-        <div style={{ marginBottom: '3rem' , marginTop: '100px'}}>
-          <h1 style={{
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: '#1f2937',
-            textAlign: 'center',
-            marginBottom: '2rem',
-            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-          }}>
-            Rickshaw Management System
-          </h1>
-                 <div
-  style={{
-    margin: '2rem auto',
-    padding: '1.5rem',
-    maxWidth: '600px',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
-    border: '1px solid #ddd',
-  }}
->
-  <h3 style={{ marginBottom: '1rem', fontSize: '16px', color: '#333' }}>
-    🚖 Are you a rickshaw driver, taxi owner, or tourist ? <br />
-    Help us add new vehicle by submitting this form.
-  </h3>
-
-  <button
-    type="button"
-    onClick={() =>
-      window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')
-    }
-    style={{
-      padding: '12px 20px',
-      backgroundColor: '#28a745',
-      color: '#fff',
-      fontWeight: 'bold',
-      fontSize: '14px',
-      border: 'none',
-      borderRadius: '8px',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s',
-    }}
-    onMouseOver={(e) => (e.target.style.backgroundColor = '#218838')}
-    onMouseOut={(e) => (e.target.style.backgroundColor = '#28a745')}
-  >
-    📌 Submit your vehicle (your Info)
-  </button>
-</div>
-
-
+        <div className="section-container">
+          <h2 className="section-heading">Rickshaw Stands</h2>
           
           <RickshawTable 
             title="Stand 1 - ಕೆಳಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ"
@@ -189,154 +132,47 @@ const RickshawBusManagement = () => {
         </div>
 
         {/* Tourist Bus Section */}
-        <div>
-          <h1 style={{
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: '#1f2937',
-            textAlign: 'center',
-            marginBottom: '2rem',
-            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-          }}>
-            Tourist Bus Services
-          </h1>
+        <div className="section-container">
+          <h2 className="section-heading">🚌 Tourist Bus Services</h2>
           
-          <div style={{
-            display: 'grid',
-           
-            gap: '1.5rem'
-          }}>
+          <div className="bus-grid">
             {touristBuses.map((bus) => (
-              <div key={bus.id} style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '16px',
-                boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
-                padding: '1.5rem',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-              }}>
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 'bold',
-                  color: '#1f2937',
-                  marginBottom: '1rem',
-                  borderBottom: '2px solid rgba(59, 130, 246, 0.3)',
-                  paddingBottom: '0.5rem'
-                }}>
-                  {bus.name}
-                </h3>
+              <div key={bus.id} className="bus-card">
+                <h3 className="bus-name">{bus.name}</h3>
                 
-                <div style={{ marginBottom: '1rem' }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '0.5rem'
-                  }}>
-                    <span style={{
-                      fontWeight: 'bold',
-                      color: '#374151',
-                      minWidth: '80px',
-                      fontSize: '0.875rem'
-                    }}>
-                      Capacity:
-                    </span>
-                    <span style={{
-                      color: '#1f2937',
-                      fontSize: '0.875rem'
-                    }}>
-                      {bus.capacity} passengers
-                    </span>
+                <div className="bus-details">
+                  <div className="detail-row">
+                    <span className="detail-label">Capacity:</span>
+                    <span className="detail-value">{bus.capacity} passengers</span>
                   </div>
                   
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '0.5rem'
-                  }}>
-                    <span style={{
-                      fontWeight: 'bold',
-                      color: '#374151',
-                      minWidth: '80px',
-                      fontSize: '0.875rem'
-                    }}>
-                      Route:
-                    </span>
-                    <span style={{
-                      color: '#1f2937',
-                      fontSize: '0.875rem'
-                    }}>
-                      {bus.route}
-                    </span>
+                  <div className="detail-row">
+                    <span className="detail-label">Route:</span>
+                    <span className="detail-value">{bus.route || 'On Request'}</span>
                   </div>
                   
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '0.5rem'
-                  }}>
-                    <span style={{
-                      fontWeight: 'bold',
-                      color: '#374151',
-                      minWidth: '80px',
-                      fontSize: '0.875rem'
-                    }}>
-                      Fare:
-                    </span>
-                    <span style={{
-                      color: '#059669',
-                      fontWeight: 'bold',
-                      fontSize: '0.875rem'
-                    }}>
-                      {bus.fareRange}
-                    </span>
+                  <div className="detail-row">
+                    <span className="detail-label">Fare:</span>
+                    <span className="detail-value fare">{bus.fareRange}</span>
                   </div>
                   
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '1rem'
-                  }}>
-                    <span style={{
-                      fontWeight: 'bold',
-                      color: '#374151',
-                      minWidth: '80px',
-                      fontSize: '0.875rem'
-                    }}>
-                      Contact:
-                    </span>
-                    <a href={`tel:${bus.contactNumber}`} style={{
-                      color: '#3b82f6',
-                      textDecoration: 'none',
-                      fontWeight: '500',
-                      fontSize: '0.875rem'
-                    }}>
-                      {bus.contactNumber}
-                    </a>
+                  <div className="detail-row">
+                    <span className="detail-label">Contact:</span>
+                    {bus.contactNumber ? (
+                      <a href={`tel:${bus.contactNumber}`} className="phone-link">
+                        📞 {bus.contactNumber}
+                      </a>
+                    ) : (
+                      <span className="detail-value">Call for details</span>
+                    )}
                   </div>
                 </div>
                 
-                <div>
-                  <h4 style={{
-                    fontWeight: 'bold',
-                    color: '#374151',
-                    marginBottom: '0.5rem',
-                    fontSize: '0.875rem'
-                  }}>
-                    Facilities:
-                  </h4>
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '0.5rem'
-                  }}>
+                <div className="facilities-section">
+                  <h4 className="facilities-title">Facilities:</h4>
+                  <div className="facilities-tags">
                     {bus.facilities.map((facility, index) => (
-                      <span key={index} style={{
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        color: '#1e40af',
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '20px',
-                        fontSize: '0.75rem',
-                        fontWeight: '500'
-                      }}>
+                      <span key={index} className="facility-tag">
                         {facility}
                       </span>
                     ))}

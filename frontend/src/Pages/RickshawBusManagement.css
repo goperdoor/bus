@@ -1,0 +1,513 @@
+/* ========================================
+   RICKSHAW MANAGEMENT - PROFESSIONAL UI
+   ======================================== */
+
+.rickshaw-management-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgb(243, 231, 255) 0%, rgb(224, 242, 254) 50%, rgb(252, 228, 236) 100%);
+  padding: 40px 20px;
+}
+
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   HERO HEADER
+   ======================================== */
+
+.hero-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 60px 20px 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(72, 94, 255, 0.1);
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 15px 0;
+  letter-spacing: -1px;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ========================================
+   SUBMIT CARD
+   ======================================== */
+
+.submit-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 50px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(72, 94, 255, 0.1);
+}
+
+.submit-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+}
+
+.submit-description {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 0 0 25px 0;
+  font-weight: 500;
+}
+
+.submit-button {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+}
+
+/* ========================================
+   SECTION CONTAINER
+   ======================================== */
+
+.section-container {
+  margin-bottom: 60px;
+}
+
+.section-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin: 0 0 40px 0;
+  letter-spacing: -0.5px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  border-radius: 2px;
+}
+
+/* ========================================
+   RICKSHAW STAND CARDS
+   ======================================== */
+
+.rickshaw-stand-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.rickshaw-stand-card:hover {
+  border-color: rgba(72, 94, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.stand-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0 0 25px 0;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 3px solid rgba(72, 94, 255, 0.2);
+}
+
+/* ========================================
+   TABLE STYLES
+   ======================================== */
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.rickshaw-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rickshaw-table thead tr {
+  background: linear-gradient(135deg, rgba(72, 94, 255, 0.1) 0%, rgba(169, 85, 255, 0.1) 100%);
+}
+
+.rickshaw-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(72, 94, 255, 0.2);
+}
+
+.rickshaw-table tbody tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rickshaw-table tbody tr:hover {
+  background: rgba(72, 94, 255, 0.05);
+  transform: scale(1.01);
+}
+
+.rickshaw-table td {
+  padding: 16px;
+  font-size: 1rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.no-data {
+  text-align: center !important;
+  color: #6c757d !important;
+  font-style: italic;
+  padding: 40px !important;
+}
+
+.phone-link {
+  color: #485eff;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.phone-link:hover {
+  color: #a955ff;
+  transform: translateX(3px);
+}
+
+/* ========================================
+   BUS CARDS
+   ======================================== */
+
+.bus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 30px;
+}
+
+.bus-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.bus-card:hover {
+  border-color: rgba(72, 94, 255, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(72, 94, 255, 0.15);
+}
+
+.bus-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 3px solid rgba(72, 94, 255, 0.2);
+}
+
+.bus-details {
+  margin-bottom: 25px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.detail-label {
+  font-weight: 700;
+  color: #6c757d;
+  min-width: 100px;
+  font-size: 1rem;
+}
+
+.detail-value {
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-value.fare {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.facilities-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(72, 94, 255, 0.1);
+}
+
+.facilities-title {
+  font-weight: 700;
+  color: #6c757d;
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.facilities-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.facility-tag {
+  background: linear-gradient(135deg, rgba(72, 94, 255, 0.1) 0%, rgba(169, 85, 255, 0.1) 100%);
+  color: #485eff;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid rgba(72, 94, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.facility-tag:hover {
+  background: linear-gradient(135deg, #485eff 0%, #a955ff 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(72, 94, 255, 0.3);
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (max-width: 768px) {
+  .rickshaw-management-page {
+    padding: 20px 15px;
+  }
+
+  .hero-header {
+    padding: 40px 20px 30px;
+    margin-bottom: 30px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+  }
+
+  .submit-card {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+
+  .submit-title {
+    font-size: 1.2rem;
+  }
+
+  .submit-description {
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+
+  .section-heading {
+    font-size: 2rem;
+  }
+
+  .rickshaw-stand-card {
+    padding: 20px;
+  }
+
+  .stand-title {
+    font-size: 1.5rem;
+  }
+
+  .rickshaw-table th,
+  .rickshaw-table td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+
+  .bus-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .bus-card {
+    padding: 25px 20px;
+  }
+
+  .bus-name {
+    font-size: 1.4rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 480px) {
+  .rickshaw-management-page {
+    padding: 15px 10px;
+  }
+
+  .hero-header {
+    padding: 30px 15px 20px;
+    margin-bottom: 25px;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .submit-card {
+    padding: 25px 15px;
+    margin-bottom: 30px;
+  }
+
+  .submit-title {
+    font-size: 1.1rem;
+  }
+
+  .submit-description {
+    font-size: 0.95rem;
+  }
+
+  .submit-button {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+
+  .section-heading {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+
+  .rickshaw-stand-card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .stand-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .rickshaw-table {
+    font-size: 0.85rem;
+  }
+
+  .rickshaw-table th,
+  .rickshaw-table td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+
+  .phone-link {
+    font-size: 0.85rem;
+  }
+
+  .bus-card {
+    padding: 20px 15px;
+  }
+
+  .bus-name {
+    font-size: 1.2rem;
+  }
+
+  .detail-label {
+    min-width: 80px;
+    font-size: 0.9rem;
+  }
+
+  .detail-value {
+    font-size: 0.9rem;
+  }
+
+  .detail-value.fare {
+    font-size: 1.1rem;
+  }
+
+  .facility-tag {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

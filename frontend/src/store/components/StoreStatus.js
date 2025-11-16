@@ -112,7 +112,7 @@ const StoreStatus = ({ store, showDetails = false }) => {
     gap: '8px',
     fontSize: '14px',
     fontWeight: '600',
-    color: isOpen ? '#10B981' : '#10B981',
+    color: isOpen ? '#10B981' : '#EF4444',
     marginBottom: showDetails ? '8px' : '0'
   };
 
@@ -134,39 +134,38 @@ const StoreStatus = ({ store, showDetails = false }) => {
     marginTop: '9px'
   };
 
-  return (  
-  <div className="store-status">  
-    <div style={statusStyle}>  
-      {isOpen ? (  
-        <>  
-          <CheckCircle size={16} />  
-          <span>Open now</span>  
-        </>  
-      ) : (  
-        <>  
-          <CheckCircle size={16} />  
-          <span>Open now</span>  
-        </>  
-        // If you ever want to add "Closed" UI, put it here properly, not inside a comment
-      )}  
-    </div>  
+  return (
+    <div className="store-status">
+      <div style={statusStyle}>
+        {isOpen ? (
+          <>
+            <CheckCircle size={16} />
+            <span>Open now</span>
+          </>
+        ) : (
+          <>
+            <XCircle size={16} />
+            <span>Closed</span>
+          </>
+        )}
+      </div>
       
-    {showDetails && (  
-      <div className="store-hours-details">  
-        <div style={hoursStyle}>  
-          <Clock size={14} />  
-          <span>Today: {todayHours}</span>  
-        </div>  
+      {showDetails && (
+        <div className="store-hours-details">
+          <div style={hoursStyle}>
+            <Clock size={14} />
+            <span>Today: {todayHours}</span>
+          </div>
           
-        {!isOpen && nextOpen && (  
-          <div style={nextOpenStyle}>  
-            {nextOpen}  
-          </div>  
-        )}  
-      </div>  
-    )}  
-  </div>  
-);
+          {!isOpen && nextOpen && (
+            <div style={nextOpenStyle}>
+              {nextOpen}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default StoreStatus;
