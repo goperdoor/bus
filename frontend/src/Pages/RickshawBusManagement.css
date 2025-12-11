@@ -300,7 +300,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1rem;
 }
 
@@ -499,11 +499,11 @@
   }
 
   .detail-value {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .detail-value.fare {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .facility-tag {
