@@ -20,11 +20,12 @@ const BusTimingHeader = () => {
 
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
-    { path: '/store', icon: Store, label: 'Goperdoor Store' },
-    { path: '/AboutUs', icon: Info, label: 'About Us' },
+    
+
     { path: '/RickshawBusManagement', icon: Bus, label: 'Rickshaw & Tourist' },
     { path: '/WisdomWall', icon: Users, label: 'Voice of Perdoor' },
     { path: '/AILearningHub', icon: Brain, label: 'AI Learning Hub' },
+        { path: '/AboutUs', icon: Info, label: 'About Us' },
     { path: '/PrivacyPolicy', icon: Lock, label: 'Privacy Policy' },
     { path: '/ContactForm', icon: Phone, label: 'Contact' }
   ];
