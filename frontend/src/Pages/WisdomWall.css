@@ -580,8 +580,14 @@
   }
 
   .post-image-container {
-    height: 180px;
-  }
+  height: auto;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* or cover — see below */
+}
 
   .post-content {
     padding: 16px;
