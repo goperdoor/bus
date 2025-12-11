@@ -23,26 +23,126 @@ const RickshawBusManagement = () => {
   ]);
 
   const [touristBuses] = useState([
-    {
-      id: 1,
-      name: "Himalayan Express",
-      capacity: 45,
-      route: "",
-      facilities: ["AC", "WiFi", "Reclining Seats", "Entertainment System"],
-      contactNumber: "",
-      fareRange: "₹1500 - ₹2500"
-    },
-    {
-      id: 2,
-      name: "Golden Triangle Tours",
-      capacity: 35,
-      route: "",
-      facilities: ["AC", "GPS Tracking", "First Aid", "Comfortable Seating"],
-      contactNumber: "",
-      fareRange: "₹1200 - ₹2000"
-    }
-  ]);
-
+  {
+    id: 1,
+    name: "Kavya Holidays",
+    capacity: 49,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "+91 94482 34585",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 2,
+    name: "Karavali Travel Solution",
+    capacity: 49,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "+91 90085 25333",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 3,
+    name: "Mookambika Holidays",
+    capacity: 40,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "+91 81474 31529",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 4,
+    name: "Sheethal Holidays",
+    capacity: 33,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "95917 22657",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 5,
+    name: "Varija Holidays",
+    capacity: 25,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "+91 99803 80206",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 6,
+    name: "Karavali Holidays",
+    capacity: 21,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "+91 73493 43133",
+    fareRange: "Based on Trip"
+  },
+  {
+    id: 7,
+    name: "Mahakali Holidays",
+    capacity: 14,
+    route: "Any (Tourist Bus)",
+    facilities: [
+      "DJ System",
+      "Push-back Seats",
+      "Friendly Staff",
+      "Experienced Driver",
+      "Well-maintained Bus",
+      "Sound System",
+      "Light System"
+    ],
+    contactNumber: "99865 15839",
+    fareRange: "Based on Trip"
+  }
+]);
   const RickshawTable = ({ title, rickshaws, bgColor }) => (
     <div className="rickshaw-stand-card">
       <h2 className="stand-title">{title}</h2>
