@@ -30,7 +30,7 @@ const WisdomWall = () => {
   // Sample data - in real app, this would come from your backend
 const [posts, setPosts] = useState([
 {
-  id: 1,
+  id: 2,
   name: "Unknown",
   type: "quote",
   content: "Felt like a child again 💙 Celebrated Independence Day at my childhood school 🇮🇳. Memories that never fade.",
@@ -40,7 +40,15 @@ const [posts, setPosts] = useState([
   image: "https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755314457/ixinfvcrfy4uuolo9j2x.jpg",
 }
 ,
-
+{
+  id: 1,
+  name: "Shreyas",
+  type: "quote",
+  content: "🙏🪅 The biggest festival for the people of Perdoor is the Perdoor Fair, which we celebrate on March 16th. 🎆🎇",
+  likes: 11,
+  views: 32,
+  image: "https://res.cloudinary.com/dm4u0c7ga/image/upload/v1765449380/hyjmuoi88ijcefohutm8.jpg"
+},
  
   {
     id: 14,
@@ -408,4 +416,5 @@ const [posts, setPosts] = useState([
 };
 
 export default WisdomWall;
+
 
