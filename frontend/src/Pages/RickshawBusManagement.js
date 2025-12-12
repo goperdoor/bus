@@ -34,7 +34,7 @@ const RickshawBusManagement = () => {
   ],
   contactNumber: "",
   fareRange: "Based on Trip"
-    }
+    },
   {
     id: 2,
     name: "Kavya Holidays",
