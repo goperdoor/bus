@@ -23,8 +23,20 @@ const RickshawBusManagement = () => {
   ]);
 
   const [touristBuses] = useState([
+    {
+  id: 1,
+  name: "Bhagavathi Tourist",
+  capacity: 40,
+  route: "Any (Tourist Bus)",
+  facilities: [
+    "Push-back Seats",
+    "AC Seater"
+  ],
+  contactNumber: "",
+  fareRange: "Based on Trip"
+    }
   {
-    id: 1,
+    id: 2,
     name: "Kavya Holidays",
     capacity: 49,
     route: "Any (Tourist Bus)",
@@ -41,7 +53,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 2,
+    id: 3,
     name: "Karavali Travel Solution",
     capacity: 49,
     route: "Any (Tourist Bus)",
@@ -58,7 +70,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 3,
+    id: 4,
     name: "Mookambika Holidays",
     capacity: 40,
     route: "Any (Tourist Bus)",
@@ -75,7 +87,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 4,
+    id: 5,
     name: "Sheethal Holidays",
     capacity: 33,
     route: "Any (Tourist Bus)",
@@ -92,7 +104,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 5,
+    id: 6,
     name: "Varija Holidays",
     capacity: 25,
     route: "Any (Tourist Bus)",
@@ -109,7 +121,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 6,
+    id: 7,
     name: "Karavali Holidays",
     capacity: 21,
     route: "Any (Tourist Bus)",
@@ -126,7 +138,7 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   },
   {
-    id: 7,
+    id: 8,
     name: "Mahakali Holidays",
     capacity: 14,
     route: "Any (Tourist Bus)",
