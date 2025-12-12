@@ -68,6 +68,7 @@ const RickshawBusManagement = () => {
     "DJ System",
     "Friendly Staff",
     "Experienced Driver",
+    "Light System",
     "Well-maintained Vehicle"
   ],
   contactNumber: "+91 80886 21116",
