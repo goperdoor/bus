@@ -21,7 +21,14 @@ const RickshawBusManagement = () => {
     { id: 1, number: "UNKNOWN", driverName: "ಅನಿಲ್ ಕುಮಾರ್", phone: "8747887655" },
      { id: 2, number: "UNKNOWN", driverName: "ಪ್ರದೀಪ ಶೆಟ್ಟಿ", phone: "9769261093" },
   ]);
-
+const [carStand] = useState([
+  {
+    id: 1,
+    number: "UNKNOWN",
+    driverName: "ಸುಕೇಶ್ ಶೆಟ್ಟಿ",
+    phone: "9743638002"
+  }
+]);
   const [touristBuses] = useState([
     {
   id: 1,
@@ -155,6 +162,43 @@ const RickshawBusManagement = () => {
     fareRange: "Based on Trip"
   }
 ]);
+  const CarTable = ({ title, cars }) => (
+  <div className="rickshaw-stand-card">
+    <h2 className="stand-title">{title}</h2>
+
+    <div className="table-container">
+      <table className="rickshaw-table">
+        <thead>
+          <tr>
+            <th>Car Number</th>
+            <th>Owner Name</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {cars.length === 0 ? (
+            <tr>
+              <td colSpan="3" className="no-data">No cars available at this stand</td>
+            </tr>
+          ) : (
+            cars.map((car) => (
+              <tr key={car.id}>
+                <td>{car.number}</td>
+                <td>{car.driverName}</td>
+                <td>
+                  <a href={`tel:${car.phone}`} className="phone-link">
+                    📞 {car.phone}
+                  </a>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
   const RickshawTable = ({ title, rickshaws, bgColor }) => (
     <div className="rickshaw-stand-card">
       <h2 className="stand-title">{title}</h2>
@@ -243,6 +287,14 @@ const RickshawBusManagement = () => {
           />
         </div>
 
+<div className="section-container">
+  <h2 className="section-heading">🚗 Car Stand</h2>
+
+  <CarTable 
+    title="ಕಾರ್ ನಿಲ್ದಾಣ - ಮಲ್ಪೇಟೆ"
+    cars={carStand}
+  />
+</div>
         {/* Tourist Bus Section */}
         <div className="section-container">
           <h2 className="section-heading">🚌 Tourist Bus Services</h2>
