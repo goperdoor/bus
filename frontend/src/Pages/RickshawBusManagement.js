@@ -45,6 +45,34 @@ const RickshawBusManagement = () => {
     { id: 8, name: 'Mahakali Holidays', capacity: 14, route: 'Any (Tourist Bus)', facilities: ['DJ System', 'Push-back Seats', 'Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '99865 15839', fareRange: 'Based on Trip' },
     { id: 9, name: 'SDM Tourist, Hebri', capacity: 40, route: 'Any (Tourist Bus)', facilities: ['Push-back Seats', 'AC Seater', 'Friendly Staff', 'Well-maintained Bus'], contactNumber: '7019614226', fareRange: 'Based on Trip' },
     { id: 10, name: 'Sri Durgaparameshwari - Ayyappa Tourist, Hebri', capacity: '13 seater (TT) / 21 seater Mini Bus', route: 'Any (Tourist Bus)', facilities: ['Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '94805 71771', fareRange: 'Based on Trip' },
+    {
+  id: 11,
+  name: "Diya Holidays Perdoor (TT)",
+  capacity: 14,
+  route: "Any",
+  facilities: [
+    "DJ System",
+    "Friendly Staff",
+    "Experienced Driver",
+    "Well-maintained Vehicle"
+  ],
+  contactNumber: "+91 80886 21116",
+  fareRange: "Based on Trip"
+},
+{
+  id: 12,
+  name: "Diya Holidays Perdoor (Mini Bus)",
+  capacity: 21,
+  route: "Any",
+  facilities: [
+    "DJ System",
+    "Friendly Staff",
+    "Experienced Driver",
+    "Well-maintained Vehicle"
+  ],
+  contactNumber: "+91 80886 21116",
+  fareRange: "Based on Trip"
+},
   ]);
 
   const getRandomizedBuses = () => {
