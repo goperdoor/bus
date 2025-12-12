@@ -165,7 +165,7 @@ const RickshawBusManagement = () => {
         </div>
 
         {activeTab === 'rickshaw' && (
-          <div id="tab-panel-rickshaw" className="section-container" role="tabpanel" aria-label="Rickshaw Stands">
+          <div ref={rickshawRef} id="tab-panel-rickshaw" className="section-container" role="tabpanel" aria-label="Rickshaw Stands">
             <h2 className="section-heading">Rickshaw Stands</h2>
             <RickshawTable title="Stand 1 - ಕೆಳಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ" rickshaws={stand1Rickshaws} />
             <RickshawTable title="Stand 2 - ಮಲ್ಪೇಟೆ ಆಟೋ ನಿಲ್ದಾಣ" rickshaws={stand2Rickshaws} />
@@ -174,14 +174,14 @@ const RickshawBusManagement = () => {
         )}
 
         {activeTab === 'car' && (
-          <div id="tab-panel-car" className="section-container" role="tabpanel" aria-label="Car Stand">
+          <div ref={carRef} id="tab-panel-car" className="section-container" role="tabpanel" aria-label="Car Stand">
             <h2 className="section-heading">🚗 Car Stand</h2>
             <CarTable title="ಕಾರ್ ನಿಲ್ದಾಣ - ಮಲ್ಪೇಟೆ" cars={carStand} />
           </div>
         )}
 
         {activeTab === 'bus' && (
-          <div id="tab-panel-bus" className="section-container" role="tabpanel" aria-label="Tourist Bus Services">
+          <div ref={busRef} id="tab-panel-bus" className="section-container" role="tabpanel" aria-label="Tourist Bus Services">
             <h2 className="section-heading">🚌 Tourist Bus Services</h2>
             <div className="bus-grid">
               {getRandomizedBuses().map((bus) => (
@@ -206,7 +206,7 @@ const RickshawBusManagement = () => {
         )}
 
         {activeTab === 'p2b' && (
-          <div id="tab-panel-p2b" className="section-container" role="tabpanel" aria-label="Perdoor to Bangalore">
+          <div ref={p2bRef} id="tab-panel-p2b" className="section-container" role="tabpanel" aria-label="Perdoor to Bangalore">
             <h2 className="section-heading">🚌 Perdoor → Bangalore</h2>
             <div className="bus-grid">
               {p2bServices.map((service) => (
@@ -238,7 +238,7 @@ const RickshawBusManagement = () => {
         )}
 
         {activeTab === 'others' && (
-          <div id="tab-panel-others" className="section-container" role="tabpanel" aria-label="Other Services">
+          <div ref={othersRef} id="tab-panel-others" className="section-container" role="tabpanel" aria-label="Other Services">
             <h2 className="section-heading">📚 Others</h2>
             {/* <div className="rickshaw-stand-card">
               <p className="submit-description">Other transport services and information will appear here. Share details to help the community.</p>
