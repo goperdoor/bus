@@ -172,7 +172,7 @@ const [carStand] = useState([
     "Friendly Staff",
     "Well-maintained Bus"
   ],
-  contactNumber: "7019614226   9353574682",
+  contactNumber: "7019614226",
   fareRange: "Based on Trip"
     }
 ]);
