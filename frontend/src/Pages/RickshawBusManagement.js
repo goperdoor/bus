@@ -160,7 +160,21 @@ const [carStand] = useState([
     ],
     contactNumber: "99865 15839",
     fareRange: "Based on Trip"
-  }
+  },
+    {
+  id: 9,
+  name: "SDM Tourist, Hebri",
+  capacity: 40,
+  route: "Any (Tourist Bus)",
+  facilities: [
+    "Push-back Seats",
+    "AC Seater",
+    "Friendly Staff",
+    "Well-maintained Bus"
+  ],
+  contactNumber: ["7019614226", "9353574682"],
+  fareRange: "Based on Trip"
+    }
 ]);
   const CarTable = ({ title, cars }) => (
   <div className="rickshaw-stand-card">
