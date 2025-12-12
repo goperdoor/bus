@@ -39,7 +39,7 @@ const [carStand] = useState([
     "Push-back Seats",
     "AC Seater"
   ],
-  contactNumber: "",
+  contactNumber: "+91 97400 05170",
   fareRange: "Based on Trip"
     },
   {
