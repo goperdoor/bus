@@ -7,6 +7,19 @@ const RickshawBusManagement = () => {
   }, []);
 
   const [activeTab, setActiveTab] = useState('rickshaw');
+  
+  const rickshawRef = React.useRef(null);
+  const carRef = React.useRef(null);
+  const busRef = React.useRef(null);
+  const p2bRef = React.useRef(null);
+  const othersRef = React.useRef(null);
+
+  const handleTabClick = (tabName, ref) => {
+    setActiveTab(tabName);
+    setTimeout(() => {
+      ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
 
   const [stand1Rickshaws] = useState([
     { id: 1, number: 'KA20 AC 7097', driverName: 'ವಿಜಯ', phone: '9686424495' },
@@ -137,11 +150,11 @@ const RickshawBusManagement = () => {
           
         
           <div className="tabs-container" role="tablist" aria-label="Sections">
-            <button className={`tab-button ${activeTab === 'rickshaw' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'rickshaw'} aria-controls="tab-panel-rickshaw" onClick={() => setActiveTab('rickshaw')}>Rickshaw Stands</button>
-            <button className={`tab-button ${activeTab === 'car' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'car'} aria-controls="tab-panel-car" onClick={() => setActiveTab('car')}>Car Stand</button>
-            <button className={`tab-button ${activeTab === 'bus' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'bus'} aria-controls="tab-panel-bus" onClick={() => setActiveTab('bus')}>Tourist Bus Services</button>
-            <button className={`tab-button ${activeTab === 'p2b' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'p2b'} aria-controls="tab-panel-p2b" onClick={() => setActiveTab('p2b')}>Perdoor → Bangalore</button>
-            <button className={`tab-button ${activeTab === 'others' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'others'} aria-controls="tab-panel-others" onClick={() => setActiveTab('others')}>Others</button>
+            <button className={`tab-button ${activeTab === 'rickshaw' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'rickshaw'} aria-controls="tab-panel-rickshaw" onClick={() => handleTabClick('rickshaw', rickshawRef)}>Rickshaw Stands</button>
+            <button className={`tab-button ${activeTab === 'car' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'car'} aria-controls="tab-panel-car" onClick={() => handleTabClick('car', carRef)}>Car Stand</button>
+            <button className={`tab-button ${activeTab === 'bus' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'bus'} aria-controls="tab-panel-bus" onClick={() => handleTabClick('bus', busRef)}>Tourist Bus Services</button>
+            <button className={`tab-button ${activeTab === 'p2b' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'p2b'} aria-controls="tab-panel-p2b" onClick={() => handleTabClick('p2b', p2bRef)}>Perdoor → Bangalore</button>
+            <button className={`tab-button ${activeTab === 'others' ? 'active' : ''}`} role="tab" aria-selected={activeTab === 'others'} aria-controls="tab-panel-others" onClick={() => handleTabClick('others', othersRef)}>Others</button>
              <button type="button" onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')} className="submit-button">📌 Submit Your Vehicle Info</button>
           </div>
           {/* <p className="submit-description">
