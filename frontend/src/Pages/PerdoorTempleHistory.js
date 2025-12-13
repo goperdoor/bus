@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PerdoorTempleHistory.css';
 
-const TempleHistoryPage = () => {
+const PerdoorTempleHistory = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -320,4 +320,4 @@ const TempleHistoryPage = () => {
   );
 };
 
-export default TempleHistoryPage;
+export default PerdoorTempleHistory;
