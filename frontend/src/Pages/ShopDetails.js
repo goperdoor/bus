@@ -314,7 +314,7 @@ const ShopDetails = () => {
     <div className="shop-details-page">
       <div className="page-container">
         <div className="hero-header">
-          <h1 className="page-title">🏪 Perdoor Shops Directory</h1>
+          <h1 className="page-title">🏪 PERDOOR SHOPS DIRECTORY</h1>
           <p className="page-subtitle">Discover local businesses in Perdoor</p>
           
           <div className="tabs-container" role="tablist" aria-label="Shop Categories">
