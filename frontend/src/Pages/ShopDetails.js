@@ -362,7 +362,7 @@ const ShopDetails = () => {
             </p>
             <button 
               type="button" 
-              onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
+              onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfBFal88oUn0M4JqgGeirJ-5zt1_OoA2I30J_bBW0E4U8mGCg/viewform?usp=dialog', '_blank')}
               className="submit-shop-button"
             >
               📝 Add Your Shop
