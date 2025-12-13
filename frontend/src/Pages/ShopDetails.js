@@ -27,21 +27,35 @@ const ShopDetails = () => {
 
   // Shop Data JSON
   const [shopsData] = useState([
+
+    {
+  id: 2,
+  name: 'Shree Ranganath New Bengaluru Iyangar Bakery Cake Parlour',
+  category: 'bakery',
+  image: 'https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755138726/goperdoor-store/nrjl0uf9f9iiw0s6a0ke.jpg',
+  items: [
+    'Bread',
+    'Cakes',
+    'Pastries',
+    'Puffs',
+    'Buns',
+    'Cookies',
+    'Rusk',
+    'Khara Items',
+    'Sweet Items',
+    'Snacks',
+    'Birthday Cakes'
+  ],
+  contact: '+91 88675 56079',
+  whatsapp: '+91 88675 56079',
+  location: 'Near Perdoor Bus Stop',
+  googleMapLink: 'https://maps.app.goo.gl/gF28Py6VfkpXsRXo9',
+  openingTime: '7:00 AM',
+  closingTime: '8:30 PM'
+}
+,
     {
       id: 1,
-      name: 'Sri Krishna Bakery',
-      category: 'bakery',
-      image: '/shop-images/bakery-placeholder.jpg',
-      items: ['Fresh Bread', 'Cakes', 'Pastries', 'Cookies', 'Birthday Cakes', 'Snacks'],
-      contact: '+91 98765 43210',
-      whatsapp: '+91 98765 43210',
-      location: 'Perdoor Main Road, Near Bus Stand',
-      googleMapLink: 'https://maps.google.com/?q=Perdoor+Main+Road',
-      openingTime: '6:00 AM',
-      closingTime: '9:00 PM'
-    },
-    {
-      id: 2,
       name: 'ಅನಂತಪದ್ಮನಾಭ ಹೂವಿನ ಅಂಗಡಿ',
       category: 'flower',
       image: 'https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755325256/goperdoor-store/we3xcf22sg1m9lxh9mh3.jpg',
