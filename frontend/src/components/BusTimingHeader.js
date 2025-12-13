@@ -23,6 +23,7 @@ const BusTimingHeader = () => {
     
 
     { path: '/RickshawBusManagement', icon: Bus, label: 'Rickshaw & Tourist' },
+    { path: '/shops', icon: Store, label: 'Perdoor Shops' },
     { path: '/WisdomWall', icon: Users, label: 'Voice of Perdoor' },
     { path: '/AILearningHub', icon: Brain, label: 'AI Learning Hub' },
         { path: '/AboutUs', icon: Info, label: 'About Us' },
