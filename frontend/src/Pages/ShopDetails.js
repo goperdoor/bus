@@ -67,24 +67,24 @@ const ShopDetails = () => {
       openingTime: '7:00 AM',
       closingTime: '7:30 PM'
     },
-    {
-      id: 3,
-      name: 'Perdoor Medical Store',
-      category: 'medical',
-      image: '/shop-images/medical-placeholder.jpg',
-      items: ['Medicines', 'First Aid', 'Health Supplements', 'Medical Equipment', 'Baby Care'],
-      contact: '+91 97654 32109',
-      whatsapp: '+91 97654 32109',
-      location: 'Perdoor Market, Main Road',
-      googleMapLink: 'https://maps.google.com/?q=Perdoor+Market',
-      openingTime: '8:00 AM',
-      closingTime: '10:00 PM'
-    },
+    // {
+    //   id: 3,
+    //   name: 'Perdoor Medical Store',
+    //   category: 'medical',
+    //   image: '/shop-images/medical-placeholder.jpg',
+    //   items: ['Medicines', 'First Aid', 'Health Supplements', 'Medical Equipment', 'Baby Care'],
+    //   contact: '+91 97654 32109',
+    //   whatsapp: '+91 97654 32109',
+    //   location: 'Perdoor Market, Main Road',
+    //   googleMapLink: 'https://maps.google.com/?q=Perdoor+Market',
+    //   openingTime: '8:00 AM',
+    //   closingTime: '10:00 PM'
+    // },
     {
   id: 3,
   name: 'Shree Navadurga Electrical',
   category: 'electronics',
-  image: '/shop-images/electronics-placeholder.jpg',
+  image: 'https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755329908/goperdoor-store/hthlrkjwdh9omydyoxyq.jpg',
   items: [
     'Electrical Wiring',
     'Switches',
