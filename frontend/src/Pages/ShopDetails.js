@@ -44,7 +44,7 @@ const ShopDetails = () => {
       id: 2,
       name: 'ಅನಂತಪದ್ಮನಾಭ ಹೂವಿನ ಅಂಗಡಿ',
       category: 'flower',
-      image: '/shop-images/flower-placeholder.jpg',
+      image: 'https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755325256/goperdoor-store/we3xcf22sg1m9lxh9mh3.jpg',
       items: ['ಕನಗಿಲೆ ಹೂ', 'ಕಾಕಡ', 'ಜೆನಿಯಾ ಹೂ', 'ತುಳಸಿ ಮಾಲೆ', 'ಪಿಂಗಾರ', 'ಬಾಳೆಹಣ್ಣು', 'ಗುಲಾಬಿ', 'ಗಂಧದ ಮಾಲೆ', 'ಬಿಳಿ ಸೆವಂತಿಗೆ', 'ಬೀಟ್ರೂಟ್ ಹೂ', 'ಮಲ್ಲಿಗೆ', 'ಸೆವಂತಿಗೆ'],
       contact: '+91 78990 56098',
       whatsapp: '+91 78990 56098',
