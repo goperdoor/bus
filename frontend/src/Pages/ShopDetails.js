@@ -42,6 +42,19 @@ const ShopDetails = () => {
     },
     {
       id: 2,
+      name: 'ಅನಂತಪದ್ಮನಾಭ ಹೂವಿನ ಅಂಗಡಿ',
+      category: 'flower',
+      image: '/shop-images/flower-placeholder.jpg',
+      items: ['ಕನಗಿಲೆ ಹೂ', 'ಕಾಕಡ', 'ಜೆನಿಯಾ ಹೂ', 'ತುಳಸಿ ಮಾಲೆ', 'ಪಿಂಗಾರ', 'ಬಾಳೆಹಣ್ಣು', 'ಗುಲಾಬಿ', 'ಗಂಧದ ಮಾಲೆ', 'ಬಿಳಿ ಸೆವಂತಿಗೆ', 'ಬೀಟ್ರೂಟ್ ಹೂ', 'ಮಲ್ಲಿಗೆ', 'ಸೆವಂತಿಗೆ'],
+      contact: '+91 78990 56098',
+      whatsapp: '+91 78990 56098',
+      location: 'ಮಲ್ಪೇಟೆ, ಪೆರ್ಡೂರು',
+      googleMapLink: 'https://maps.app.goo.gl/psJoGWHaVawciU627',
+      openingTime: '7:00 AM',
+      closingTime: '7:30 PM'
+    },
+    {
+      id: 3,
       name: 'Perdoor Medical Store',
       category: 'medical',
       image: '/shop-images/medical-placeholder.jpg',
@@ -54,7 +67,7 @@ const ShopDetails = () => {
       closingTime: '10:00 PM'
     },
     {
-      id: 3,
+      id: 4,
       name: 'Ganesh General Stores',
       category: 'grocery',
       image: '/shop-images/grocery-placeholder.jpg',
@@ -67,7 +80,7 @@ const ShopDetails = () => {
       closingTime: '9:00 PM'
     },
     {
-      id: 4,
+      id: 5,
       name: 'Udupi Hotel',
       category: 'restaurant',
       image: '/shop-images/restaurant-placeholder.jpg',
@@ -80,7 +93,7 @@ const ShopDetails = () => {
       closingTime: '10:00 PM'
     },
     {
-      id: 5,
+      id: 6,
       name: 'Mahalasa Electronics',
       category: 'electronics',
       image: '/shop-images/electronics-placeholder.jpg',
@@ -93,7 +106,7 @@ const ShopDetails = () => {
       closingTime: '8:30 PM'
     },
     {
-      id: 6,
+      id: 7,
       name: 'Fashion Point',
       category: 'clothing',
       image: '/shop-images/clothing-placeholder.jpg',
@@ -106,7 +119,7 @@ const ShopDetails = () => {
       closingTime: '8:00 PM'
     },
     {
-      id: 7,
+      id: 8,
       name: 'Bharath Hardware',
       category: 'hardware',
       image: '/shop-images/hardware-placeholder.jpg',
@@ -119,7 +132,7 @@ const ShopDetails = () => {
       closingTime: '7:00 PM'
     },
     {
-      id: 8,
+      id: 9,
       name: 'Students Corner',
       category: 'stationery',
       image: '/shop-images/stationery-placeholder.jpg',
@@ -130,38 +143,13 @@ const ShopDetails = () => {
       googleMapLink: 'https://maps.google.com/?q=Perdoor+School',
       openingTime: '8:30 AM',
       closingTime: '8:00 PM'
-    },
-    {
-      id: 9,
-      name: 'Annapurna Sweets',
-      category: 'bakery',
-      image: '/shop-images/sweets-placeholder.jpg',
-      items: ['Sweets', 'Snacks', 'Savories', 'Dry Fruits', 'Namkeens', 'Festival Specials'],
-      contact: '+91 90987 65432',
-      whatsapp: '+91 90987 65432',
-      location: 'Perdoor Market, Main Road',
-      googleMapLink: 'https://maps.google.com/?q=Perdoor+Market+Main+Road',
-      openingTime: '7:00 AM',
-      closingTime: '9:30 PM'
-    },
-    {
-      id: 10,
-      name: 'Life Care Pharmacy',
-      category: 'medical',
-      image: '/shop-images/pharmacy-placeholder.jpg',
-      items: ['Prescription Medicines', 'OTC Drugs', 'Ayurvedic Products', 'Surgical Items', 'Health Drinks'],
-      contact: '+91 89876 54321',
-      whatsapp: '+91 89876 54321',
-      location: 'Perdoor Junction, Opposite Bus Stand',
-      googleMapLink: 'https://maps.google.com/?q=Perdoor+Bus+Stand',
-      openingTime: '8:00 AM',
-      closingTime: '10:30 PM'
     }
   ]);
 
   const categories = [
     { id: 'all', name: 'All Shops', icon: '🏪', ref: allRef },
     { id: 'bakery', name: 'Bakery & Sweets', icon: '🍰', ref: bakeryRef },
+    { id: 'flower', name: 'Flowers', icon: '🌸', ref: React.useRef(null) },
     { id: 'medical', name: 'Medical', icon: '💊', ref: medicalRef },
     { id: 'grocery', name: 'Grocery', icon: '🛒', ref: groceryRef },
     { id: 'restaurant', name: 'Restaurant', icon: '🍽️', ref: restaurantRef },
@@ -336,7 +324,7 @@ const ShopDetails = () => {
             </p>
             <button 
               type="button" 
-              onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSfBFal88oUn0M4JqgGeirJ-5zt1_OoA2I30J_bBW0E4U8mGCg/viewform?usp=publish-editor', '_blank')}
+              onClick={() => window.open('https://forms.gle/5KUnkXEG5QnZfPot6', '_blank')}
               className="submit-shop-button"
             >
               📝 Add Your Shop
