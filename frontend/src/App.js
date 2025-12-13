@@ -21,6 +21,7 @@ import ContactForm from './Pages/ContactForm';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import Header from './components/BusTimingHeader';
 import Footer from './components/Footer';
+import ShopDetails from './Pages/ShopDetails';
 
 import AboutUs from './Pages/AboutUs';
 
@@ -68,6 +69,7 @@ function App() {
           <Route path="/store/shop/:storeId" element={<ShopPage />} />
           <Route path="/store/admin/login" element={<AdminLogin />} />
           <Route path="/store/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/shops" element={<ShopDetails />} />
  <Route path="/PerdoorTempleHistory" element={<PerdoorTempleHistory />} />
     <Route path="/PerdoorPage" element={<PerdoorPage />} />
    
@@ -95,6 +97,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
