@@ -26,7 +26,7 @@ const BusTimingHeader = () => {
     { path: '/shops', icon: Store, label: 'Perdoor Shops' },
     { path: '/WisdomWall', icon: Users, label: 'Voice of Perdoor' },
     { path: '/AILearningHub', icon: Brain, label: 'AI Learning Hub' },
-        { path: '/AboutUs', icon: Info, label: 'About Us' },
+        
     { path: '/PrivacyPolicy', icon: Lock, label: 'Privacy Policy' },
     { path: '/ContactForm', icon: Phone, label: 'Contact' }
   ];
