@@ -35,7 +35,7 @@ const RickshawBusManagement = () => {
   ]);
 
   const [touristBusesData] = useState([
-    { id: 1, name: 'Bhagavathi Tourist', capacity: 40, route: 'Any (Tourist Bus)', facilities: ['Push-back Seats', 'AC Seater'], contactNumber: '+91 97400 05170', fareRange: 'Based on Trip' },
+    { id: 1, name: 'Bhagavathi Tourist', capacity: 40, route: 'Any (Tourist Bus)', facilities: ['Push-back Seats', 'AC Seater','DJ System', 'Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '+91 97400 05170', fareRange: 'Based on Trip' },
     { id: 2, name: 'Kavya Holidays', capacity: 49, route: 'Any (Tourist Bus)', facilities: ['DJ System', 'Push-back Seats', 'Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '+91 94482 34585', fareRange: 'Based on Trip' },
     { id: 3, name: 'Karavali Travel Solution', capacity: 49, route: 'Any (Tourist Bus)', facilities: ['DJ System', 'Push-back Seats', 'Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '+91 90085 25333', fareRange: 'Based on Trip' },
     { id: 4, name: 'Mookambika Holidays', capacity: 40, route: 'Any (Tourist Bus)', facilities: ['DJ System', 'Push-back Seats', 'Friendly Staff', 'Experienced Driver', 'Well-maintained Bus', 'Sound System', 'Light System'], contactNumber: '+91 81474 31529', fareRange: 'Based on Trip' },
