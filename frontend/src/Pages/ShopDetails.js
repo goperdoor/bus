@@ -44,7 +44,7 @@ const ShopDetails = () => {
   googleMapLink: 'https://maps.app.goo.gl/CTE8PqdH4KUEY9bf7',
   openingTime: '9:00 AM',
   closingTime: '12:00 AM'
-    }
+    },
 
     {
   id: 3,
