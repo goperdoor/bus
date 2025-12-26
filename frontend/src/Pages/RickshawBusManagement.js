@@ -74,6 +74,40 @@ const RickshawBusManagement = () => {
   contactNumber: "+91 80886 21116",
   fareRange: "Based on Trip"
 },
+    {
+  id: 13,
+  name: 'Madanantheshwara Holidays',
+  capacity: '49 seater',
+  route: 'Any (Tourist Bus)',
+  facilities: [
+    'Friendly Staff',
+    'Quick Response',
+    'Comfort Pushback Seats',
+    'Maintained Music System',
+    'Back Air Suspension',
+    'Full Set Light System',
+    'Asthra Shape BS6'
+  ],
+  contactNumber: '+91 97317 23939',
+  fareRange: 'Based on Trip'
+},
+{
+  id: 14,
+  name: 'Madanantheshwara Holidays',
+  capacity: '33 seater',
+  route: 'Any (Tourist Bus)',
+  facilities: [
+    'Friendly Staff',
+    'Quick Response',
+    'Comfort Pushback Seats',
+    'Maintained Music System',
+    'Back Air Suspension',
+    'Full Set Light System',
+    'Asthra Shape BS6'
+  ],
+  contactNumber: '+91 97317 23939',
+  fareRange: 'Based on Trip'
+},
   ]);
 
   const getRandomizedBuses = () => {
