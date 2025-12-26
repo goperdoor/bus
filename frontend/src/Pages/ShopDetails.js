@@ -31,7 +31,7 @@ const ShopDetails = () => {
   id: 2,
   name: 'Sohan Bar and Restaurant, Perdoor',
   category: 'restaurant',
-  image: 'sohan.jpeg',
+  image: 'shop-images/sohan.jpeg',
   items: [
     'Food',
     'Liquor',
