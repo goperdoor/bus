@@ -27,9 +27,27 @@ const ShopDetails = () => {
 
   // Shop Data JSON
   const [shopsData] = useState([
-
     {
   id: 2,
+  name: 'Sohan Bar and Restaurant, Perdoor',
+  category: 'restaurant',
+  image: 'sohan.jpeg',
+  items: [
+    'Food',
+    'Liquor',
+    'Party Hall',
+    'Rooms'
+  ],
+  contact: '+91 94832 14340',
+  whatsapp: '+91 94832 14340',
+  location: 'Near Canara Bank, Perdoor',
+  googleMapLink: 'https://maps.app.goo.gl/CTE8PqdH4KUEY9bf7',
+  openingTime: '9:00 AM',
+  closingTime: '12:00 AM'
+    }
+
+    {
+  id: 3,
   name: 'Shree Ranganath New Bengaluru Iyangar Bakery Cake Parlour',
   category: 'bakery',
   image: 'https://res.cloudinary.com/dm4u0c7ga/image/upload/v1755138726/goperdoor-store/nrjl0uf9f9iiw0s6a0ke.jpg',
