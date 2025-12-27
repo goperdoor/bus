@@ -23,6 +23,7 @@ const RickshawBusManagement = () => {
 
   const [stand1Rickshaws] = useState([
     { id: 1, number: 'KA20 AC 7097', driverName: 'ವಿಜಯ', phone: '9686424495' },
+    { id: 2, number: 'KA20 AB 3980', driverName: 'ನಾಗೇಶ್', phone: '9901635463' },
   ]);
   const [stand2Rickshaws] = useState([]);
   const [stand3Rickshaws] = useState([
